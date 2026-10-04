@@ -20,7 +20,7 @@ const ORBIT = [
  */
 export function HeroStory({ block, ctx }: { block: BlockOf<'hero-story'>; ctx: BlockContext }) {
   const lines = block.headline.split('\n').filter(Boolean)
-  const cta = betaCta(ctx.beta, block.primaryCta?.url || '#join')
+  const cta = betaCta(ctx.beta, block.primaryCta?.url || '/join')
   const second = block.secondaryCta
   return (
     <section aria-labelledby="hero-h" className="relative overflow-clip">

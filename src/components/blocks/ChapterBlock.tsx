@@ -1,12 +1,4 @@
 import { Check } from 'lucide-react'
-import type { ReactNode } from 'react'
-import { KineticTranscript } from '@/components/signature/KineticTranscript'
-import { MStroke } from '@/components/signature/MStroke'
-import { PitchHeatGrid } from '@/components/signature/PitchHeatGrid'
-import { QuickLogStrip } from '@/components/signature/QuickLogStrip'
-import { SeriesChart } from '@/components/signature/SeriesChart'
-import { SquadGrid } from '@/components/signature/SquadGrid'
-import { VoiceNoteTyper } from '@/components/signature/VoiceNoteTyper'
 import { Chapter } from '@/components/site/Chapter'
 import { Section } from '@/components/site/Section'
 import { Badge } from '@/components/ui/Badge'
@@ -15,6 +7,7 @@ import { Overline } from '@/components/ui/Overline'
 import { TextLink } from '@/components/ui/TextLink'
 import { isRouteReady } from '@/lib/site-config'
 import { HowItLearns } from './HowItLearns'
+import { ScenarioCard, stageFor } from './stage'
 import type { BlockOf } from './types'
 
 type ChapterData = BlockOf<'chapter'>
@@ -24,54 +17,6 @@ const BADGE: Record<string, BadgeLabel> = {
   'in-beta': 'In the beta',
   preview: 'Preview',
   'coming-soon': 'Coming soon',
-}
-
-function ScenarioCard({ scenario }: { scenario: NonNullable<ChapterData['scenario']> }) {
-  if (!scenario.text) return null
-  return (
-    <figure className="w-full max-w-[460px] rounded-3 border border-[var(--hairline-2)] bg-[var(--hairline-1)] p-5">
-      <figcaption className="eyebrow !text-muted">
-        Illustrative scenario{scenario.persona ? ` · ${scenario.persona}` : ''}
-      </figcaption>
-      <blockquote className="mt-3 text-[17px] leading-[1.5] text-text">{scenario.text}</blockquote>
-    </figure>
-  )
-}
-
-function stageFor(block: ChapterData): ReactNode {
-  const scenario = block.scenario?.text ? <ScenarioCard scenario={block.scenario} /> : null
-  switch (block.demo) {
-    case 'quick-log':
-      return (
-        <div className="flex w-full flex-col items-center gap-5">
-          <QuickLogStrip />
-          {scenario}
-        </div>
-      )
-    case 'kinetic-transcript':
-      return <KineticTranscript />
-    case 'series-chart':
-      return <SeriesChart />
-    case 'squad-grid':
-      return (
-        <div className="flex w-full flex-col items-center gap-5">
-          <SquadGrid />
-          {scenario}
-        </div>
-      )
-    case 'heat-grid':
-      return <PitchHeatGrid />
-    case 'voice-typer':
-      return <VoiceNoteTyper />
-    case 'm-stroke':
-      return (
-        <div className="mx-auto w-[min(60%,260px)]">
-          <MStroke mode="static" />
-        </div>
-      )
-    default:
-      return null
-  }
 }
 
 /** Generic storytelling chapter: copy column plus a live signature stage. `learn-stage` is the pinned chapter. */

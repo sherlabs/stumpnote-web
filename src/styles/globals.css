@@ -2,6 +2,7 @@
 @import './tokens.css';
 @import './signature.css';
 @import './home.css';
+@import './pages.css';
 
 /* Tailwind 4 theme mapping: utilities read the CSS variables from tokens.css. */
 @theme inline {

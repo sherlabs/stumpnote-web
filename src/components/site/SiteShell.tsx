@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { getChrome } from '@/lib/cms/content'
 import { AmbientRings } from './AmbientRings'
 import { Footer } from './Footer'
 import { MotionRoot } from './MotionRoot'
@@ -8,16 +9,21 @@ import { SkipLink } from './SkipLink'
 import { TrackClicks } from './TrackClicks'
 
 /** Everything inside <body>: shared by the site layout and the global 404 so both look identical. */
-export function SiteShell({ children }: { children: ReactNode }) {
+export async function SiteShell({ children }: { children: ReactNode }) {
+  const chrome = await getChrome()
   return (
     <PersonaProvider>
       <SkipLink />
       <AmbientRings />
-      <Nav />
+      <Nav items={chrome.primaryNav} ctaItem={chrome.cta} />
       <main id="main" className="relative z-10">
         {children}
       </main>
-      <Footer />
+      <Footer
+        columns={chrome.footerColumns}
+        copyright={chrome.settings.copyrightLine}
+        disclosure={chrome.settings.footerDisclosure}
+      />
       <MotionRoot />
       <TrackClicks />
     </PersonaProvider>

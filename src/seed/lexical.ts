@@ -9,7 +9,7 @@ export type LexicalRoot = {
     indent: 0
     version: 1
     direction: 'ltr'
-    children: Array<Record<string, unknown>>
+    children: Array<{ type: string; version: number; [k: string]: unknown }>
   }
 }
 

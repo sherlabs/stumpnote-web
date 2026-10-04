@@ -10,7 +10,7 @@ export const siteSettingsSeed = {
   showTrialLine: false,
   footerDisclosure: 'AI-generated insights are guidance for reflection and training.',
   copyrightLine: '© 2026 StumpNote',
-  motionDefault: 'auto' as const,
+  motionDefault: 'auto' as 'auto' | 'reduced',
 }
 
 export const betaAccessSeed = {

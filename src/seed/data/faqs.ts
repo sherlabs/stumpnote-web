@@ -136,7 +136,7 @@ export const faqSeeds: FaqSeed[] = [
     paragraphs: [
       "No. Team members added by a captain get team access free under the captain's plan.",
     ],
-    category: 'team',
+    category: 'pricing',
     personas: ['captain', 'member'],
     order: 130,
   },
@@ -146,7 +146,7 @@ export const faqSeeds: FaqSeed[] = [
     paragraphs: [
       "The coach's 1-on-1 coach mode is free. A player can add a Coach add-on for themselves.",
     ],
-    category: 'coach',
+    category: 'pricing',
     personas: ['coach'],
     order: 140,
   },
@@ -156,7 +156,7 @@ export const faqSeeds: FaqSeed[] = [
     paragraphs: [
       'Yes. Creating a team and building a game plan by hand are free. The AI helpers need the Team plan.',
     ],
-    category: 'team',
+    category: 'pricing',
     personas: ['captain'],
     order: 150,
   },

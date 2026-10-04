@@ -19,7 +19,7 @@ export const homeSeed: HomeSeed = {
       headline: 'Your cricket,\nremembered.',
       subcopy:
         'Talk for a minute after a session. StumpNote turns it into a journal entry, then uses everything you have logged (form, habits, injuries, goals, how you felt) so every brief, drill, plan and answer is about your game, not cricket in general.',
-      primaryCta: { label: 'Join the beta', url: '#join' },
+      primaryCta: { label: 'Join the beta', url: '/join' },
       secondaryCta: { label: 'Open the web app', url: 'https://app.stumpnote.com' },
       showMStroke: true,
       showPersonaChips: true,

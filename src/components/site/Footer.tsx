@@ -1,11 +1,20 @@
 import Link from 'next/link'
 import { Logo } from './Logo'
 import { MotionToggle } from './MotionToggle'
-import { WEB_APP_URL, footerColumns } from '@/lib/site-config'
+import { WEB_APP_URL } from '@/lib/site-config'
+import type { NavItem } from '@/lib/site-config'
 
-// Static fallback columns (CMS `navigation` global replaces them in S4). Only built routes render.
-export function Footer({ year = 2026 }: { year?: number }) {
-  const cols = footerColumns
+/** Columns come from the Navigation global (code defaults when absent). Only built routes render. */
+export function Footer({
+  columns,
+  copyright = '© 2026 StumpNote',
+  disclosure = 'AI-generated insights are guidance for reflection and training.',
+}: {
+  columns: Array<{ title: string; items: NavItem[] }>
+  copyright?: string
+  disclosure?: string
+}) {
+  const cols = columns
     .map((c) => ({ ...c, items: c.items.filter((i) => i.ready) }))
     .filter((c) => c.items.length > 0)
   return (
@@ -55,10 +64,8 @@ export function Footer({ year = 2026 }: { year?: number }) {
       </div>
       <div className="border-t border-[var(--hairline-1)]">
         <div className="container-x flex flex-col gap-2 py-6 text-[13px] text-muted md:flex-row md:items-center md:justify-between">
-          <p>&copy; {year} StumpNote.</p>
-          <p>
-            AI-generated insights are guidance for reflection and training. They can make mistakes.
-          </p>
+          <p>{copyright}.</p>
+          <p>{disclosure} They can make mistakes.</p>
         </div>
       </div>
     </footer>

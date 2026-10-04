@@ -237,7 +237,7 @@ test('home: the CTA follows the beta state and the primary CTA scrolls to it', a
     .getByRole('link', {
       name: /Join the (TestFlight )?beta|Get the app/,
     })
-  await expect(primary).toHaveAttribute('href', /^(#join|https:\/\/)/)
+  await expect(primary).toHaveAttribute('href', /^(#join|\/join|https:\/\/)/)
   await expect(
     page.locator('main').getByRole('link', { name: 'Open the web app' }).first(),
   ).toHaveAttribute('href', 'https://app.stumpnote.com')

@@ -5,19 +5,20 @@ import { Menu, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { Button } from '@/components/ui/Button'
 import { Logo } from './Logo'
-import { joinBeta, openWebApp, primaryNav } from '@/lib/site-config'
+import { WEB_APP_URL } from '@/lib/site-config'
+import type { NavItem } from '@/lib/site-config'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/cn'
 
 /** Neutral navigation (selected state is brighter text, never accent). The CTA is the one filled accent. */
-export function Nav() {
+export function Nav({ items, ctaItem }: { items: NavItem[]; ctaItem: NavItem }) {
   const pathname = usePathname()
   const dialogRef = useRef<HTMLDialogElement>(null)
   const openerRef = useRef<HTMLButtonElement>(null)
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const links = primaryNav.filter((n) => n.ready)
-  const cta = joinBeta.ready ? joinBeta : { ...openWebApp, label: 'Web app' }
+  const links = items.filter((n) => n.ready)
+  const cta = ctaItem.ready ? ctaItem : { label: 'Web app', href: WEB_APP_URL, ready: true }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)

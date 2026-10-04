@@ -1,7 +1,10 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
+import routes from './routes.json' with { type: 'json' }
 
-for (const path of ['/', '/lab', '/this-page-does-not-exist']) {
+const htmlRoutes = routes.ok.filter((r) => !/\.(txt|xml)$/.test(r))
+
+for (const path of [...htmlRoutes, '/this-page-does-not-exist']) {
   test(`axe: no serious or critical violations on ${path}`, async ({ page }) => {
     await page.goto(path)
     // reveal everything below the fold so axe sees the final DOM/colours
