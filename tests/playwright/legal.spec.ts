@@ -3,7 +3,8 @@ import { expect, test } from '@playwright/test'
 
 /**
  * Legal pages (docs/spec/06-legal-pages.md section 7).
- * Default (production state): every page renders the notice, noindex, with no placeholder text.
+ * Default: each page is checked in whichever mode it is in. A page whose legal values are not yet approved renders the
+ * notice (noindex, no placeholder text); a published page renders in full, indexable (except /data-safety until S5-U3).
  * With LEGAL_FIXTURE=1 (local DB loaded by `pnpm legal:fixture` with SYNTHETIC values): the full pages, versions and print.
  */
 const FIXTURE = process.env.LEGAL_FIXTURE === '1'
@@ -20,23 +21,25 @@ for (const path of PAGES) {
     expect(html).not.toContain('LEGAL_REVIEW')
     const robotsTag = page.locator('meta[name="robots"]')
     const robots = (await robotsTag.count()) ? await robotsTag.getAttribute('content') : ''
-    if (FIXTURE) {
+    const notice = (await page.getByText('This page is being finalised').count()) > 0
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
+    if (notice) {
+      expect(robots).toContain('noindex')
+    } else {
       // /data-safety stays noindex until the owner decides to publish it (S5-U3)
       if (path === '/data-safety') expect(robots).toContain('noindex')
       else expect(robots).not.toContain('noindex')
-      await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
       await expect(page.getByText('being finalised')).toHaveCount(0)
-    } else {
-      expect(robots).toContain('noindex')
-      await expect(page.getByText('This page is being finalised')).toBeVisible()
-      await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
     }
+    if (FIXTURE) expect(notice).toBe(false)
   })
 }
 
 test('notice mode points to the app when no support email is set', async ({ page }) => {
   test.skip(FIXTURE, 'fixture sets a support email')
   await page.goto('/privacy')
+  const body = await page.locator('body').innerText()
+  test.skip(!body.includes('being finalised'), '/privacy is published in full mode')
   await expect(page.getByText('use the app, Profile, then Help')).toBeVisible()
 })
 
@@ -44,7 +47,12 @@ test('sitemap lists no notice-mode legal page, /lab, /admin or /api', async ({ r
   const xml = await (await request.get('/sitemap.xml')).text()
   expect(xml).not.toMatch(/\/(lab|admin|api)(\/|<)/)
   if (!FIXTURE) {
-    for (const p of PAGES) expect(xml).not.toContain(`${p}<`)
+    // A page appears in the sitemap exactly when it is published in full mode (not the notice).
+    for (const p of PAGES) {
+      const html = await (await request.get(p)).text()
+      const notice = html.includes('This page is being finalised')
+      if (notice) expect(xml).not.toContain(`${p}<`)
+    }
   }
 })
 

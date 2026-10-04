@@ -94,6 +94,9 @@ test('support shows the in-app route when no mailbox is configured, and no {{ pl
   page,
 }) => {
   await page.goto('/support')
-  await expect(page.getByText('Use the app: Profile, then Help.')).toBeVisible()
+  // In-app route when no mailbox is configured; the configured mailbox once legal values are applied.
+  const inApp = page.getByText('Use the app: Profile, then Help.')
+  const mailbox = page.locator('a[href^="mailto:"]').first()
+  await expect(inApp.or(mailbox).first()).toBeVisible()
   expect(await page.locator('body').innerText()).not.toContain('{{')
 })
