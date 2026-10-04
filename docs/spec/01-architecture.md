@@ -108,10 +108,14 @@ Rules: the `(payload)` admin bundle must never be imported from `(site)`; analyt
 | `POSTHOG_PROJECT_ID` | prod | For HogQL queries |
 | `POSTHOG_PERSONAL_API_KEY` | prod | Query Read scope only; server-only |
 | `POSTHOG_API_HOST` | prod | `https://eu.posthog.com` |
-| `WEB_ANALYTICS_PROVIDER` | all | `none` (default), `posthog`, `plausible`, or `nouance-plugin` (only if S6 proves the plugin compatible) |
+| `WEB_ANALYTICS_PROVIDER` | all | `none` (default), `umami` (recommended, open source), `posthog`, or `plausible` (the plugin option was proven incompatible, D-55) |
 | `PLAUSIBLE_SITE_ID` | prod | only if Plausible is chosen (D-06) |
 | `PLAUSIBLE_API_KEY` | prod | Stats API key, server-only; only if Plausible is chosen |
 | `PLAUSIBLE_API_HOST` | prod | `https://plausible.io`; only if Plausible is chosen |
+| `UMAMI_WEBSITE_ID` | prod | Umami website UUID (public, in the page); only if Umami is chosen (D-06) |
+| `UMAMI_API_KEY` | prod | Umami API key for the admin view, server-only; only if Umami is chosen |
+| `UMAMI_SCRIPT_HOST` | prod | optional, default `https://cloud.umami.is`; self-host origin |
+| `UMAMI_API_HOST` | prod | optional, default `https://api.umami.is/v1`; self-host `https://<host>/api` |
 | `ANALYTICS_MODE` | all | `fixtures` (default) or `live` |
 | `STUMPNOTE_ANALYTICS_DATABASE_URL` | prod | Read-only role over the Supabase pooler, `analytics` schema only |
 | `STUMPNOTE_ANALYTICS_CA_CERT` | prod | Optional PEM CA for the pooler TLS chain (`\n` for newlines). TLS is always verified |

@@ -177,7 +177,7 @@ export const parseRange = (v: unknown, fallback: Range = '30d'): Range =>
   typeof v === 'string' && (RANGES as readonly string[]).includes(v) ? (v as Range) : fallback
 
 export type DataSource = 'fixtures' | 'live' | 'unconfigured'
-export type WebProviderId = 'none' | 'posthog' | 'plausible'
+export type WebProviderId = 'none' | 'umami' | 'posthog' | 'plausible'
 
 /** Provider-neutral web panels (section 1). */
 export const webPanels = z.object({

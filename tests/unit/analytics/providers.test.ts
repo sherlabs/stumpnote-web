@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { plausiblePanels } from '@/analytics/plausible'
+import { umamiConfigured, umamiPanels } from '@/analytics/umami'
 import { posthogPanels, RateLimitedError } from '@/analytics/posthog'
 
 const json = (body: unknown, status = 200, headers: Record<string, string> = {}) =>
@@ -130,5 +131,104 @@ describe('plausible adapter', () => {
   it('429 is a RateLimitedError', async () => {
     const f = vi.fn(async () => json({}, 429)) as unknown as typeof fetch
     await expect(plausiblePanels(7, f)).rejects.toBeInstanceOf(RateLimitedError)
+  })
+})
+
+describe('umami adapter', () => {
+  const id = '123e4567-e89b-42d3-a456-426614174000'
+  beforeEach(() => {
+    process.env.UMAMI_WEBSITE_ID = id
+    process.env.UMAMI_API_KEY = 'test-key'
+    delete process.env.UMAMI_API_HOST
+  })
+  afterEach(() => {
+    delete process.env.UMAMI_WEBSITE_ID
+    delete process.env.UMAMI_API_KEY
+    delete process.env.UMAMI_API_HOST
+  })
+  const now = new Date('2026-10-04T12:00:00Z')
+
+  it('is configured only with a UUID website id and a key', () => {
+    expect(umamiConfigured()).toBe(true)
+    process.env.UMAMI_WEBSITE_ID = "x'; drop"
+    expect(umamiConfigured()).toBe(false)
+  })
+
+  it('sends fixed GETs with a bearer key and integer timestamps; maps the neutral shape', async () => {
+    const urls: string[] = []
+    const f = vi.fn(async (url: string | URL | Request, init?: RequestInit) => {
+      const u = new URL(String(url))
+      urls.push(String(url))
+      expect((init?.headers as Record<string, string>).authorization).toBe('Bearer test-key')
+      expect(init?.method ?? 'GET').toBe('GET')
+      if (u.pathname.endsWith('/pageviews'))
+        return json({
+          pageviews: [{ x: '2026-10-03 00:00:00', y: 10 }, { x: '2026-10-04 00:00:00', y: 5 }],
+          sessions: [{ x: '2026-10-03 00:00:00', y: 4 }],
+        })
+      if (u.pathname.endsWith('/metrics')) {
+        const t = u.searchParams.get('type')
+        if (t === 'path') return json([{ x: '/', y: 7 }])
+        if (t === 'referrer') return json([{ x: '', y: 3 }])
+        if (t === 'device') return json([{ x: 'Mobile', y: 2 }])
+        if (t === 'event')
+          return json([
+            { x: 'cta_view_hero', y: 100 },
+            { x: 'cta_click_beta', y: 10 },
+          ])
+        return json([])
+      }
+      if (u.searchParams.get('eventName') === 'persona_switch')
+        return json([{ value: 'player', total: 3 }])
+      if (u.searchParams.get('eventName') === 'beta_form_submit')
+        return json([{ value: 'player', total: 1 }])
+      return json([])
+    }) as unknown as typeof fetch
+    const p = await umamiPanels(7, f, now)
+    for (const url of urls) {
+      expect(url.startsWith(`https://api.umami.is/v1/websites/${id}/`)).toBe(true)
+      const q = new URL(url).searchParams
+      expect(q.get('startAt')).toBe(String(Date.parse('2026-09-28T00:00:00Z')))
+      expect(q.get('endAt')).toBe(String(now.getTime()))
+    }
+    expect(p.daily).toEqual([
+      { day: '2026-10-03', pageviews: 10, visitors: 4 },
+      { day: '2026-10-04', pageviews: 5, visitors: 0 },
+    ])
+    expect(p.topPages).toEqual([{ label: '/', value: 7 }])
+    expect(p.referrers[0]?.label).toBe('(direct / unknown)')
+    expect(p.devices).toEqual([{ label: 'mobile', value: 2 }])
+    expect(p.funnel.map((x) => x.count)).toEqual([100, 10, 0, 0])
+    expect(p.persona).toEqual([{ persona: 'player', switches: 3, signups: 1 }])
+    expect(p.vitals.lcp_ms).toBeNull()
+  })
+
+  it('uses a self-hosted API host when set, and clamps the range', async () => {
+    process.env.UMAMI_API_HOST = 'https://stats.example.org/api/'
+    const urls: string[] = []
+    const f = vi.fn(async (url: string | URL | Request) => {
+      urls.push(String(url))
+      return json([])
+    }) as unknown as typeof fetch
+    await umamiPanels(Number('9999'), f, now)
+    expect(urls[0]?.startsWith(`https://stats.example.org/api/websites/${id}/`)).toBe(true)
+    expect(new URL(urls[0] as string).searchParams.get('startAt')).toBe(
+      String(Date.parse('2025-10-05T00:00:00Z')), // 365 days
+    )
+  })
+
+  it('429 is a RateLimitedError with retry-after; other errors are plain', async () => {
+    const limited = vi.fn(async () => json({}, 429, { 'retry-after': '9' })) as unknown as typeof fetch
+    await expect(umamiPanels(7, limited, now)).rejects.toMatchObject({ retryAfterSeconds: 9 })
+    const bad = vi.fn(async () => json({}, 401)) as unknown as typeof fetch
+    await expect(umamiPanels(7, bad, now)).rejects.toThrow('HTTP 401')
+  })
+
+  it('a missing persona property (400) does not break the view', async () => {
+    const f = vi.fn(async (url: string | URL | Request) =>
+      String(url).includes('event-data') ? json({}, 400) : json([]),
+    ) as unknown as typeof fetch
+    const p = await umamiPanels(7, f, now)
+    expect(p.persona).toEqual([])
   })
 })

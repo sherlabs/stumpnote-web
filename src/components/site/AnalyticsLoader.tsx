@@ -9,7 +9,7 @@ type Sender = (event: TrackEvent, props?: Record<string, string | number | boole
 /**
  * Loads AT MOST ONE cookieless analytics snippet, after the browser is idle. Mounted only when a provider is
  * configured (see clientAnalytics), so with none configured no analytics code is shipped or run. No cookie banner is
- * needed: nothing is stored on the device (PostHog cookieless mode, Plausible is cookieless by design).
+ * needed: nothing is stored on the device (PostHog cookieless mode; Plausible and Umami are cookieless by design).
  */
 export function AnalyticsLoader(cfg: ClientAnalytics) {
   useEffect(() => {
@@ -43,6 +43,21 @@ export function AnalyticsLoader(cfg: ClientAnalytics) {
             capture_performance: { web_vitals: true },
           })
           install((e, p) => posthog.capture(e, p))
+        } else if (cfg.provider === 'umami') {
+          const s = document.createElement('script')
+          s.defer = true
+          s.src = `${cfg.host}/script.js`
+          s.dataset.websiteId = cfg.websiteId
+          s.dataset.doNotTrack = 'true'
+          s.dataset.excludeSearch = 'true'
+          s.dataset.excludeHash = 'true'
+          s.onload = () => {
+            const w = window as unknown as {
+              umami?: { track?: (e: string, p?: Record<string, unknown>) => void }
+            }
+            install((e, p) => w.umami?.track?.(e, p))
+          }
+          document.head.appendChild(s)
         } else {
           const s = document.createElement('script')
           s.defer = true

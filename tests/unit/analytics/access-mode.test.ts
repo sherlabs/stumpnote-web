@@ -71,6 +71,29 @@ describe('site snippet selection (cookieless, one provider, opt-in)', () => {
         PLAUSIBLE_API_HOST: 'https://plausible.io',
       }),
     ).toEqual({ provider: 'plausible', domain: 'a.test', host: 'https://plausible.io' })
+    const id = '123e4567-e89b-42d3-a456-426614174000'
+    expect(clientAnalytics({ WEB_ANALYTICS_PROVIDER: 'umami' })).toBeNull()
+    expect(clientAnalytics({ WEB_ANALYTICS_PROVIDER: 'umami', UMAMI_WEBSITE_ID: 'nope' })).toBeNull()
+    expect(clientAnalytics({ WEB_ANALYTICS_PROVIDER: 'umami', UMAMI_WEBSITE_ID: id })).toEqual({
+      provider: 'umami',
+      websiteId: id,
+      host: 'https://cloud.umami.is',
+    })
+    expect(
+      clientAnalytics({
+        WEB_ANALYTICS_PROVIDER: 'umami',
+        UMAMI_WEBSITE_ID: id,
+        UMAMI_SCRIPT_HOST: 'https://stats.example.org/',
+        UMAMI_API_KEY: 'secret3',
+      }),
+    ).toEqual({ provider: 'umami', websiteId: id, host: 'https://stats.example.org' })
+    expect(
+      clientAnalytics({
+        WEB_ANALYTICS_PROVIDER: 'umami',
+        UMAMI_WEBSITE_ID: id,
+        UMAMI_SCRIPT_HOST: 'http://insecure.example',
+      }),
+    ).toBeNull()
   })
   it('server-only keys never appear in the client config', () => {
     const c = clientAnalytics({
@@ -97,5 +120,11 @@ describe('site snippet selection (cookieless, one provider, opt-in)', () => {
       PLAUSIBLE_API_HOST: 'https://plausible.io',
     })
     expect(pl).toEqual({ connect: ['https://plausible.io'], script: ['https://plausible.io'] })
+    expect(
+      analyticsCsp({
+        WEB_ANALYTICS_PROVIDER: 'umami',
+        UMAMI_WEBSITE_ID: '123e4567-e89b-42d3-a456-426614174000',
+      }),
+    ).toEqual({ connect: ['https://cloud.umami.is'], script: ['https://cloud.umami.is'] })
   })
 })

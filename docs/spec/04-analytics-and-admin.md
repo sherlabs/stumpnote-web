@@ -8,9 +8,23 @@ Hard rules: admin role only; server components only; aggregate-only; k-anonymity
 
 **Step zero in S6: verify the owner's chosen plugin.** The owner chose the NouanceLabs plugin, npm `@nouance/payload-dashboard-analytics` (use the scoped name; the unscoped `payload-dashboard-analytics` is an unrelated package and must not be installed). Registry metadata on 2026-10-04 (latest 0.3.0, 2023-05-25, peer `payload ^1.6.16`, repo last pushed 2023-08-28, providers Plausible and Google Analytics) says it will not install against Payload 3.90. S6 proves it one way or the other in a scratch branch and records the result in `STATUS.md`. If it works: wire it with its privacy-friendly provider (Plausible) and skip the custom view for web analytics (keep sections 2 and 3). If it does not: build the custom view below for the provider the owner picks; never switch plugins silently.
 
-**Provider abstraction:** `src/analytics/web-provider.ts` exposes `getWebPanels(range)`; adapters `plausible.ts` (Stats API v2, server key) and `posthog.ts` (HogQL). Panels and event names below are provider-neutral.
+**Provider abstraction:** `src/analytics/web-provider.ts` exposes `getWebPanels(range)`; adapters `umami.ts` (REST, API key), `plausible.ts` (Stats API v2, server key) and `posthog.ts` (HogQL). The provider is chosen by `WEB_ANALYTICS_PROVIDER=umami|posthog|plausible`. Panels and event names below are provider-neutral.
 
-**Fixtures-mode default (build only): PostHog adapter wired but inactive.** The agent never goes live on a provider the owner has not chosen; going live requires the owner's answer plus the account gate. If the owner picks PostHog Cloud (EU region, free tier), the site snippet `posthog-js` is initialised after idle with:
+**Recommended provider (D-06, 2026-10-04): Umami (MIT).** The owner asked for an open-source solution after the plugin failed (D-55). Research summary and owner setup steps are in `STATUS.md` D-06 and `decisions.md` D-06. Why: MIT licence and 39k stars, actively released (v3.4.0, 2026-09-17), cookieless and no consent banner needed by design, a free Cloud Hobby plan (3 sites, 100k events a month, 6 months retention) AND a one-click self-host path on Vercel + Neon, a plain REST API (Bearer key), and a tiny tracker. PostHog stays available (MIT core, EU free tier, heavier SDK); Plausible CE is AGPL and needs its own ClickHouse server, so it cannot run on Vercel + Neon.
+
+**Umami integration:** tracker `<script defer src="{UMAMI_SCRIPT_HOST}/script.js" data-website-id=... data-do-not-track="true" data-exclude-search="true" data-exclude-hash="true">` injected by `AnalyticsLoader` after idle (opt-in, DNT honoured by the loader and the tracker, no cookie and no localStorage write). SPA navigation is tracked by the tracker's history hook; custom events go through `umami.track(name, props)`. CSP: `script-src` and `connect-src` gain only the configured Umami origin (default `https://cloud.umami.is`). Admin view queries (all `GET`, `Authorization: Bearer <UMAMI_API_KEY>`, base `https://api.umami.is/v1` or self-hosted `https://<host>/api`, `startAt`/`endAt` in ms, UTC):
+
+| Panel | Endpoint |
+|---|---|
+| Visitors and pageviews per day | `/websites/{id}/pageviews?unit=day&timezone=UTC` (visitors = daily distinct sessions) |
+| Top pages, referrers, countries, devices | `/websites/{id}/metrics?type=path\|referrer\|country\|device&limit=` |
+| Beta funnel | `/websites/{id}/metrics?type=event&limit=100`, filtered to the four funnel events |
+| Persona interest | `/websites/{id}/event-data/values?eventName=persona_switch\|beta_form_submit&propertyName=persona` |
+| Web vitals | not collected (null; panel shows "not collected") |
+
+Umami Cloud allows 50 calls per 15 s per key; one view is 10 calls, cached 5 min, 429 is surfaced as a rate-limit message. Not yet exercised against a live account (mocked-response unit tests only); verify once. Open question for the owner's account: whether the free Hobby plan exposes API keys (sources conflict). If not, self-host (same code, set `UMAMI_API_HOST` and `UMAMI_SCRIPT_HOST`) or use Cloud Pro ($20 a month).
+
+**Fixtures-mode default (build only): no provider active until `WEB_ANALYTICS_PROVIDER` is set.** The agent never goes live on a provider the owner has not chosen; going live requires the owner's answer plus the account gate. If the owner picks PostHog Cloud (EU region, free tier), the site snippet `posthog-js` is initialised after idle with:
 ```ts
 posthog.init(NEXT_PUBLIC_POSTHOG_KEY, {
   api_host: NEXT_PUBLIC_POSTHOG_HOST,   // https://eu.i.posthog.com
@@ -25,7 +39,7 @@ Project setting required in PostHog: Web analytics, "Cookieless server hash mode
 
 **If Plausible is chosen instead:** script `https://plausible.io/js/script.js` (cookieless by design), Stats API v2 with a server-side key (`PLAUSIBLE_API_KEY`, `PLAUSIBLE_SITE_ID`, `PLAUSIBLE_API_HOST`); custom events via `plausible('cta_click_beta', {props})`. Plausible has no free plan, so the account is a BLOCKED billing step for the owner.
 
-**Plugins not used and why:** the Payload 3 community PostHog plugin (auth model not evaluated); GA4 plugins require a consent banner (only if the owner explicitly chooses GA4); the unscoped npm package `payload-dashboard-analytics` (a different publisher from the owner's plugin, GA4-only, depends on `@payloadcms/db-mongodb`) is excluded. If the owner's plugin is ever wired, its `access` option must be admin-only: the README example `(user) => Boolean(user)` would expose analytics to every logged-in role.
+**Plugins not used and why:** the Payload 3 community PostHog plugin `payload-posthog-analytics` 1.0.4 (MIT, peer `payload ^3.0.0`, 6 stars, one maintainer; its admin view only checks that a user is logged in (`requireAuth`), so any editor or viewer role would see analytics, which breaks the admin-only rule; it also ships its own API endpoint and a PostHog-only data path, and the other `payload-analytics` / `payload-plugin-analytics` packages are GA4 or tracking-script plugins); GA4 plugins require a consent banner (only if the owner explicitly chooses GA4); the unscoped npm package `payload-dashboard-analytics` (a different publisher from the owner's plugin, GA4-only, depends on `@payloadcms/db-mongodb`) is excluded. If the owner's plugin is ever wired, its `access` option must be admin-only: the README example `(user) => Boolean(user)` would expose analytics to every logged-in role.
 
 **Consent/cookie stance:** cookieless, aggregate-only, no cross-site tracking, no advertising tags. `/cookies` states this and names the admin session cookie. Child-account analytics in the app are off; the marketing site does not know who is a child and collects nothing identifying.
 
