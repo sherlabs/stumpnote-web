@@ -1,4 +1,5 @@
 import type { GlobalConfig } from 'payload'
+import { revalidateGlobal } from '@/hooks/revalidate'
 import { isAdmin } from '@/access'
 
 export const BetaAccess: GlobalConfig = {
@@ -7,6 +8,7 @@ export const BetaAccess: GlobalConfig = {
   admin: {
     description: 'Drives every beta call to action. No App Store claims until the apps are live.',
   },
+  hooks: { afterChange: [revalidateGlobal] },
   fields: [
     {
       name: 'state',

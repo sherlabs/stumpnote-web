@@ -185,6 +185,133 @@ const testimonials: Block = {
   fields: [],
 }
 
+const pricingTable: Block = {
+  slug: 'pricing-table',
+  interfaceName: 'PricingTableBlock',
+  fields: [
+    { name: 'overline', type: 'text' },
+    { name: 'heading', type: 'text', required: true },
+    {
+      name: 'plans',
+      type: 'array',
+      minRows: 1,
+      maxRows: 6,
+      fields: [
+        { name: 'name', type: 'text', required: true },
+        { name: 'priceLabel', type: 'text', required: true, admin: { description: 'e.g. $2.99' } },
+        { name: 'period', type: 'text', admin: { description: 'e.g. per month' } },
+        { name: 'summary', type: 'text' },
+        {
+          name: 'bullets',
+          type: 'array',
+          fields: [{ name: 'text', type: 'text', required: true }],
+        },
+        { name: 'highlight', type: 'checkbox', defaultValue: false },
+      ],
+    },
+    {
+      name: 'addons',
+      type: 'array',
+      maxRows: 4,
+      fields: [
+        { name: 'name', type: 'text', required: true },
+        { name: 'priceLabel', type: 'text', required: true },
+        { name: 'period', type: 'text' },
+        { name: 'text', type: 'text' },
+      ],
+    },
+    {
+      name: 'comparison',
+      type: 'array',
+      maxRows: 12,
+      admin: { description: 'One row per feature; one value per plan column, in plan order.' },
+      fields: [
+        { name: 'row', type: 'text', required: true },
+        {
+          name: 'values',
+          type: 'array',
+          fields: [{ name: 'value', type: 'text', required: true }],
+        },
+      ],
+    },
+    {
+      name: 'notes',
+      type: 'array',
+      maxRows: 5,
+      fields: [{ name: 'text', type: 'text', required: true }],
+    },
+    {
+      name: 'footnote',
+      type: 'text',
+      admin: {
+        description:
+          'The indicative-price line is added by the page itself and cannot be removed here.',
+      },
+    },
+  ],
+}
+
+const faqList: Block = {
+  slug: 'faq-list',
+  interfaceName: 'FaqListBlock',
+  fields: [
+    { name: 'overline', type: 'text' },
+    { name: 'heading', type: 'text' },
+    {
+      name: 'faqs',
+      type: 'relationship',
+      relationTo: 'faqs',
+      hasMany: true,
+      admin: { description: 'Leave empty to list every published FAQ (or filter by category).' },
+    },
+    {
+      name: 'category',
+      type: 'select',
+      options: [
+        'general',
+        'availability',
+        'privacy',
+        'pricing',
+        'team',
+        'coach',
+        'parent',
+        'support',
+      ].map((value) => ({ label: value[0].toUpperCase() + value.slice(1), value })),
+    },
+  ],
+}
+
+const mediaBlock: Block = {
+  slug: 'media-block',
+  interfaceName: 'MediaBlock',
+  fields: [
+    { name: 'media', type: 'upload', relationTo: 'media', required: true },
+    { name: 'caption', type: 'text' },
+    {
+      name: 'syntheticLabel',
+      type: 'checkbox',
+      defaultValue: true,
+      admin: { readOnly: true, description: 'Always on: shows the "Sample data" badge.' },
+    },
+  ],
+}
+
+const twoColumn: Block = {
+  slug: 'two-column',
+  interfaceName: 'TwoColumnBlock',
+  fields: [
+    { name: 'left', type: 'richText', editor: richText },
+    { name: 'right', type: 'richText', editor: richText },
+  ],
+}
+
+const legalIndex: Block = {
+  slug: 'legal-index',
+  interfaceName: 'LegalIndexBlock',
+  // No fields: lists the legal pages and the Apple standard EULA link (S5).
+  fields: [],
+}
+
 export const pageBlocks: Block[] = [
   heroStory,
   statement,
@@ -195,4 +322,9 @@ export const pageBlocks: Block[] = [
   principles,
   richTextBlock,
   testimonials,
+  pricingTable,
+  faqList,
+  mediaBlock,
+  twoColumn,
+  legalIndex,
 ]

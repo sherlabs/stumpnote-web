@@ -206,6 +206,11 @@ export interface Page {
         | PrinciplesBlock
         | RichTextBlock
         | TestimonialsBlock
+        | PricingTableBlock
+        | FaqListBlock
+        | MediaBlock
+        | TwoColumnBlock
+        | LegalIndexBlock
       )[]
     | null;
   meta?: {
@@ -369,6 +374,103 @@ export interface Persona {
   accent?: ('player' | 'coach' | 'parent' | 'team') | null;
   headline?: string | null;
   leadWith?: ('default' | 'consent') | null;
+  /**
+   * e.g. "For players".
+   */
+  eyebrow?: string | null;
+  subcopy?: string | null;
+  proofPoints?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional lead section (the Parents page uses it for guardian consent and the sharing switches). Rendered before the feature blocks when "Lead with" is Consent.
+   */
+  lead?: {
+    heading?: string | null;
+    body?: string | null;
+    items?:
+      | {
+          title: string;
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  featureBlocks?: (number | Feature)[] | null;
+  faqs?: (number | Faq)[] | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "features".
+ */
+export interface Feature {
+  id: number;
+  title: string;
+  /**
+   * URL segment. Auto-generated from the title when empty.
+   */
+  slug: string;
+  area: 'journal-memory' | 'mental-game' | 'game-day' | 'team' | 'coach' | 'parent' | 'platform';
+  status: 'available-web' | 'in-beta' | 'preview' | 'coming-soon';
+  benefit?: string | null;
+  order?: number | null;
+  bullets?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  howItWorks?: string | null;
+  /**
+   * Rendered under the label "Illustrative scenario". Fictional persona only.
+   */
+  scenario?: {
+    persona?: string | null;
+    text?: string | null;
+  };
+  /**
+   * Internal reminder for editors. Never rendered on the site.
+   */
+  copyRules?: string | null;
+  /**
+   * Which signature component the feature page shows.
+   */
+  demo?:
+    | (
+        | 'none'
+        | 'voice-typer'
+        | 'quick-log'
+        | 'heat-grid'
+        | 'kinetic-transcript'
+        | 'series-chart'
+        | 'squad-grid'
+        | 'm-stroke'
+      )
+    | null;
+  /**
+   * Synthetic screenshots only (fictional demo data).
+   */
+  media?: (number | null) | Media;
+  personas?: ('player' | 'captain' | 'member' | 'coach' | 'parent')[] | null;
+  related?: (number | Feature)[] | null;
+  /**
+   * Allowed teaser line for the parts of this feature that are coming soon.
+   */
+  comingSoonTeaser?: string | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -433,6 +535,39 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faqs".
+ */
+export interface Faq {
+  id: number;
+  question: string;
+  /**
+   * URL segment. Auto-generated from the title when empty.
+   */
+  slug: string;
+  answer: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  category?: ('general' | 'availability' | 'privacy' | 'pricing' | 'team' | 'coach' | 'parent' | 'support') | null;
+  personas?: ('player' | 'captain' | 'member' | 'coach' | 'parent')[] | null;
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "FeatureCarouselBlock".
  */
 export interface FeatureCarouselBlock {
@@ -447,33 +582,6 @@ export interface FeatureCarouselBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'feature-carousel';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "features".
- */
-export interface Feature {
-  id: number;
-  title: string;
-  /**
-   * URL segment. Auto-generated from the title when empty.
-   */
-  slug: string;
-  area: 'journal-memory' | 'mental-game' | 'game-day' | 'team' | 'coach' | 'parent' | 'platform';
-  status: 'available-web' | 'in-beta' | 'preview' | 'coming-soon';
-  benefit?: string | null;
-  order?: number | null;
-  meta?: {
-    title?: string | null;
-    description?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (number | null) | Media;
-  };
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -550,6 +658,152 @@ export interface TestimonialsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PricingTableBlock".
+ */
+export interface PricingTableBlock {
+  overline?: string | null;
+  heading: string;
+  plans?:
+    | {
+        name: string;
+        /**
+         * e.g. $2.99
+         */
+        priceLabel: string;
+        /**
+         * e.g. per month
+         */
+        period?: string | null;
+        summary?: string | null;
+        bullets?:
+          | {
+              text: string;
+              id?: string | null;
+            }[]
+          | null;
+        highlight?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  addons?:
+    | {
+        name: string;
+        priceLabel: string;
+        period?: string | null;
+        text?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * One row per feature; one value per plan column, in plan order.
+   */
+  comparison?:
+    | {
+        row: string;
+        values?:
+          | {
+              value: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  notes?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * The indicative-price line is added by the page itself and cannot be removed here.
+   */
+  footnote?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'pricing-table';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FaqListBlock".
+ */
+export interface FaqListBlock {
+  overline?: string | null;
+  heading?: string | null;
+  /**
+   * Leave empty to list every published FAQ (or filter by category).
+   */
+  faqs?: (number | Faq)[] | null;
+  category?: ('general' | 'availability' | 'privacy' | 'pricing' | 'team' | 'coach' | 'parent' | 'support') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'faq-list';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaBlock".
+ */
+export interface MediaBlock {
+  media: number | Media;
+  caption?: string | null;
+  /**
+   * Always on: shows the "Sample data" badge.
+   */
+  syntheticLabel?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'media-block';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TwoColumnBlock".
+ */
+export interface TwoColumnBlock {
+  left?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  right?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'two-column';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LegalIndexBlock".
+ */
+export interface LegalIndexBlock {
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'legal-index';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts".
  */
 export interface Post {
@@ -577,6 +831,16 @@ export interface Post {
     [k: string]: unknown;
   } | null;
   publishedAt?: string | null;
+  /**
+   * Display name only. Never an email address.
+   */
+  authorName?: string | null;
+  tags?:
+    | {
+        tag: string;
+        id?: string | null;
+      }[]
+    | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -618,34 +882,6 @@ export interface ChangelogEntry {
     };
     [k: string]: unknown;
   } | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "faqs".
- */
-export interface Faq {
-  id: number;
-  question: string;
-  answer: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  category?: ('general' | 'availability' | 'privacy' | 'pricing' | 'team' | 'coach' | 'parent' | 'support') | null;
-  order?: number | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -948,6 +1184,11 @@ export interface PagesSelect<T extends boolean = true> {
         principles?: T | PrinciplesBlockSelect<T>;
         'rich-text'?: T | RichTextBlockSelect<T>;
         testimonials?: T | TestimonialsBlockSelect<T>;
+        'pricing-table'?: T | PricingTableBlockSelect<T>;
+        'faq-list'?: T | FaqListBlockSelect<T>;
+        'media-block'?: T | MediaBlockSelect<T>;
+        'two-column'?: T | TwoColumnBlockSelect<T>;
+        'legal-index'?: T | LegalIndexBlockSelect<T>;
       };
   meta?:
     | T
@@ -1119,6 +1360,101 @@ export interface TestimonialsBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PricingTableBlock_select".
+ */
+export interface PricingTableBlockSelect<T extends boolean = true> {
+  overline?: T;
+  heading?: T;
+  plans?:
+    | T
+    | {
+        name?: T;
+        priceLabel?: T;
+        period?: T;
+        summary?: T;
+        bullets?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        highlight?: T;
+        id?: T;
+      };
+  addons?:
+    | T
+    | {
+        name?: T;
+        priceLabel?: T;
+        period?: T;
+        text?: T;
+        id?: T;
+      };
+  comparison?:
+    | T
+    | {
+        row?: T;
+        values?:
+          | T
+          | {
+              value?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  notes?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  footnote?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FaqListBlock_select".
+ */
+export interface FaqListBlockSelect<T extends boolean = true> {
+  overline?: T;
+  heading?: T;
+  faqs?: T;
+  category?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaBlock_select".
+ */
+export interface MediaBlockSelect<T extends boolean = true> {
+  media?: T;
+  caption?: T;
+  syntheticLabel?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TwoColumnBlock_select".
+ */
+export interface TwoColumnBlockSelect<T extends boolean = true> {
+  left?: T;
+  right?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LegalIndexBlock_select".
+ */
+export interface LegalIndexBlockSelect<T extends boolean = true> {
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "features_select".
  */
 export interface FeaturesSelect<T extends boolean = true> {
@@ -1128,6 +1464,25 @@ export interface FeaturesSelect<T extends boolean = true> {
   status?: T;
   benefit?: T;
   order?: T;
+  bullets?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  howItWorks?: T;
+  scenario?:
+    | T
+    | {
+        persona?: T;
+        text?: T;
+      };
+  copyRules?: T;
+  demo?: T;
+  media?: T;
+  personas?: T;
+  related?: T;
+  comingSoonTeaser?: T;
   meta?:
     | T
     | {
@@ -1149,6 +1504,29 @@ export interface PersonasSelect<T extends boolean = true> {
   accent?: T;
   headline?: T;
   leadWith?: T;
+  eyebrow?: T;
+  subcopy?: T;
+  proofPoints?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  lead?:
+    | T
+    | {
+        heading?: T;
+        body?: T;
+        items?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              id?: T;
+            };
+      };
+  featureBlocks?: T;
+  faqs?: T;
   meta?:
     | T
     | {
@@ -1171,6 +1549,13 @@ export interface PostsSelect<T extends boolean = true> {
   coverImage?: T;
   content?: T;
   publishedAt?: T;
+  authorName?: T;
+  tags?:
+    | T
+    | {
+        tag?: T;
+        id?: T;
+      };
   meta?:
     | T
     | {
@@ -1203,8 +1588,10 @@ export interface ChangelogEntriesSelect<T extends boolean = true> {
  */
 export interface FaqsSelect<T extends boolean = true> {
   question?: T;
+  slug?: T;
   answer?: T;
   category?: T;
+  personas?: T;
   order?: T;
   updatedAt?: T;
   createdAt?: T;

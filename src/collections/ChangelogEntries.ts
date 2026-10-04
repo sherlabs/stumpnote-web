@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import { richText } from '@/fields/richText'
+import { revalidateDoc } from '@/hooks/revalidate'
 import { publicContentBase } from './shared'
 
 export const ChangelogEntries: CollectionConfig = {
@@ -48,4 +49,8 @@ export const ChangelogEntries: CollectionConfig = {
       admin: { description: 'Never reference internal issue numbers.' },
     },
   ],
+  hooks: {
+    afterChange: [revalidateDoc('changelog-entries')],
+    afterDelete: [revalidateDoc('changelog-entries')],
+  },
 }

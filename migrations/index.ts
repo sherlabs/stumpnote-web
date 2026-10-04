@@ -1,5 +1,6 @@
 import * as migration_20261004_040010_initial from './20261004_040010_initial';
 import * as migration_20261004_044616_pages_blocks from './20261004_044616_pages_blocks';
+import * as migration_20261004_053012_s4_content_fields from './20261004_053012_s4_content_fields';
 
 export const migrations = [
   {
@@ -10,6 +11,11 @@ export const migrations = [
   {
     up: migration_20261004_044616_pages_blocks.up,
     down: migration_20261004_044616_pages_blocks.down,
-    name: '20261004_044616_pages_blocks'
+    name: '20261004_044616_pages_blocks',
+  },
+  {
+    up: migration_20261004_053012_s4_content_fields.up,
+    down: migration_20261004_053012_s4_content_fields.down,
+    name: '20261004_053012_s4_content_fields'
   },
 ];

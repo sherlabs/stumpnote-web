@@ -1,10 +1,12 @@
 import type { GlobalConfig } from 'payload'
+import { revalidateGlobal } from '@/hooks/revalidate'
 import { isAdmin } from '@/access'
 
 export const SiteSettings: GlobalConfig = {
   slug: 'site-settings',
   access: { read: () => true, update: isAdmin },
   admin: { description: 'Public, non-secret site configuration. Read by server components only.' },
+  hooks: { afterChange: [revalidateGlobal] },
   fields: [
     { name: 'siteName', type: 'text', defaultValue: 'StumpNote', required: true },
     { name: 'tagline', type: 'text', defaultValue: 'Your cricket, remembered.' },

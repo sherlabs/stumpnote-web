@@ -1,7 +1,8 @@
 import type { CollectionConfig } from 'payload'
 import { slugField } from '@/fields/slug'
 import { pageBlocks, linkGroup } from '@/blocks'
-import { publicContentBase } from './shared'
+import { revalidateDoc } from '@/hooks/revalidate'
+import { autosaveDrafts, publicContentBase, livePreviewFor } from './shared'
 
 const PERSONAS = [
   { label: 'Player', value: 'player' },
@@ -13,8 +14,13 @@ const PERSONAS = [
 
 export const Pages: CollectionConfig = {
   ...publicContentBase,
+  versions: autosaveDrafts,
   slug: 'pages',
-  admin: { useAsTitle: 'title', defaultColumns: ['title', 'slug', '_status', 'updatedAt'] },
+  admin: {
+    useAsTitle: 'title',
+    defaultColumns: ['title', 'slug', '_status', 'updatedAt'],
+    livePreview: livePreviewFor('pages'),
+  },
   fields: [
     { name: 'title', type: 'text', required: true },
     slugField(),
@@ -63,4 +69,5 @@ export const Pages: CollectionConfig = {
     },
     { name: 'layout', type: 'blocks', blocks: pageBlocks },
   ],
+  hooks: { afterChange: [revalidateDoc('pages')], afterDelete: [revalidateDoc('pages')] },
 }

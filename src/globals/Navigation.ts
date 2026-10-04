@@ -1,4 +1,5 @@
 import type { GlobalConfig } from 'payload'
+import { revalidateGlobal } from '@/hooks/revalidate'
 import { isEditor } from '@/access'
 
 const linkFields = [
@@ -14,6 +15,7 @@ const linkFields = [
 export const Navigation: GlobalConfig = {
   slug: 'navigation',
   access: { read: () => true, update: isEditor },
+  hooks: { afterChange: [revalidateGlobal] },
   fields: [
     {
       name: 'headerItems',
