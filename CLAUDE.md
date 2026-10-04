@@ -34,7 +34,7 @@ Marketing site + Payload CMS admin for StumpNote. This repo is **PUBLIC**. Read 
 
 ## 5. Quality budgets
 - Accessibility: WCAG 2.2 AA minimum; keyboard navigable; visible focus; `prefers-reduced-motion` respected; sufficient contrast on the dark canvas; semantic landmarks; alt text.
-- Performance (mobile, Lighthouse): Performance >= 90, Accessibility >= 95, Best Practices >= 95, SEO >= 95; LCP < 2.5s, CLS < 0.1, INP < 200ms. Fonts self-hosted/subset; images optimized (`next/image`); minimal client JS.
+- Performance (mobile, Lighthouse): Performance >= 95, Accessibility >= 95, Best Practices >= 95, SEO >= 95; LCP < 2.0s, CLS < 0.05, INP < 150ms (the spec in `docs/spec/02-design.md` section 11 is authoritative). Fonts self-hosted/subset; images optimized; minimal client JS.
 - Design: follow the StumpNote brand (dark canvas #0B1114, text #F2F5F4, muted #96A1AB; persona accents teal #00B9AE player, #FD9423 coach, #CC5572 parent, #89C012 team; Archivo 900 display + Hanken Grotesk body; Lucide icons; the "M" brush-stroke mark). Tokens in one place; no one-off hardcoded colors.
 
 ## 6. Tooling notes

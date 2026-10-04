@@ -77,7 +77,7 @@ Until `COMPANY_LEGAL_NAME` is set, the footer reads "© 2026 StumpNote" with no 
 
 ## 6. Analytics and the waitlist (new disclosures)
 
-- The privacy draft's own checklist asks to confirm the marketing site adds no analytics before publishing. With PostHog cookieless (D-06): draft `/cookies`; add a "Marketing site" row to the data map; state that the only cookie is the admin session cookie (strictly necessary); no Google Analytics or advertising tags.
+- The privacy draft's own checklist asks to confirm the marketing site adds no analytics before publishing. With a cookieless provider (D-06; PostHog cookieless mode or Plausible): draft `/cookies`; add a "Marketing site" row to the data map; state that the only cookie is the admin session cookie (strictly necessary); no Google Analytics or advertising tags.
 - The waitlist form collects email, optional persona and consent. Add a "Website and waitlist" section to the policy, a clear consent line on the form (stored verbatim per record), and an unsubscribe/deletion route (support email or the in-app path). Mark new wording `{{LEGAL_REVIEW: ...}}` until cleared. Collect no age or children's data.
 
 ## 7. Content QA for legal pages (S5 acceptance)

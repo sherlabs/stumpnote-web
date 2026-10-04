@@ -12,7 +12,7 @@ Browser ──► Vercel CDN ──► Next.js (Fluid compute)
                             ├─ (payload)   /admin UI, /api/* REST, /api/graphql
                             │                └─ Payload Local API ──► Neon Postgres (pooled)
                             ├─ analytics views (server components, admin role only)
-                            │     ├─► PostHog HogQL API (server key)
+                            │     ├─► web analytics provider API (PostHog HogQL or Plausible Stats; server key)
                             │     └─► StumpNote Supabase, read-only role, analytics schema
                             └─ Vercel Blob (media)
 ```
@@ -48,7 +48,7 @@ Versions (D-02): Payload >= 3.90.2 (all `@payloadcms/*` identical), Next inside 
 │   ├── access/                     # isAdmin, isEditor, isAdminOrSelf, publishedOnly
 │   ├── admin/                      # custom admin: views/, components/, importMap generated
 │   │   └── views/analytics/        # web.tsx, ai-spend.tsx, product.tsx (server components)
-│   ├── analytics/                  # 'server-only' modules: posthog.ts, stumpnote-db.ts, revenuecat.ts, cache.ts, scenarios.ts, fixtures/
+│   ├── analytics/                  # 'server-only' modules: web-provider.ts (+ posthog.ts, plausible.ts adapters), stumpnote-db.ts, revenuecat.ts, cache.ts, scenarios.ts, fixtures/
 │   ├── components/
 │   │   ├── ui/                     # primitives (Button, Link, Overline, Badge, Card, Field)
 │   │   ├── site/                   # Nav, Footer, AmbientRings, PersonaProvider, Section, Chapter
@@ -130,7 +130,7 @@ Never add a `NEXT_PUBLIC_` prefix to anything that is not meant for the browser.
 
 - Public pages: `export const revalidate = 3600` (ISR) or fully static. On publish, a Payload `afterChange` hook calls `revalidatePath`/`revalidateTag` for the affected routes (template pattern).
 - Payload reads inside server components use `unstable_cache` keyed by collection + slug + `_status`.
-- Analytics: `src/analytics/cache.ts` wraps provider calls with `unstable_cache` TTLs: PostHog 5 min, AI spend 10 min, product 15 min, RevenueCat 30 min. Fixtures are not cached.
+- Analytics: `src/analytics/cache.ts` wraps provider calls with `unstable_cache` TTLs: web analytics 5 min, AI spend 10 min, product 15 min, RevenueCat 30 min. Fixtures are not cached.
 - Response headers: public pages `Cache-Control: public, s-maxage=3600, stale-while-revalidate=86400`; `/admin` and `/api` `no-store`.
 - Fonts: self-hosted woff2 with `Cache-Control: immutable` (Vercel default for hashed assets).
 
@@ -160,7 +160,7 @@ Strict-Transport-Security: max-age=31536000      (no includeSubDomains, no prelo
 X-Frame-Options: SAMEORIGIN
 ```
 CSP, two policies, start as `Content-Security-Policy-Report-Only` and switch to enforcing in S7 once clean:
-- Site: `default-src 'self'; script-src 'self' 'nonce-…'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.public.blob.vercel-storage.com; font-src 'self'; connect-src 'self' https://eu.i.posthog.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'`.
+- Site: `default-src 'self'; script-src 'self' 'nonce-…'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.public.blob.vercel-storage.com; font-src 'self'; connect-src 'self' <configured web-analytics ingest host, e.g. https://eu.i.posthog.com or https://plausible.io>; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'`.
 - Admin (`/admin`, `/api`, `/next/preview`): same but `frame-ancestors 'self'` (Live Preview) and whatever inline allowances Payload's admin empirically needs (test and record in `decisions.md`).
 - `X-Robots-Tag: noindex, nofollow` on `/admin`, `/api`, `/lab`; `robots.ts` disallows the same.
 

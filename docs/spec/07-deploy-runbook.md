@@ -97,7 +97,7 @@ Order: verify the production deployment on its `*.vercel.app` URL first; then ad
 | Vercel usage (functions, data transfer, image transformations, builds) | weekly | Team, Usage. Spend Management: set a budget with notifications at 50/75/100%; **never** enable "Pause production deployments" (it would pause the app project too) |
 | Neon compute hours / storage | weekly | Neon console |
 | Blob storage and operations | monthly | Project, Storage |
-| PostHog events vs 1M | monthly | PostHog Billing |
+| Web analytics usage (PostHog events vs free cap, or Plausible pageviews vs plan) | monthly | provider billing page |
 | Vercel WAF | after launch | Project, Firewall: rate-limit `/api/users/login` and the waitlist route; optional IP allow-list on `/admin` |
 | Function logs | ad hoc | Project, Logs (short retention; export if needed) |
 

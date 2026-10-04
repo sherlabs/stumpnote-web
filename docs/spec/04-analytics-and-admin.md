@@ -10,7 +10,7 @@ Hard rules: admin role only; server components only; aggregate-only; k-anonymity
 
 **Provider abstraction:** `src/analytics/web-provider.ts` exposes `getWebPanels(range)`; adapters `plausible.ts` (Stats API v2, server key) and `posthog.ts` (HogQL). Panels and event names below are provider-neutral.
 
-**Default fallback provider (if the owner has not chosen): PostHog Cloud, EU region, free tier.** Site snippet `posthog-js` initialised after idle with:
+**Fixtures-mode default (build only): PostHog adapter wired but inactive.** The agent never goes live on a provider the owner has not chosen; going live requires the owner's answer plus the account gate. If the owner picks PostHog Cloud (EU region, free tier), the site snippet `posthog-js` is initialised after idle with:
 ```ts
 posthog.init(NEXT_PUBLIC_POSTHOG_KEY, {
   api_host: NEXT_PUBLIC_POSTHOG_HOST,   // https://eu.i.posthog.com
@@ -95,7 +95,7 @@ No cron (D-09), so alerts are "on view" and in the providers:
 - AI spend: `analytics-settings.monthlyBudgetUsd` (admin-entered; not seeded). The MTD tile turns to the "attention" state (neutral colour + word "Over pace") when `projected_eom_usd > budget`. The audit log records when an admin saw an over-pace state.
 - Vercel: Spend Management notifications at 50/75/100% (dashboard, user step; never "pause production").
 - Neon: free-plan compute usage checked weekly from the Neon console (user).
-- PostHog: free-tier event cap; the web view shows the month's event count against 1M.
+- Web analytics provider: PostHog free-tier event cap (the web view shows the month's event count against the cap) or Plausible plan pageview limit, whichever is configured.
 
 ## 6. Privacy rules (enforced)
 

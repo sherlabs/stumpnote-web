@@ -350,7 +350,7 @@ Grid of every signature component with controls: persona switch, motion on/off, 
 | Initial JS on `/` | < 170 KB gzipped | `next build` output + `size-limit` script |
 | Fonts | 2 families, woff2 subsets, < 120 KB total | build check |
 | Images | SVG first; CMS images WebP via Payload sizes; `images.unoptimized` for static | review |
-| Third-party scripts | PostHog only, loaded after idle, cookieless | review |
+| Third-party scripts | one web-analytics snippet at most (provider per D-06), loaded after idle, cookieless | review |
 | GSAP, Lenis, OGL | separate chunks, loaded after idle or on viewport entry | `next/dynamic` |
 
 Mobile: no pinned sections under 1024 px; test on a throttled mid-range profile, not just desktop.
