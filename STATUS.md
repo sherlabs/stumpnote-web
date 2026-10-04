@@ -10,7 +10,7 @@ Status values: `not started`, `in progress`, `blocked`, `done`.
 
 | Stage | Name | Status | Blocked | Last commit | Next action |
 |---|---|---|---|---|---|
-| S0 | Bootstrap: repo, recovery scaffolding | done | no | see `git log` (initial scaffold commit) | none |
+| S0 | Bootstrap: repo, recovery scaffolding | done | no | 829d586 | none |
 | S1 | Plan and spec: product, IA, design system, technical architecture, stage briefs for S2..S7 | not started | no | - | Mine private-repo docs (features, design/set-a, legal, AI_COST, web) and write `docs/spec/*` + `docs/ops/stages/S2..S7-*.md`; fill TASKS.md |
 | S2 | Foundation: Next.js + Payload CMS scaffold, tokens, fonts, layout, CI-free checks, DB choice | not started | no | - | Blocked on S1 briefs |
 | S3 | Marketing site: home, features, personas, beta CTAs, award-grade design and motion | not started | no | - | Blocked on S2 |
