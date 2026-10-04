@@ -28,62 +28,127 @@
       }
     },
     "assert": {
-      "assertions": {
-        "categories:performance": [
-          "error",
-          {
-            "minScore": 0.95
+      "assertMatrix": [
+        {
+          "matchingUrlPattern": "^http://localhost:3101/(privacy|terms|blog)$",
+          "assertions": {
+            "categories:performance": [
+              "error",
+              {
+                "minScore": 0.95
+              }
+            ],
+            "categories:accessibility": [
+              "error",
+              {
+                "minScore": 0.95
+              }
+            ],
+            "categories:best-practices": [
+              "error",
+              {
+                "minScore": 0.95
+              }
+            ],
+            "categories:seo": [
+              "error",
+              {
+                "minScore": 0.65
+              }
+            ],
+            "largest-contentful-paint": [
+              "error",
+              {
+                "maxNumericValue": 2000
+              }
+            ],
+            "cumulative-layout-shift": [
+              "error",
+              {
+                "maxNumericValue": 0.05
+              }
+            ],
+            "total-blocking-time": [
+              "error",
+              {
+                "maxNumericValue": 150
+              }
+            ],
+            "interactive": [
+              "error",
+              {
+                "maxNumericValue": 3500
+              }
+            ],
+            "font-display": [
+              "error",
+              {
+                "minScore": 1
+              }
+            ]
           }
-        ],
-        "categories:accessibility": [
-          "error",
-          {
-            "minScore": 0.95
+        },
+        {
+          "matchingUrlPattern": "^http://localhost:3101/(?!(privacy|terms|blog)$)",
+          "assertions": {
+            "categories:performance": [
+              "error",
+              {
+                "minScore": 0.95
+              }
+            ],
+            "categories:accessibility": [
+              "error",
+              {
+                "minScore": 0.95
+              }
+            ],
+            "categories:best-practices": [
+              "error",
+              {
+                "minScore": 0.95
+              }
+            ],
+            "categories:seo": [
+              "error",
+              {
+                "minScore": 0.95
+              }
+            ],
+            "largest-contentful-paint": [
+              "error",
+              {
+                "maxNumericValue": 2000
+              }
+            ],
+            "cumulative-layout-shift": [
+              "error",
+              {
+                "maxNumericValue": 0.05
+              }
+            ],
+            "total-blocking-time": [
+              "error",
+              {
+                "maxNumericValue": 150
+              }
+            ],
+            "interactive": [
+              "error",
+              {
+                "maxNumericValue": 3500
+              }
+            ],
+            "font-display": [
+              "error",
+              {
+                "minScore": 1
+              }
+            ]
           }
-        ],
-        "categories:best-practices": [
-          "error",
-          {
-            "minScore": 0.95
-          }
-        ],
-        "categories:seo": [
-          "error",
-          {
-            "minScore": 0.95
-          }
-        ],
-        "largest-contentful-paint": [
-          "error",
-          {
-            "maxNumericValue": 2000
-          }
-        ],
-        "cumulative-layout-shift": [
-          "error",
-          {
-            "maxNumericValue": 0.05
-          }
-        ],
-        "total-blocking-time": [
-          "error",
-          {
-            "maxNumericValue": 150
-          }
-        ],
-        "interactive": [
-          "error",
-          {
-            "maxNumericValue": 3500
-          }
-        ],
-        "font-display": [
-          "error",
-          {
-            "minScore": 1
-          }
-        ]
-      }
+        }
+      ],
+      "_comment": "/privacy and /terms are noindex while in notice mode, /blog while empty: Lighthouse scores that 0.69 on SEO by design (is-crawlable). They are gated at 0.65 so the other seven SEO audits must still pass; once a page is published it falls back to the 0.95 rule by moving it out of the first pattern."
     },
     "upload": {
       "target": "filesystem",
