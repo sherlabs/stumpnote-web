@@ -27,10 +27,13 @@ Consequences: Docker required locally (already present for `supabase start`).
 ## D-05 Media: Vercel Blob with client uploads, max 3 image sizes (accepted)
 Consequences: brand assets stay in `/public`; Blob store creation may prompt for terms (BLOCKED gate if so).
 
-## D-06 Website analytics: PostHog Cloud EU, cookieless, custom Payload admin view (proposed)
-Context: `@nouance/payload-dashboard-analytics` is Payload 1 only (last publish 2023). The community PostHog plugin for Payload 3 exposes its data endpoint without a `req.user` check. GA4 plugins exist but need a consent banner.
-Decision: `posthog-js` on the site with `cookieless_mode: "always"`, `person_profiles: "never"`, EU host; admin view at `/admin/analytics/web` fetching HogQL server-side with a Query-Read-scoped personal API key from env.
-Consequences: no cookie banner; user must create the PostHog account (BLOCKED gate); `/cookies` page states the cookieless setup.
+## D-06 Website analytics: owner chose the NouanceLabs `payload-dashboard-analytics` plugin; verify in S6; fallback = custom admin view (accepted direction, provider pending)
+Context: owner decision D-ANALYTICS in `USER-DECISIONS.md` (2026-10-04). Technical pre-check the same day: npm latest 0.3.0 (2023-05-25), peer `payload ^1.6.16`, React 16 to 18; expected incompatible with Payload 3.90. The community PostHog plugin for Payload 3 exposes its data endpoint without a `req.user` check, so it is not an alternative. GA4 plugins need a consent banner.
+Decision: S6 step S6-00 installs the plugin in a scratch branch, records the result (`pnpm install` peer errors, admin boot) in `STATUS.md`. If incompatible: custom admin view at `/admin/analytics/web`, server-side read, cookieless provider, aggregate-only, same panels. Provider for the fallback is the owner's call: Plausible (plugin's privacy-friendly provider; paid) or PostHog Cloud EU (free, `cookieless_mode: "always"`, `person_profiles: "never"`). Default if the owner has not answered when S6 runs: PostHog, because the agent may not create paid resources.
+Consequences: `src/analytics/web-provider.ts` is an interface with `plausible.ts` and `posthog.ts` adapters; the site snippet is loaded only for the configured provider; `/cookies` describes whichever runs; account creation is a BLOCKED gate either way.
+
+## D-LEGAL Legal values come from the owner's existing sherlabs.com policy pages (accepted, owner decision)
+Context: `USER-DECISIONS.md` D-LEGAL. Decision: S5 step S5-00 reads `https://www.sherlabs.com/privacy` and related pages, extracts only facts stated there, and proposes them in `STATUS.md` for owner approval. Nothing is published until approved; retention/backup/usage-log values stay placeholders until the owner approves proposed values.
 
 ## D-07 StumpNote data: read-only Postgres role over an `analytics` schema of aggregate views (proposed)
 Decision: SQL draft in `supabase-analytics-views.sql`; views owned by `postgres` (owner privileges, not `security_invoker`), functions `SECURITY DEFINER` with pinned `search_path`; role `payload_analytics_ro` with SELECT on the granted views only; k-anonymity k = 5; `analytics` schema never exposed through PostgREST. Password set out of band. Until applied, `ANALYTICS_MODE=fixtures`.

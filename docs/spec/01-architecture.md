@@ -108,6 +108,10 @@ Rules: the `(payload)` admin bundle must never be imported from `(site)`; analyt
 | `POSTHOG_PROJECT_ID` | prod | For HogQL queries |
 | `POSTHOG_PERSONAL_API_KEY` | prod | Query Read scope only; server-only |
 | `POSTHOG_API_HOST` | prod | `https://eu.posthog.com` |
+| `WEB_ANALYTICS_PROVIDER` | all | `none` (default), `posthog`, `plausible`, or `nouance-plugin` (only if S6 proves the plugin compatible) |
+| `PLAUSIBLE_SITE_ID` | prod | only if Plausible is chosen (D-06) |
+| `PLAUSIBLE_API_KEY` | prod | Stats API key, server-only; only if Plausible is chosen |
+| `PLAUSIBLE_API_HOST` | prod | `https://plausible.io`; only if Plausible is chosen |
 | `ANALYTICS_MODE` | all | `fixtures` (default) or `live` |
 | `STUMPNOTE_ANALYTICS_DATABASE_URL` | prod | Read-only role over the Supabase pooler, `analytics` schema only |
 | `REVENUECAT_SECRET_API_KEY` | prod | v2 key with overview-metrics read only (phase 2) |

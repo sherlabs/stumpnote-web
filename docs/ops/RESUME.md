@@ -81,7 +81,7 @@ Efficiency rules for agents (from the owner's CLAUDE.md): iterate with targeted 
 | Vercel CLI (`npx vercel@latest`, logged in) | project `stumpnote-site` (decision D-01: existing Pro team by default) | runbook `docs/spec/07-deploy-runbook.md` |
 | Neon (via Vercel Marketplace) | Payload DB (D-03) | terms + plan choice are the user's (BLOCKED gate) |
 | Docker | local Postgres 17 (D-04) | `pnpm db:up` |
-| PostHog Cloud EU | website analytics (D-06, S6) | account creation is a user step; custom admin view, no third-party Payload plugin |
+| Web analytics provider (D-06; owner chose the NouanceLabs plugin, verified in S6; fallback custom view on Plausible or PostHog) | website analytics in admin (S6) | account creation or billing is a user step; see `docs/spec/USER-DECISIONS.md` |
 | StumpNote Supabase (prod) | AI-spend / product views (D-07, S6) | read-only role created by a user-approved private-repo migration; URL only in Vercel env; fixtures until then |
 | Private app repo (read-only clone at `/Users/nilesh93/Projects/personal/stumpnote`) | source docs listed in `docs/spec/README.md` | `git -C <path> fetch -q origin && git -C <path> show origin/main:<file>` |
 | Namecheap | DNS cutover (D-10, S7) | user approval required; runbook section 4 |

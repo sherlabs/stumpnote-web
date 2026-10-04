@@ -4,9 +4,13 @@ Index: [README.md](./README.md). Decisions D-06, D-07, D-08 in [00-overview.md](
 
 Hard rules: admin role only; server components only; aggregate-only; k-anonymity k >= 5 on any subject breakdown; no real numbers, ids or screenshots of live data committed to this repo; fixtures are synthetic and labelled.
 
-## 1. Website analytics (D-06)
+## 1. Website analytics (D-06; owner decision D-ANALYTICS in [USER-DECISIONS.md](./USER-DECISIONS.md))
 
-**Provider:** PostHog Cloud, EU region, free tier. Site snippet `posthog-js` initialised after idle with:
+**Step zero in S6: verify the owner's chosen plugin.** The owner chose the NouanceLabs `payload-dashboard-analytics` plugin. Registry metadata on 2026-10-04 (latest 0.3.0, 2023-05-25, peer `payload ^1.6.16`) says it will not install against Payload 3.90. S6 proves it one way or the other in a scratch branch and records the result in `STATUS.md`. If it works: wire it with its privacy-friendly provider (Plausible) and skip the custom view for web analytics (keep sections 2 and 3). If it does not: build the custom view below for the provider the owner picks; never switch plugins silently.
+
+**Provider abstraction:** `src/analytics/web-provider.ts` exposes `getWebPanels(range)`; adapters `plausible.ts` (Stats API v2, server key) and `posthog.ts` (HogQL). Panels and event names below are provider-neutral.
+
+**Default fallback provider (if the owner has not chosen): PostHog Cloud, EU region, free tier.** Site snippet `posthog-js` initialised after idle with:
 ```ts
 posthog.init(NEXT_PUBLIC_POSTHOG_KEY, {
   api_host: NEXT_PUBLIC_POSTHOG_HOST,   // https://eu.i.posthog.com
@@ -19,7 +23,9 @@ posthog.init(NEXT_PUBLIC_POSTHOG_KEY, {
 ```
 Project setting required in PostHog: Web analytics, "Cookieless server hash mode" enabled (user step). The admin session cookie set by Payload is strictly necessary and is the only cookie on the site.
 
-**Why no plugin:** the Payload analytics plugin from the Payload 1 era does not run on Payload 3. The Payload 3 community PostHog plugin exposes its data endpoint without an authentication check, so it is not installed; its approach (admin view + server fetch) is reproduced in-house. GA4 plugins exist but require a consent banner (fallback only if the user chooses GA4).
+**If Plausible is chosen instead:** script `https://plausible.io/js/script.js` (cookieless by design), Stats API v2 with a server-side key (`PLAUSIBLE_API_KEY`, `PLAUSIBLE_SITE_ID`, `PLAUSIBLE_API_HOST`); custom events via `plausible('cta_click_beta', {props})`. Plausible has no free plan, so the account is a BLOCKED billing step for the owner.
+
+**Plugins not used and why:** the Payload 3 community PostHog plugin exposes its data endpoint without an authentication check; GA4 plugins require a consent banner (only if the owner explicitly chooses GA4).
 
 **Consent/cookie stance:** cookieless, aggregate-only, no cross-site tracking, no advertising tags. `/cookies` states this and names the admin session cookie. Child-account analytics in the app are off; the marketing site does not know who is a child and collects nothing identifying.
 

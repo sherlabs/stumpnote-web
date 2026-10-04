@@ -48,6 +48,8 @@ Never bump the database row first. The `beforeChange` hook requires `policyVersi
 
 ## 4. Placeholder list (the `legal-values` global; mirrors the app repo's legal config)
 
+**Source of values (owner decision D-LEGAL in [USER-DECISIONS.md](./USER-DECISIONS.md)):** the owner's existing public policy at `https://www.sherlabs.com/privacy` and related sherlabs.com pages. In S5 the agent reads those pages, extracts only the facts they state (typically entity name, address, contact mailbox, governing law), and writes them into `STATUS.md` under "Decisions needed" as a proposal with the source URL per value. Nothing is entered into the `legal-values` global or published until the owner approves. Values the pages do not state (retention period, backup purge window, usage-log retention, policy version, dates, DPO) stay empty placeholders until the owner approves proposed values.
+
 | Key | Meaning | Default |
 |---|---|---|
 | `COMPANY_LEGAL_NAME` | Legal entity that operates StumpNote ("SherLabs" is only the App Store brand) | empty |

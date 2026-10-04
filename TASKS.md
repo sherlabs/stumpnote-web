@@ -81,6 +81,7 @@ Format: `- [ ] ID title (owner: agent|user) (deps) (est)`. Estimates are agent w
 - [ ] S4-U1 Decide show/hide pricing (D-14) (owner: user)
 
 ## S5 Legal + SEO + quality pass (brief: S5-legal-seo-quality.md)
+- [ ] S5-00 Read sherlabs.com policy pages; propose legal values in STATUS for owner approval, publish nothing (agent) (S4) (0.5h)
 - [ ] S5-01 legal-pages full fields, versions, strict-gate and policyVersion hooks; legal-values global (agent) (S4) (2h)
 - [ ] S5-02 `legal/render.ts` + unit tests (agent) (S5-01) (2h)
 - [ ] S5-03 Importer from private repo sources; draft cookies/account-deletion/data-safety with review markers (agent) (S5-02) (2h)
@@ -98,6 +99,7 @@ Format: `- [ ] ID title (owner: agent|user) (deps) (est)`. Estimates are agent w
 - [ ] S5-U3 Decide on publishing /data-safety now (owner: user)
 
 ## S6 Admin analytics (brief: S6-admin-analytics.md)
+- [ ] S6-00 Verify the NouanceLabs `payload-dashboard-analytics` plugin against Payload 3 in a scratch branch; record result in STATUS; plugin or documented fallback (agent) (S1) (1h)
 - [ ] S6-01 `src/analytics/*` server-only modules, zod types, fixtures generator, cache (agent) (S1) (4h)
 - [ ] S6-02 `requireAdmin` + audit write + throttle (agent) (S6-01) (1h)
 - [ ] S6-03 Three admin views with Recharts panels per spec (agent) (S6-02) (8h)

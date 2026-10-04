@@ -4,6 +4,7 @@ The complete plan for the StumpNote website and admin. Written in S0 (2026-10-04
 
 | File | What it holds | Executed in |
 |---|---|---|
+| [USER-DECISIONS.md](./USER-DECISIONS.md) | **Authoritative owner decisions** (DB, analytics plugin, legal source, App Store timing). Overrides any conflicting default elsewhere | all |
 | [00-overview.md](./00-overview.md) | Vision, goals, non-goals, success metrics, awards checklist, audiences, constraints, key decisions table, decisions needed from the user, stage map | all |
 | [01-architecture.md](./01-architecture.md) | Next.js + Payload layout, folder structure, environments, env var catalogue (names only), DB and migrations, media, caching, security model, read-only Supabase analytics access design | S1, S6 |
 | [supabase-analytics-views.sql](./supabase-analytics-views.sql) | DRAFT migration for the PRIVATE app repo: `analytics` schema, aggregate views, read-only role. Not applied; user-approved S6 step | S6 |
