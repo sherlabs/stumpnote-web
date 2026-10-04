@@ -1,0 +1,22 @@
+# Local Payload database. Port 5433 avoids clashing with `supabase start` (5432/54322).
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: stumpnote-site-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: stumpnote_cms
+    ports:
+      - '127.0.0.1:5433:5432'
+    volumes:
+      - stumpnote_site_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d stumpnote_cms']
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  stumpnote_site_pgdata:
