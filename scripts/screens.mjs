@@ -4,7 +4,10 @@ import { chromium } from '@playwright/test'
 const [prefix, ...paths] = process.argv.slice(2)
 const base = process.env.BASE ?? 'http://127.0.0.1:3100'
 const browser = await chromium.launch()
-for (const [w, h] of [[1440, 900], [390, 844]]) {
+for (const [w, h] of [
+  [1440, 900],
+  [390, 844],
+]) {
   const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: 1 })
   const page = await ctx.newPage()
   for (const p of paths) {

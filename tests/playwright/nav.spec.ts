@@ -26,7 +26,9 @@ test('every internal link in header and footer resolves (no 404)', async ({ page
   }
 })
 
-test('footer disclosure and legal links (S5 built them), no unbuilt data-safety link', async ({ page }) => {
+test('footer disclosure and legal links (S5 built them), no unbuilt data-safety link', async ({
+  page,
+}) => {
   await page.goto('/pricing')
   await expect(page.locator('footer')).toContainText('AI-generated insights are guidance')
   for (const h of ['/privacy', '/terms', '/cookies', '/account-deletion']) {

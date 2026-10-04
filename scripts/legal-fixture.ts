@@ -48,7 +48,10 @@ try {
     await payload.updateGlobal({
       slug: 'legal-values',
       data: Object.fromEntries(
-        Object.keys(SYNTHETIC).map((k) => [k, k === 'DELETE_ACCOUNT_PATH' ? 'Profile, then Delete account' : '']),
+        Object.keys(SYNTHETIC).map((k) => [
+          k,
+          k === 'DELETE_ACCOUNT_PATH' ? 'Profile, then Delete account' : '',
+        ]),
       ) as never,
     })
     await payload.delete({ collection: 'legal-pages', where: { id: { exists: true } } })

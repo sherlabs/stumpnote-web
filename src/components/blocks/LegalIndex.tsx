@@ -44,7 +44,11 @@ export function LegalIndex() {
                 The standard end user licence agreement that applies on Apple devices (apple.com).
               </span>
             </span>
-            <ArrowUpRight aria-hidden size={18} className="shrink-0 text-muted group-hover:text-text" />
+            <ArrowUpRight
+              aria-hidden
+              size={18}
+              className="shrink-0 text-muted group-hover:text-text"
+            />
           </a>
         </li>
       </ul>

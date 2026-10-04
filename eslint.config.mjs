@@ -36,8 +36,16 @@ const eslintConfig = [
     },
   },
   {
-    // Metadata/theme-color and server config legitimately carry the brand canvas colour once.
-    files: ['src/app/(site)/layout.tsx', 'next.config.ts', 'tests/**', 'scripts/**'],
+    // Metadata/theme-color and server config legitimately carry the brand canvas colour once. The web manifest and the
+    // OG image renderer (src/lib/seo) run outside CSS, so they cannot read tokens.css variables; the hex values there mirror it.
+    files: [
+      'src/app/(site)/layout.tsx',
+      'src/app/manifest.ts',
+      'src/lib/seo/**',
+      'next.config.ts',
+      'tests/**',
+      'scripts/**',
+    ],
     rules: { 'no-restricted-syntax': 'off' },
   },
   {

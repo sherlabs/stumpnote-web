@@ -43,50 +43,50 @@ export default async function SupportPage() {
     <>
       {faqLd && <JsonLd data={graph(faqLd)} />}
       <PageView
-      page={page}
-      ctx={ctx}
-      // The legal-pages support body appears only when it is complete (no placeholders); otherwise the page above is the whole page.
-      extra={
-        legal.render.mode === 'full' ? (
-          <Section tight labelledBy="support-details-h">
-            <h2 id="support-details-h" className="display-3 mb-8">
-              Support details
-            </h2>
-            <LegalProse html={legal.render.html} />
+        page={page}
+        ctx={ctx}
+        // The legal-pages support body appears only when it is complete (no placeholders); otherwise the page above is the whole page.
+        extra={
+          legal.render.mode === 'full' ? (
+            <Section tight labelledBy="support-details-h">
+              <h2 id="support-details-h" className="display-3 mb-8">
+                Support details
+              </h2>
+              <LegalProse html={legal.render.html} />
+            </Section>
+          ) : undefined
+        }
+        afterHero={
+          <Section tight>
+            <div className="grid gap-4 md:grid-cols-2">
+              <Notice title="How to reach us">
+                {email ? (
+                  <>
+                    Email{' '}
+                    <a className="text-text underline underline-offset-4" href={`mailto:${email}`}>
+                      {email}
+                    </a>
+                    .
+                  </>
+                ) : (
+                  <>Use the app: Profile, then Help.</>
+                )}{' '}
+                Include the app, your device and OS version, and what you were doing.
+              </Notice>
+              <Notice title="Deleting your account">
+                Delete it inside the app: Profile, Account, Delete account. Cancel any subscription
+                with Apple first.
+                {isRouteReady('/account-deletion') && (
+                  <>
+                    {' '}
+                    <TextLink href="/account-deletion">Account deletion</TextLink>
+                  </>
+                )}
+              </Notice>
+            </div>
           </Section>
-        ) : undefined
-      }
-      afterHero={
-        <Section tight>
-          <div className="grid gap-4 md:grid-cols-2">
-            <Notice title="How to reach us">
-              {email ? (
-                <>
-                  Email{' '}
-                  <a className="text-text underline underline-offset-4" href={`mailto:${email}`}>
-                    {email}
-                  </a>
-                  .
-                </>
-              ) : (
-                <>Use the app: Profile, then Help.</>
-              )}{' '}
-              Include the app, your device and OS version, and what you were doing.
-            </Notice>
-            <Notice title="Deleting your account">
-              Delete it inside the app: Profile, Account, Delete account. Cancel any subscription
-              with Apple first.
-              {isRouteReady('/account-deletion') && (
-                <>
-                  {' '}
-                  <TextLink href="/account-deletion">Account deletion</TextLink>
-                </>
-              )}
-            </Notice>
-          </div>
-        </Section>
-      }
-    />
+        }
+      />
     </>
   )
 }

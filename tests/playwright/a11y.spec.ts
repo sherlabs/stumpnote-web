@@ -46,3 +46,23 @@ test('focus is visible on the first Tab (skip link) and on the next control', as
   expect(outline.style).not.toBe('none')
   expect(parseFloat(outline.width)).toBeGreaterThanOrEqual(2)
 })
+
+// S5 pass: 400% zoom (a 320 CSS px viewport) on every public route. The light theme is not shipped in v1 (decision D-53),
+// so there is no "both themes" run.
+test.describe('zoom', () => {
+  // eslint-disable-next-line no-empty-pattern
+  test.beforeEach(({}, testInfo) => {
+    test.skip(testInfo.project.name !== 'chromium-desktop', 'desktop project only')
+  })
+
+  test('no horizontal scroll at 320 px (400% zoom) on any route', async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 640 })
+    for (const path of htmlRoutes) {
+      await page.goto(path)
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      )
+      expect(overflow, path).toBeLessThanOrEqual(0)
+    }
+  })
+})

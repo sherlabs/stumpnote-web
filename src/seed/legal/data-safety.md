@@ -6,16 +6,16 @@ This is a plain-language summary of what StumpNote handles. It is not the App St
 
 ## What the apps handle
 
-| Kind of data | Why | Optional? |
-|---|---|---|
-| Account details (email, name, sign-in method) | Create and secure your account | No |
-| Age group and guardian link | Age gate and safeguards for young players | No |
-| Journal entries, voice recordings and transcripts | The core journal and AI insights | You choose what to record |
-| Video clips and scorecard photos | Technique review and match records | Yes |
-| Health summaries from Apple Health or Health Connect | Readiness and recovery | Yes, only if you allow it |
-| Team, squad and coach links | Team and coaching features | Depends on your role |
-| Subscription status | Unlock paid features | Only if you subscribe |
-| App usage analytics (adult accounts only) | Improve the app | {{LEGAL_REVIEW: confirm analytics consent and the opt-out wording for each region}} |
+| Kind of data                                         | Why                                       | Optional?                                                                           |
+| ---------------------------------------------------- | ----------------------------------------- | ----------------------------------------------------------------------------------- |
+| Account details (email, name, sign-in method)        | Create and secure your account            | No                                                                                  |
+| Age group and guardian link                          | Age gate and safeguards for young players | No                                                                                  |
+| Journal entries, voice recordings and transcripts    | The core journal and AI insights          | You choose what to record                                                           |
+| Video clips and scorecard photos                     | Technique review and match records        | Yes                                                                                 |
+| Health summaries from Apple Health or Health Connect | Readiness and recovery                    | Yes, only if you allow it                                                           |
+| Team, squad and coach links                          | Team and coaching features                | Depends on your role                                                                |
+| Subscription status                                  | Unlock paid features                      | Only if you subscribe                                                               |
+| App usage analytics (adult accounts only)            | Improve the app                           | {{LEGAL_REVIEW: confirm analytics consent and the opt-out wording for each region}} |
 
 ## AI processing
 

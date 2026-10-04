@@ -64,13 +64,21 @@ test('history and old-version routes are noindex; unknown versions are 404', asy
 
 test('/legal lists the legal pages and the Apple EULA', async ({ page }) => {
   await page.goto('/legal')
-  for (const name of ['Privacy Policy', 'Terms of Use', 'Cookies', 'Account deletion', 'Apple standard EULA']) {
+  for (const name of [
+    'Privacy Policy',
+    'Terms of Use',
+    'Cookies',
+    'Account deletion',
+    'Apple standard EULA',
+  ]) {
     await expect(page.locator('#main').getByRole('link', { name })).toBeVisible()
   }
   await expect(page.getByRole('link', { name: 'Data safety summary' })).toHaveCount(0)
 })
 
-test('footer carries the legal links, the EULA, and a copyright line without an entity', async ({ page }) => {
+test('footer carries the legal links, the EULA, and a copyright line without an entity', async ({
+  page,
+}) => {
   await page.goto('/')
   const footer = page.getByRole('contentinfo')
   await expect(footer.getByRole('link', { name: 'Privacy Policy' })).toBeVisible()
@@ -85,19 +93,25 @@ test('footer carries the legal links, the EULA, and a copyright line without an 
 test.describe('full pages (LEGAL_FIXTURE=1, local DB with synthetic values)', () => {
   test.skip(!FIXTURE, 'needs the local legal fixture')
 
-  test('privacy renders substituted values, meta, contents list and no review text', async ({ page }) => {
+  test('privacy renders substituted values, meta, contents list and no review text', async ({
+    page,
+  }) => {
     await page.goto('/privacy')
     const body = page.locator('article.legal-prose')
     await expect(body).toContainText('privacy@example.test')
     await expect(body).toContainText('Fixture Co Pty Ltd')
     await expect(page.getByText('Policy version:')).toBeVisible()
     await expect(page.locator('.legal-toc')).toBeVisible() // sticky list on desktop, collapsible on phones
-    await expect(page.getByText('this paragraph exists only in version two', { exact: false })).toBeVisible()
+    await expect(
+      page.getByText('this paragraph exists only in version two', { exact: false }),
+    ).toBeVisible()
     const html = await page.content()
     expect(html).not.toMatch(/LEGAL_REVIEW|being finalised|\{\{/)
   })
 
-  test('version history lists only published versions and old versions render exactly their body', async ({ page }) => {
+  test('version history lists only published versions and old versions render exactly their body', async ({
+    page,
+  }) => {
     await page.goto('/privacy/history')
     await expect(page.getByRole('link', { name: /Version fixture-1/ })).toBeVisible()
     await expect(page.getByRole('link', { name: /Version fixture-2/ })).toBeVisible()
@@ -114,6 +128,30 @@ test.describe('full pages (LEGAL_FIXTURE=1, local DB with synthetic values)', ()
       expect(xml).toContain(`${p}<`)
     }
     expect(xml).not.toContain('/data-safety<') // not published until S5-U3
+  })
+
+  test('keyboard: contents links jump to the section and scrollable tables take focus', async ({
+    page,
+    isMobile,
+  }) => {
+    await page.goto('/privacy')
+    if (!isMobile) {
+      const first = page
+        .getByRole('navigation', { name: 'On this page', exact: true })
+        .getByRole('link')
+        .first()
+      await first.focus()
+      await expect(first).toBeFocused()
+      const outline = await first.evaluate((el) => getComputedStyle(el).outlineStyle)
+      expect(outline).not.toBe('none')
+      await page.keyboard.press('Enter')
+      await expect(page).toHaveURL(/#1-who-we-are$/)
+    }
+    const table = page.locator('.legal-table').first()
+    await table.focus()
+    await expect(table).toBeFocused()
+    const o = await table.evaluate((el) => getComputedStyle(el).outlineStyle)
+    expect(o).not.toBe('none')
   })
 
   test('print stylesheet hides chrome and expands links', async ({ page }) => {
@@ -133,14 +171,31 @@ test.describe('full pages (LEGAL_FIXTURE=1, local DB with synthetic values)', ()
     expect(ext).toContain('http')
   })
 
-  for (const path of ['/privacy', '/terms', '/cookies', '/account-deletion', '/data-safety', '/privacy/history']) {
+  for (const path of [
+    '/privacy',
+    '/terms',
+    '/cookies',
+    '/account-deletion',
+    '/data-safety',
+    '/privacy/history',
+  ]) {
     test(`axe on full ${path}`, async ({ page }) => {
       await page.goto(path)
       const results = await new AxeBuilder({ page })
         .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
         .analyze()
-      const bad = results.violations.filter((v) => v.impact === 'serious' || v.impact === 'critical')
-      expect(bad.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).slice(0, 3).join(' | ')}`)).toEqual([])
+      const bad = results.violations.filter(
+        (v) => v.impact === 'serious' || v.impact === 'critical',
+      )
+      expect(
+        bad.map(
+          (v) =>
+            `${v.id}: ${v.nodes
+              .map((n) => n.target.join(' '))
+              .slice(0, 3)
+              .join(' | ')}`,
+        ),
+      ).toEqual([])
     })
   }
 })

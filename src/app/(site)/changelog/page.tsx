@@ -12,7 +12,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const entries = await getChangelog()
   return {
     title: { absolute: 'Changelog | StumpNote' },
-    description: 'What changed in StumpNote, newest first: new features, improvements and fixes across the apps.',
+    description:
+      'What changed in StumpNote, newest first: new features, improvements and fixes across the apps.',
     alternates: { canonical: '/changelog' },
     robots: entries.length ? undefined : { index: false },
   }

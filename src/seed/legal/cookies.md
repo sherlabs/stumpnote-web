@@ -12,11 +12,11 @@ This page explains what the StumpNote website (stumpnote.com) stores in your bro
 
 ## What is stored on your device
 
-| Item | Type | Purpose | Lasts |
-|---|---|---|---|
-| Theme choice | Browser storage (local storage) | Remembers light or dark if you pick one | Until you clear site data |
-| Motion choice | Browser storage (local storage) | Remembers whether you turned animations on or off | Until you clear site data |
-| Staff session | Cookie, staff only | Keeps a staff member signed in to the admin area | Short session, ended on sign-out |
+| Item          | Type                            | Purpose                                           | Lasts                            |
+| ------------- | ------------------------------- | ------------------------------------------------- | -------------------------------- |
+| Theme choice  | Browser storage (local storage) | Remembers light or dark if you pick one           | Until you clear site data        |
+| Motion choice | Browser storage (local storage) | Remembers whether you turned animations on or off | Until you clear site data        |
+| Staff session | Cookie, staff only              | Keeps a staff member signed in to the admin area  | Short session, ended on sign-out |
 
 None of these are shared with other companies, and none are used to identify you.
 

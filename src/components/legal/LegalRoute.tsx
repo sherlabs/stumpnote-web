@@ -24,7 +24,9 @@ export async function legalMetadata(slug: LegalSlug): Promise<Metadata> {
     alternates: { canonical: `/${slug}` },
     // noindex while in notice mode, and for any page not yet linked/published (data-safety awaits the owner's decision)
     robots:
-      render.mode === 'full' && isRouteReady(`/${slug}`) ? undefined : { index: false, follow: true },
+      render.mode === 'full' && isRouteReady(`/${slug}`)
+        ? undefined
+        : { index: false, follow: true },
   }
 }
 

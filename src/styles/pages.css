@@ -101,6 +101,8 @@
   padding: 4px var(--gutter);
   margin-inline: calc(-1 * var(--gutter));
   border: 0;
+  /* fieldset defaults to min-width: min-content, which would stretch the page instead of scrolling the chips */
+  min-width: 0;
   overflow-x: auto;
   scrollbar-width: none;
 }

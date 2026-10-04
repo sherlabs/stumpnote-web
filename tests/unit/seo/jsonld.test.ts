@@ -18,7 +18,10 @@ describe('JSON-LD honesty exclusions', () => {
   it('Organization has no legal entity until one is supplied', () => {
     expect(organizationLd({ baseUrl: BASE })).not.toHaveProperty('legalName')
     expect(organizationLd({ baseUrl: BASE, legalName: '  ' })).not.toHaveProperty('legalName')
-    expect(organizationLd({ baseUrl: BASE, legalName: 'Test Co' })).toHaveProperty('legalName', 'Test Co')
+    expect(organizationLd({ baseUrl: BASE, legalName: 'Test Co' })).toHaveProperty(
+      'legalName',
+      'Test Co',
+    )
     expect(organizationLd({ baseUrl: BASE }).name).toBe('StumpNote')
   })
 
@@ -55,7 +58,10 @@ describe('JSON-LD honesty exclusions', () => {
     const g = graph(
       organizationLd({ baseUrl: BASE }),
       websiteLd(BASE),
-      softwareApplicationsLd({ baseUrl: BASE, beta: { state: 'appstore', appStorePlayerUrl: 'https://x.test' } }),
+      softwareApplicationsLd({
+        baseUrl: BASE,
+        beta: { state: 'appstore', appStorePlayerUrl: 'https://x.test' },
+      }),
     )
     for (const k of FORBIDDEN) expect(flat(g)).not.toContain(k)
     expect(g['@context']).toBe('https://schema.org')

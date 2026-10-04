@@ -7,7 +7,10 @@ const svg = await readFile(new URL('../public/brand/stumpnote-mark.svg', import.
 const BG = { r: 11, g: 17, b: 20, alpha: 1 }
 async function icon(size, markRatio, out) {
   const mark = await sharp(svg, { density: 600 })
-    .resize(Math.round(size * markRatio), Math.round(size * markRatio), { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
+    .resize(Math.round(size * markRatio), Math.round(size * markRatio), {
+      fit: 'contain',
+      background: { r: 0, g: 0, b: 0, alpha: 0 },
+    })
     .png()
     .toBuffer()
   await sharp({ create: { width: size, height: size, channels: 4, background: BG } })

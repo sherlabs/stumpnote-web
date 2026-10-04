@@ -5,7 +5,10 @@ const htmlRoutes = routes.ok.filter((r) => !/\.(txt|xml)$/.test(r) && r !== '/la
 const FORBIDDEN = ['aggregateRating', '"review"', '"offers"', 'ratingValue', 'priceCurrency']
 
 for (const path of htmlRoutes) {
-  test(`seo: ${path} has title, description, canonical, social tags and one h1`, async ({ page, request }) => {
+  test(`seo: ${path} has title, description, canonical, social tags and one h1`, async ({
+    page,
+    request,
+  }) => {
     await page.goto(path)
     const title = await page.title()
     expect(title.length).toBeGreaterThan(3)
@@ -18,7 +21,9 @@ for (const path of htmlRoutes) {
     for (const p of ['og:title', 'og:description', 'og:image', 'og:site_name']) {
       expect(await page.locator(`meta[property="${p}"]`).count(), p).toBeGreaterThan(0)
     }
-    expect(await page.locator('meta[name="twitter:card"]').getAttribute('content')).toBe('summary_large_image')
+    expect(await page.locator('meta[name="twitter:card"]').getAttribute('content')).toBe(
+      'summary_large_image',
+    )
     expect(await page.locator('h1').count()).toBe(1)
     // the social image is a real PNG on this deployment
     const og = await page.locator('meta[property="og:image"]').getAttribute('content')
@@ -42,10 +47,14 @@ test('home has Organization + 3 iOS apps and no rating, review or offer keys', a
   expect(raw).not.toContain('installUrl') // not live on the App Store
 })
 
-test('FAQPage structured data only on /support, and only for FAQs the page shows', async ({ page }) => {
+test('FAQPage structured data only on /support, and only for FAQs the page shows', async ({
+  page,
+}) => {
   for (const path of htmlRoutes) {
     await page.goto(path)
-    const raw = (await page.locator('script[type="application/ld+json"]').allTextContents()).join('\n')
+    const raw = (await page.locator('script[type="application/ld+json"]').allTextContents()).join(
+      '\n',
+    )
     if (path === '/support') {
       expect(raw).toContain('"FAQPage"')
       const n = (raw.match(/"@type":"Question"/g) ?? []).length
@@ -67,7 +76,9 @@ test('manifest and icons resolve', async ({ request, page }) => {
   await page.goto('/')
   expect(await page.locator('link[rel="apple-touch-icon"]').count()).toBeGreaterThan(0)
   expect(await page.locator('link[rel="icon"]').count()).toBeGreaterThan(0)
-  expect(await page.locator('link[rel="manifest"]').getAttribute('href')).toBe('/manifest.webmanifest')
+  expect(await page.locator('link[rel="manifest"]').getAttribute('href')).toBe(
+    '/manifest.webmanifest',
+  )
 })
 
 test('every sitemap URL resolves, and none is /lab, /admin or /api', async ({ request }) => {

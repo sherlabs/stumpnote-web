@@ -7,7 +7,10 @@
  * - no legal entity on Organization until COMPANY_LEGAL_NAME is set.
  */
 
-export type JsonLdBeta = { state: 'waitlist' | 'testflight' | 'appstore'; appStorePlayerUrl?: string }
+export type JsonLdBeta = {
+  state: 'waitlist' | 'testflight' | 'appstore'
+  appStorePlayerUrl?: string
+}
 
 type LexNode = { text?: string; children?: LexNode[] }
 
