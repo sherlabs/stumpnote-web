@@ -178,3 +178,9 @@ Home carries one `@graph` (Organization, WebSite, three SoftwareApplication on i
 
 ## D-52 Lighthouse set widened; `/blog` and `/changelog` stay unlinked (accepted, S5)
 The gate now covers 15 routes (adds captains, coaches, privacy in notice mode, terms, legal, blog). `/blog` and `/changelog` are still empty-state, noindex and unlinked until S7 publishes content (D-41).
+
+## D-53 v1 ships the dark theme only; the light theme is confined to /lab (accepted, S5)
+The light tokens are the naive draft (accent text fails AA on light, as 02-design section 2 warns): axe in the light theme reports `color-contrast` on eyebrows and filled buttons across every route. Per the spec note ("if light is cut, drop the both-themes a11y runs"), the init script now honours a stored light choice only on `/lab`, so a visitor can never land in an unreviewed theme, and the S5 accessibility gate runs in dark (plus 320 px / 400% zoom and reduced motion). Shipping light later needs the re-derived palette from the app repo design notes and a both-themes axe run.
+
+## D-54 Features filter chips no longer stretch the page on phones (accepted, S5 fix)
+A `fieldset` defaults to `min-width: min-content`, so the scrollable chip row made `/features` 890 px wide on a 320 to 390 px viewport (page-level horizontal scroll). `min-width: 0` restores the intended in-row scroll. The new "no horizontal scroll at 320 px on every route" test guards it.
