@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Logo } from './Logo'
 import { MotionToggle } from './MotionToggle'
-import { footerColumns } from '@/lib/site-config'
+import { WEB_APP_URL, footerColumns } from '@/lib/site-config'
 
 // Static fallback columns (CMS `navigation` global replaces them in S4). Only built routes render.
 export function Footer({ year = 2026 }: { year?: number }) {
@@ -9,7 +9,7 @@ export function Footer({ year = 2026 }: { year?: number }) {
     .map((c) => ({ ...c, items: c.items.filter((i) => i.ready) }))
     .filter((c) => c.items.length > 0)
   return (
-    <footer className="relative z-10 mt-[var(--s-10)] border-t border-[var(--hairline-2)]">
+    <footer className="relative z-10 mt-[var(--s-8)] border-t border-[var(--hairline-2)]">
       <div className="container-x grid gap-12 py-14 md:grid-cols-[1.2fr_2fr]">
         <div className="flex flex-col items-start gap-5">
           <Logo />
@@ -30,7 +30,14 @@ export function Footer({ year = 2026 }: { year?: number }) {
                   return (
                     <li key={i.href}>
                       {external ? (
-                        <a href={i.href} className={cls} rel="noopener">
+                        <a
+                          href={i.href}
+                          className={cls}
+                          rel="noopener"
+                          data-track={
+                            i.href.startsWith(WEB_APP_URL) ? 'outbound_app_link' : undefined
+                          }
+                        >
                           {i.label}
                         </a>
                       ) : (

@@ -174,6 +174,201 @@ export interface Page {
    */
   noindex?: boolean | null;
   publishedAt?: string | null;
+  hero?: {
+    type?: ('none' | 'standard' | 'persona' | 'legal') | null;
+    overline?: string | null;
+    headline?: string | null;
+    subcopy?: string | null;
+    primaryCta?: {
+      label?: string | null;
+      /**
+       * Path (/features) or full URL.
+       */
+      url?: string | null;
+    };
+    secondaryCta?: {
+      label?: string | null;
+      /**
+       * Path (/features) or full URL.
+       */
+      url?: string | null;
+    };
+    persona?: ('player' | 'coach' | 'parent' | 'team') | null;
+  };
+  layout?:
+    | (
+        | HeroStoryBlock
+        | StatementBlock
+        | ChapterBlock
+        | PersonaTabsBlock
+        | FeatureCarouselBlock
+        | CtaBetaBlock
+        | PrinciplesBlock
+        | RichTextBlock
+        | TestimonialsBlock
+      )[]
+    | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroStoryBlock".
+ */
+export interface HeroStoryBlock {
+  overline?: string | null;
+  /**
+   * Up to 3 lines. One line break per visual line.
+   */
+  headline: string;
+  subcopy?: string | null;
+  primaryCta?: {
+    label?: string | null;
+    /**
+     * Path (/features) or full URL.
+     */
+    url?: string | null;
+  };
+  secondaryCta?: {
+    label?: string | null;
+    /**
+     * Path (/features) or full URL.
+     */
+    url?: string | null;
+  };
+  showMStroke?: boolean | null;
+  showPersonaChips?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'hero-story';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StatementBlock".
+ */
+export interface StatementBlock {
+  text: string;
+  /**
+   * Short "lost note" fragments that drift and dim while scrolling.
+   */
+  fragments?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'statement';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ChapterBlock".
+ */
+export interface ChapterBlock {
+  /**
+   * Optional in-page id (no #).
+   */
+  anchor?: string | null;
+  overline?: string | null;
+  title: string;
+  body?: string | null;
+  bullets?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Used by the "How it learns" stage (demo = learn-stage).
+   */
+  steps?:
+    | {
+        title: string;
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  demo?:
+    | (
+        | 'none'
+        | 'voice-typer'
+        | 'quick-log'
+        | 'heat-grid'
+        | 'kinetic-transcript'
+        | 'series-chart'
+        | 'squad-grid'
+        | 'm-stroke'
+        | 'learn-stage'
+      )
+    | null;
+  /**
+   * Public status vocabulary only.
+   */
+  badge?: ('none' | 'available-web' | 'in-beta' | 'preview' | 'coming-soon') | null;
+  /**
+   * Allowed teaser line for coming-soon parts (shown with a Coming soon badge).
+   */
+  teaser?: string | null;
+  /**
+   * Rendered under the label "Illustrative scenario". Fictional persona only.
+   */
+  scenario?: {
+    persona?: string | null;
+    text?: string | null;
+  };
+  persona?: ('inherit' | 'player' | 'coach' | 'parent' | 'team') | null;
+  pin?: boolean | null;
+  reverse?: boolean | null;
+  link?: {
+    label?: string | null;
+    /**
+     * Path (/features) or full URL.
+     */
+    url?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'chapter';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PersonaTabsBlock".
+ */
+export interface PersonaTabsBlock {
+  overline?: string | null;
+  heading?: string | null;
+  /**
+   * Leave empty to use the built-in copy from the content brief.
+   */
+  personas?: (number | Persona)[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'persona-tabs';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "personas".
+ */
+export interface Persona {
+  id: number;
+  title: string;
+  /**
+   * URL segment. Auto-generated from the title when empty.
+   */
+  slug: string;
+  accent?: ('player' | 'coach' | 'parent' | 'team') | null;
+  headline?: string | null;
+  leadWith?: ('default' | 'consent') | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -238,6 +433,23 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeatureCarouselBlock".
+ */
+export interface FeatureCarouselBlock {
+  overline?: string | null;
+  heading?: string | null;
+  /**
+   * Leave empty to use the built-in list of eight features.
+   */
+  features?: (number | Feature)[] | null;
+  filterByArea?:
+    ('all' | 'journal-memory' | 'mental-game' | 'game-day' | 'team' | 'coach' | 'parent' | 'platform') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'feature-carousel';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "features".
  */
 export interface Feature {
@@ -265,29 +477,76 @@ export interface Feature {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "personas".
+ * via the `definition` "CtaBetaBlock".
  */
-export interface Persona {
-  id: number;
-  title: string;
-  /**
-   * URL segment. Auto-generated from the title when empty.
-   */
-  slug: string;
-  accent?: ('player' | 'coach' | 'parent' | 'team') | null;
-  headline?: string | null;
-  leadWith?: ('default' | 'consent') | null;
-  meta?: {
-    title?: string | null;
-    description?: string | null;
+export interface CtaBetaBlock {
+  heading: string;
+  subcopy?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'cta-beta';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PrinciplesBlock".
+ */
+export interface PrinciplesBlock {
+  overline?: string | null;
+  heading: string;
+  items?:
+    | {
+        title: string;
+        text: string;
+        /**
+         * Lucide icon name, e.g. KeyRound.
+         */
+        icon?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  link?: {
+    label?: string | null;
     /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     * Path (/features) or full URL.
      */
-    image?: (number | null) | Media;
+    url?: string | null;
   };
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'principles';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RichTextBlock".
+ */
+export interface RichTextBlock {
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'rich-text';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialsBlock".
+ */
+export interface TestimonialsBlock {
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'testimonials';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -656,6 +915,40 @@ export interface PagesSelect<T extends boolean = true> {
   showInNav?: T;
   noindex?: T;
   publishedAt?: T;
+  hero?:
+    | T
+    | {
+        type?: T;
+        overline?: T;
+        headline?: T;
+        subcopy?: T;
+        primaryCta?:
+          | T
+          | {
+              label?: T;
+              url?: T;
+            };
+        secondaryCta?:
+          | T
+          | {
+              label?: T;
+              url?: T;
+            };
+        persona?: T;
+      };
+  layout?:
+    | T
+    | {
+        'hero-story'?: T | HeroStoryBlockSelect<T>;
+        statement?: T | StatementBlockSelect<T>;
+        chapter?: T | ChapterBlockSelect<T>;
+        'persona-tabs'?: T | PersonaTabsBlockSelect<T>;
+        'feature-carousel'?: T | FeatureCarouselBlockSelect<T>;
+        'cta-beta'?: T | CtaBetaBlockSelect<T>;
+        principles?: T | PrinciplesBlockSelect<T>;
+        'rich-text'?: T | RichTextBlockSelect<T>;
+        testimonials?: T | TestimonialsBlockSelect<T>;
+      };
   meta?:
     | T
     | {
@@ -666,6 +959,163 @@ export interface PagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroStoryBlock_select".
+ */
+export interface HeroStoryBlockSelect<T extends boolean = true> {
+  overline?: T;
+  headline?: T;
+  subcopy?: T;
+  primaryCta?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+      };
+  secondaryCta?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+      };
+  showMStroke?: T;
+  showPersonaChips?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StatementBlock_select".
+ */
+export interface StatementBlockSelect<T extends boolean = true> {
+  text?: T;
+  fragments?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ChapterBlock_select".
+ */
+export interface ChapterBlockSelect<T extends boolean = true> {
+  anchor?: T;
+  overline?: T;
+  title?: T;
+  body?: T;
+  bullets?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  steps?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+        id?: T;
+      };
+  demo?: T;
+  badge?: T;
+  teaser?: T;
+  scenario?:
+    | T
+    | {
+        persona?: T;
+        text?: T;
+      };
+  persona?: T;
+  pin?: T;
+  reverse?: T;
+  link?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PersonaTabsBlock_select".
+ */
+export interface PersonaTabsBlockSelect<T extends boolean = true> {
+  overline?: T;
+  heading?: T;
+  personas?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeatureCarouselBlock_select".
+ */
+export interface FeatureCarouselBlockSelect<T extends boolean = true> {
+  overline?: T;
+  heading?: T;
+  features?: T;
+  filterByArea?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CtaBetaBlock_select".
+ */
+export interface CtaBetaBlockSelect<T extends boolean = true> {
+  heading?: T;
+  subcopy?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PrinciplesBlock_select".
+ */
+export interface PrinciplesBlockSelect<T extends boolean = true> {
+  overline?: T;
+  heading?: T;
+  items?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+        icon?: T;
+        id?: T;
+      };
+  link?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RichTextBlock_select".
+ */
+export interface RichTextBlockSelect<T extends boolean = true> {
+  content?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialsBlock_select".
+ */
+export interface TestimonialsBlockSelect<T extends boolean = true> {
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

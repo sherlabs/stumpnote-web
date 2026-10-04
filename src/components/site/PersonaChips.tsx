@@ -12,7 +12,7 @@ const CHIPS: Array<{ id: Persona; label: string; dot: string }> = [
 ]
 
 /** Neutral chips (selected = brighter, never accent-filled). Picking one re-themes the whole page via data-persona. */
-export function PersonaChips({ className }: { className?: string }) {
+export function PersonaChips({ className, scrollTo }: { className?: string; scrollTo?: string }) {
   const { persona, setPersona } = usePersona()
   return (
     <div
@@ -27,7 +27,15 @@ export function PersonaChips({ className }: { className?: string }) {
             key={c.id}
             type="button"
             aria-pressed={on}
-            onClick={() => setPersona(c.id)}
+            onClick={() => {
+              setPersona(c.id)
+              if (scrollTo) {
+                const reduced = document.documentElement.getAttribute('data-motion') === 'off'
+                document
+                  .getElementById(scrollTo)
+                  ?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' })
+              }
+            }}
             className={cn(
               'inline-flex min-h-11 items-center gap-2.5 rounded-full border px-4 text-[14px] font-semibold transition-colors duration-[var(--dur-1)]',
               on

@@ -36,7 +36,10 @@ export const MStroke = forwardRef<SVGSVGElement, Props>(function MStroke(
   const shine = `s-${uid}`
   const style =
     mode === 'scrub'
-      ? ({ '--p': progress ?? 1 } as React.CSSProperties)
+      ? // An explicit progress wins; otherwise inherit --p from an ancestor (the page scrubs it).
+        progress === undefined
+        ? undefined
+        : ({ '--p': progress } as React.CSSProperties)
       : delay
         ? ({ '--mdelay': `${delay}s` } as React.CSSProperties)
         : undefined

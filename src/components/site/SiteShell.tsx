@@ -5,6 +5,7 @@ import { MotionRoot } from './MotionRoot'
 import { Nav } from './Nav'
 import { PersonaProvider } from './PersonaProvider'
 import { SkipLink } from './SkipLink'
+import { TrackClicks } from './TrackClicks'
 
 /** Everything inside <body>: shared by the site layout and the global 404 so both look identical. */
 export function SiteShell({ children }: { children: ReactNode }) {
@@ -18,6 +19,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
       </main>
       <Footer />
       <MotionRoot />
+      <TrackClicks />
     </PersonaProvider>
   )
 }

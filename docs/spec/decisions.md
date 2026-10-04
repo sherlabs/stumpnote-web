@@ -118,3 +118,24 @@ The app has several root layouts, so unmatched URLs had no `<html lang>` (axe `h
 
 ## D-31 Static nav/footer link filter (accepted, S2)
 `src/lib/site-config.ts` lists every planned route with `ready: boolean`; Nav and Footer render only ready routes, so the deployed site never links to a 404. The Nav CTA is "Join the beta" once `/join` is ready; until then it is "Web app" (app.stumpnote.com). Flip flags per stage; S4 replaces this with the CMS `navigation` global.
+
+## D-32 Home content lives in a typed TS module, not JSON (accepted, S3)
+`src/seed/pages/home.ts` exports the `home` document typed against the generated `Page` type (blocks included). The seed script and the code fallback both import it, so renderer, seed and fallback cannot drift (a JSON file would widen `blockType` to `string`). `pnpm seed` upserts it by slug; `pnpm seed:dry` prints the plan. Options travel as env vars (`SEED_DRY_RUN`, `SEED_ONLY`, `SEED_ALLOW_REMOTE`) because `payload run` strips CLI flags from `process.argv`; the script uses top-level await because `payload run` exits when the module finishes evaluating.
+
+## D-33 `/` is ISR with a code fallback, no `unstable_cache` (accepted, S3)
+`getHomeContent()` (src/lib/cms/home.ts) returns the seed when `DATABASE_URI` is unset or any CMS call throws; the page uses `revalidate = 300` (S4 adds on-demand revalidation hooks). The production deploy has no database yet (Neon gate), so the fallback IS the production path until S1-U1 is done. Relationship blocks (`persona-tabs`, `feature-carousel`) use built-in copy from the content brief (src/content/home-fallbacks.ts) while their relationships are empty. A DB-free build is verified with `DATABASE_URI= pnpm build` (an empty value overrides `.env`; `env -u` does not, Next re-reads the file).
+
+## D-34 No GSAP on the home page (accepted, S3)
+Scroll scrubs use `useScrollProgress` (IntersectionObserver-gated scroll listener writing `--p` on one element, rAF-throttled, no React state) and CSS sticky for the pinned chapter (D-28). SplitText is not used: the hero lines are CSS-animated spans (transform only, never opacity, so the h1 and the lead paragraph, either of which can be the LCP element, are painted at first render). First-load JS stays free of GSAP; Lenis still loads after idle.
+
+## D-35 Pinned chapter markup: pinned + inline stages, switched by CSS (accepted, S3)
+How it learns renders a sticky stage column (`.learn-pinned`) and a per-step inline stage (`.learn-inline`). `html[data-motion='on']` at lg+ shows the pinned stage and hides the inline ones; everywhere else (mobile, motion off, no JS because the attribute is absent) the four steps are stacked cards. Stages remount when they become active so typing and dot-landing replay. Layout height is reserved (fixed stage box), no CLS.
+
+## D-36 Persona accent crossfade via registered custom properties (accepted, S3)
+`@property --accent` and `--accent-text` are registered as colours and `html` transitions them for 300 ms, so every token derived from them (soft, hi, M gradient, focus ring, CTA) follows in one move. Derived tokens are now declared on `:root, [data-persona]` so a scoped persona (the Team chapter) recomputes them instead of inheriting the page values. The Team chapter sets `data-persona="team"` on its own wrapper and never calls `setPersona`.
+
+## D-37 In-block links to unbuilt routes are gated by `isRouteReady` (accepted, S3; deviates from the brief's "link anyway")
+D-31 (never link to a 404) wins over the S3 brief. Persona-tab links, feature-card links and the privacy-chapter link render only when `site-config` marks the route `ready`; S4/S5 flip the flags and the links appear with no code change. The hero primary CTA is the `#join` anchor on the home page (the `/join` route arrives in S4).
+
+## D-38 Waitlist form, defaults and storage (accepted, S3)
+The form renders only when `beta-access.waitlistEnabled` is true (ships false). The server action re-checks the gate, validates, honeypots (bots get the success answer), applies a best-effort in-memory rate limit per instance (5 per 10 minutes, nothing persisted), and writes through the Local API with `overrideAccess: true`. `ipHash` is NOT stored (nothing to leak). The default consent sentence is draft wording pending legal review (listed in STATUS.md); the owner can override it in the Beta access global. A duplicate email answers success without revealing it.

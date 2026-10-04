@@ -19,10 +19,6 @@
   --accent-parent-text: #e07a93; /* small text on dark */
   --accent-team: #89c012;
   --accent: var(--accent-player); /* swapped by [data-persona] */
-  --accent-ink: color-mix(in oklab, var(--accent) 70%, black);
-  --accent-soft: color-mix(in oklab, var(--accent) 16%, transparent);
-  --accent-hi: color-mix(in oklab, var(--accent) 80%, white);
-  --accent-text: var(--accent); /* accent as small text; parent swaps to its lighter text tint */
 
   /* type */
   --font-display: var(--font-archivo), 'Archivo', system-ui, sans-serif;
@@ -57,6 +53,15 @@
   --gutter: clamp(16px, 4vw, 48px);
   --content-max: 1280px;
   --measure: 64ch;
+}
+/* Derived accent tokens are declared on :root AND on every [data-persona] scope, so a scoped persona (the Team
+   chapter) recomputes them from its own --accent instead of inheriting the page's computed values. */
+:root,
+[data-persona] {
+  --accent-ink: color-mix(in oklab, var(--accent) 70%, black);
+  --accent-soft: color-mix(in oklab, var(--accent) 16%, transparent);
+  --accent-hi: color-mix(in oklab, var(--accent) 80%, white);
+  --accent-text: var(--accent); /* accent as small text; parent swaps to its lighter text tint */
 }
 [data-persona='coach'] {
   --accent: var(--accent-coach);

@@ -3,6 +3,7 @@
 import { createContext, useCallback, useContext, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
 import type { Persona } from '@/lib/site-config'
+import { track } from '@/lib/track'
 
 type Ctx = { persona: Persona; setPersona: (p: Persona) => void }
 const PersonaContext = createContext<Ctx>({ persona: 'player', setPersona: () => {} })
@@ -21,6 +22,7 @@ export function PersonaProvider({
   const [persona, setPersonaState] = useState<Persona>(initial)
   const setPersona = useCallback((p: Persona) => {
     document.documentElement.setAttribute('data-persona', p)
+    track('persona_switch', { persona: p })
     setPersonaState(p)
   }, [])
   const value = useMemo(() => ({ persona, setPersona }), [persona, setPersona])
