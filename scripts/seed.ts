@@ -2,7 +2,7 @@
  * Idempotent content seed. Run through Payload's script runner so the config and path aliases load:
  *   pnpm seed:dry                       print what would change, write nothing
  *   pnpm seed                           create everything that is missing (existing documents are left alone)
- *   SEED_ONLY=features,faqs pnpm seed   narrow the targets (pages,features,faqs,personas,globals)
+ *   SEED_ONLY=features,faqs pnpm seed   narrow the targets (pages,features,faqs,personas,legal,globals)
  *   SEED_FORCE=1 pnpm seed              also overwrite existing documents with the seed copy
  *   SEED_DELETE=1 pnpm seed             delete the seeded documents (by slug); globals are never deleted
  * Re-running changes nothing: a document that exists is skipped (so editors' changes in the admin survive), and
@@ -19,10 +19,11 @@ import { personaSeeds } from '../src/seed/data/personas'
 import { betaAccessSeed, navigationSeed, siteSettingsSeed } from '../src/seed/globals'
 import { homeSeed } from '../src/seed/pages/home'
 import { contentPageSeeds } from '../src/seed/pages/content-pages'
+import { LEGAL_SLUG_LIST, legalSeed } from '../src/seed/legal'
 
 // `payload run` strips CLI flags from process.argv, so options come from environment variables.
 const truthy = (v?: string) => v === '1' || v === 'true'
-const only = (process.env.SEED_ONLY ?? 'pages,features,faqs,personas,globals').split(',')
+const only = (process.env.SEED_ONLY ?? 'pages,features,faqs,personas,legal,globals').split(',')
 const dryRun = truthy(process.env.SEED_DRY_RUN)
 const force = truthy(process.env.SEED_FORCE)
 const del = truthy(process.env.SEED_DELETE)
@@ -38,7 +39,7 @@ function host(): string {
   }
 }
 
-type Coll = 'pages' | 'features' | 'faqs' | 'personas'
+type Coll = 'pages' | 'features' | 'faqs' | 'personas' | 'legal-pages'
 
 async function find(payload: Payload, collection: Coll, slug: string) {
   const r = await payload.find({
@@ -58,6 +59,7 @@ async function upsert(
   collection: Coll,
   slug: string,
   data: Record<string, unknown>,
+  status: 'published' | 'draft' = 'published',
 ): Promise<number | string | undefined> {
   const existing = await find(payload, collection, slug)
   const label = `${collection}/${slug}`
@@ -69,7 +71,7 @@ async function upsert(
     }
     return undefined
   }
-  const payloadData = { ...data, slug, _status: 'published' as const }
+  const payloadData = { ...data, slug, _status: status }
   if (!existing) {
     console.log(`${label}: create`)
     counts.created++
@@ -156,7 +158,19 @@ async function main() {
         featureId[f.slug] = (await find(payload, 'features', f.slug))?.id
         continue
       }
-      const { slug, title, area, status, benefit, bullets, howItWorks, scenario, demo, personas, order } = f
+      const {
+        slug,
+        title,
+        area,
+        status,
+        benefit,
+        bullets,
+        howItWorks,
+        scenario,
+        demo,
+        personas,
+        order,
+      } = f
       featureId[slug] = await upsert(payload, 'features', slug, {
         title,
         area,
@@ -176,7 +190,12 @@ async function main() {
       for (const f of featureSeeds) {
         const id = featureId[f.slug]
         if (id === undefined) continue
-        const doc = (await payload.findByID({ collection: 'features', id, depth: 0, draft: true })) as {
+        const doc = (await payload.findByID({
+          collection: 'features',
+          id,
+          depth: 0,
+          draft: true,
+        })) as {
           related?: unknown[] | null
         }
         if ((doc.related?.length ?? 0) > 0 && !force) continue
@@ -226,7 +245,21 @@ async function main() {
     }
   }
 
-  // 5. Globals (fill blanks only)
+  // 5. Legal pages: DRAFTS only (the placeholder bodies are never published by the seed; notice mode serves the same text from code)
+  if (only.includes('legal')) {
+    for (const slug of LEGAL_SLUG_LIST) {
+      const l = legalSeed(slug)
+      await upsert(
+        payload,
+        'legal-pages',
+        slug,
+        { title: l.title, body: l.body, reviewStatus: 'draft' },
+        'draft',
+      )
+    }
+  }
+
+  // 6. Globals (fill blanks only)
   if (only.includes('globals')) {
     await seedGlobal(payload, 'site-settings', siteSettingsSeed)
     await seedGlobal(payload, 'navigation', navigationSeed)

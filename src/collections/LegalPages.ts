@@ -1,11 +1,13 @@
 import type { CollectionConfig } from 'payload'
 import { isAdmin, isEditor } from '@/access'
 import { publishedOnly } from '@/access'
+import { legalPolicyVersionRule, legalStrictGate } from '@/hooks/legalPages'
+import { revalidateDoc } from '@/hooks/revalidate'
 
 /**
  * Versioned legal pages. Bodies are stored verbatim with {{KEY}} placeholders and
  * rendered in notice mode until real values are approved (docs/spec/06-legal-pages.md).
- * The strict publish gate, policy-version rules and /privacy/v/[version] arrive in S5.
+ * Hooks: strict publish gate (LEGAL_STRICT=1) and the policyVersion rule for privacy/terms (src/hooks/legalPages.ts).
  */
 export const LegalPages: CollectionConfig = {
   slug: 'legal-pages',
@@ -15,6 +17,12 @@ export const LegalPages: CollectionConfig = {
   },
   access: { read: publishedOnly, create: isEditor, update: isEditor, delete: isAdmin },
   versions: { drafts: { autosave: false }, maxPerDoc: 50 },
+  hooks: {
+    beforeValidate: [legalStrictGate],
+    beforeChange: [legalPolicyVersionRule],
+    afterChange: [revalidateDoc('legal-pages')],
+    afterDelete: [revalidateDoc('legal-pages')],
+  },
   fields: [
     {
       name: 'slug',

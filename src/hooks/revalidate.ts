@@ -5,7 +5,8 @@ import type {
   GlobalAfterChangeHook,
 } from 'payload'
 
-type Slug = 'pages' | 'features' | 'personas' | 'posts' | 'faqs' | 'changelog-entries'
+type Slug =
+  'pages' | 'features' | 'personas' | 'posts' | 'faqs' | 'changelog-entries' | 'legal-pages'
 
 /** Routes affected by a document of this collection. Listing pages and the home carousel always refresh with it. */
 export function pathsFor(collection: Slug, doc?: { slug?: string | null } | null): string[] {
@@ -31,6 +32,8 @@ export function pathsFor(collection: Slug, doc?: { slug?: string | null } | null
       return ['/support', '/pricing', '/players', '/captains', '/coaches', '/parents']
     case 'changelog-entries':
       return ['/changelog']
+    case 'legal-pages':
+      return ['/legal', '/sitemap.xml', ...(slug ? [`/${slug}`, `/${slug}/history`] : [])]
   }
 }
 

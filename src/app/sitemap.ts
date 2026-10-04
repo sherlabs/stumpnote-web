@@ -1,17 +1,24 @@
 import type { MetadataRoute } from 'next'
 import { getFeatures, getPosts, getSettings } from '@/lib/cms/content'
+import { getIndexableLegalSlugs } from '@/lib/cms/legal'
 import { serverURL } from '@/lib/env'
 import { READY_ROUTES } from '@/lib/site-config'
 
 // Public, indexable routes. Legal pages join in S5. /blog and /changelog are listed once they have published content.
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = serverURL()
-  const [features, posts, { settings }] = await Promise.all([
+  const [features, posts, { settings }, legalSlugs] = await Promise.all([
     getFeatures(),
     getPosts(),
     getSettings(),
+    getIndexableLegalSlugs(),
   ])
-  const fixed = READY_ROUTES.filter((r) => settings.showPricing || r !== '/pricing')
+  // Legal routes are listed only when they render the full page (never notice mode); /legal itself is the index.
+  const LEGAL = new Set(['/privacy', '/terms', '/cookies', '/account-deletion', '/data-safety'])
+  const legalOk = new Set(legalSlugs.map((s) => `/${s}`))
+  const fixed = READY_ROUTES.filter(
+    (r) => (settings.showPricing || r !== '/pricing') && (!LEGAL.has(r) || legalOk.has(r)),
+  )
   return [
     { url: `${base}/`, changeFrequency: 'weekly', priority: 1 },
     ...fixed.map((r) => ({

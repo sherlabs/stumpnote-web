@@ -4,7 +4,9 @@ import { PageView } from '@/components/pages/PageView'
 import { Section } from '@/components/site/Section'
 import { Notice } from '@/components/ui/Notice'
 import { TextLink } from '@/components/ui/TextLink'
+import { LegalProse } from '@/components/legal/LegalDocument'
 import { getContentPage, getLegalValue } from '@/lib/cms/content'
+import { getLegalView } from '@/lib/cms/legal'
 import { getBlockContext } from '@/lib/cms/route-context'
 import { isRouteReady } from '@/lib/site-config'
 
@@ -21,16 +23,28 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function SupportPage() {
-  const [page, ctx, email] = await Promise.all([
+  const [page, ctx, email, legal] = await Promise.all([
     getContentPage('support'),
     getBlockContext(),
     getLegalValue('SUPPORT_EMAIL'),
+    getLegalView('support'),
   ])
   if (!page) notFound()
   return (
     <PageView
       page={page}
       ctx={ctx}
+      // The legal-pages support body appears only when it is complete (no placeholders); otherwise the page above is the whole page.
+      extra={
+        legal.render.mode === 'full' ? (
+          <Section tight labelledBy="support-details-h">
+            <h2 id="support-details-h" className="display-3 mb-8">
+              Support details
+            </h2>
+            <LegalProse html={legal.render.html} />
+          </Section>
+        ) : undefined
+      }
       afterHero={
         <Section tight>
           <div className="grid gap-4 md:grid-cols-2">

@@ -17,6 +17,12 @@ export const READY_ROUTES: readonly string[] = [
   '/security',
   '/join',
   '/support',
+  // S5: legal routes. /data-safety exists but is not linked until the owner decides (S5-U3).
+  '/legal',
+  '/privacy',
+  '/terms',
+  '/cookies',
+  '/account-deletion',
 ]
 
 export function routeReady(href: string): boolean {

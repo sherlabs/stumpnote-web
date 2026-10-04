@@ -1,0 +1,83 @@
+/* Print: plain text, expanded links, no site chrome (docs/spec/06-legal-pages.md section 2). */
+@media print {
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  header,
+  footer,
+  nav,
+  .legal-toc,
+  a[href='#main'],
+  body > div[aria-hidden='true'],
+  .page-hero-glow,
+  button {
+    display: none !important;
+  }
+  main {
+    padding: 0 !important;
+  }
+  .container-x {
+    max-width: none !important;
+    padding-inline: 0 !important;
+  }
+  .page-hero,
+  section {
+    padding-block: 8pt !important;
+  }
+  * {
+    color: #000 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    animation: none !important;
+  }
+  .hero-line {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .page-h1,
+  .legal-prose h2,
+  .legal-prose h3 {
+    break-after: avoid;
+    font-family: Georgia, 'Times New Roman', serif !important;
+    letter-spacing: 0 !important;
+  }
+  .legal-prose {
+    font-family: Georgia, 'Times New Roman', serif !important;
+    font-size: 11pt !important;
+    line-height: 1.5 !important;
+    max-width: none !important;
+  }
+  .legal-prose a {
+    text-decoration: underline !important;
+  }
+  .legal-prose a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.85em;
+    word-break: break-all;
+  }
+  .legal-prose a[href^='/']::after {
+    content: ' (https://stumpnote.com' attr(href) ')';
+    font-size: 0.85em;
+  }
+  .legal-prose a[href^='#']::after {
+    content: '';
+  }
+  .legal-table {
+    overflow: visible !important;
+    border: 0 !important;
+  }
+  .legal-prose table {
+    min-width: 0 !important;
+    font-size: 9pt !important;
+  }
+  .legal-prose th,
+  .legal-prose td {
+    border: 1px solid #999 !important;
+  }
+  .legal-prose tr {
+    break-inside: avoid;
+  }
+}

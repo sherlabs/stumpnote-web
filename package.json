@@ -29,7 +29,9 @@
     "seed:dry": "cross-env SEED_DRY_RUN=1 NODE_OPTIONS=--no-deprecation payload run scripts/seed.ts",
     "size": "node scripts/size-check.mjs",
     "test:lh": "node scripts/lighthouse.mjs",
-    "seed:delete": "cross-env SEED_DELETE=1 NODE_OPTIONS=--no-deprecation payload run scripts/seed.ts"
+    "seed:delete": "cross-env SEED_DELETE=1 NODE_OPTIONS=--no-deprecation payload run scripts/seed.ts",
+    "import:legal": "tsx scripts/import-legal.ts",
+    "legal:bundle": "tsx scripts/import-legal.ts --bundle"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.90.2",
@@ -51,8 +53,15 @@
     "payload": "3.90.2",
     "react": "19.3.0",
     "react-dom": "19.3.0",
+    "rehype-external-links": "^3.0.0",
+    "rehype-slug": "^6.0.0",
+    "rehype-stringify": "^10.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.2",
     "server-only": "^0.0.1",
-    "sharp": "0.35.4"
+    "sharp": "0.35.4",
+    "unified": "^11.0.5"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

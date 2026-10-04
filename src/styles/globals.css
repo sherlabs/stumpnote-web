@@ -3,6 +3,8 @@
 @import './signature.css';
 @import './home.css';
 @import './pages.css';
+@import './legal.css';
+@import './print.css';
 
 /* Tailwind 4 theme mapping: utilities read the CSS variables from tokens.css. */
 @theme inline {
