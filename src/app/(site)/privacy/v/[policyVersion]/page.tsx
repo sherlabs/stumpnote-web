@@ -11,12 +11,12 @@ type Props = { params: Promise<{ policyVersion: string }> }
 
 export async function generateMetadata({ params }: Props) {
   const { policyVersion } = await params
-  return legalVersionMetadata('privacy', decodeURIComponent(policyVersion))
+  return legalVersionMetadata('privacy', policyVersion)
 }
 
 export default async function Page({ params }: Props) {
   const { policyVersion } = await params
-  const view = await loadLegalVersion('privacy', decodeURIComponent(policyVersion))
+  const view = await loadLegalVersion('privacy', policyVersion)
   if (!view) notFound()
   return <LegalVersionView slug="privacy" view={view} />
 }

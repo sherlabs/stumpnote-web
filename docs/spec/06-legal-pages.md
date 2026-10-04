@@ -83,10 +83,10 @@ Until `COMPANY_LEGAL_NAME` is set, the footer reads "© 2026 StumpNote" with no 
 
 ## 7. Content QA for legal pages (S5 acceptance)
 
-- [ ] Each route renders notice mode with `noindex` while any placeholder remains, and the full page otherwise.
-- [ ] No `{{` appears in any rendered HTML in production (Playwright scans the DOM).
-- [ ] `LEGAL_STRICT=1` blocks publish with placeholders (unit test on the hook).
-- [ ] Review block above the first `---` of the privacy source is not imported (test on the importer).
-- [ ] Version history lists only published versions; `/privacy/v/<x>` renders the exact body.
-- [ ] Print stylesheet verified; links expanded.
-- [ ] Footer EULA link present; copyright line without entity until confirmed.
+- [x] Each route renders notice mode with `noindex` while any placeholder remains, and the full page otherwise.
+- [x] No `{{` appears in any rendered HTML in production (Playwright scans the DOM).
+- [x] `LEGAL_STRICT=1` blocks publish with placeholders (unit test on the hook).
+- [x] Review block above the first `---` of the privacy source is not imported (test on the importer).
+- [x] Version history lists only published versions; `/privacy/v/<x>` renders the exact body.
+- [x] Print stylesheet verified; links expanded.
+- [x] Footer EULA link present; copyright line without entity until confirmed.

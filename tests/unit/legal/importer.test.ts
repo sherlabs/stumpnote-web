@@ -54,6 +54,8 @@ describe('legal importer', () => {
     expect(leaks('see lib/features/home/profile_screen.dart')).toContain('source path')
     expect(leaks('GH #123')).toContain('issue number')
     expect(leaks('project ref abcdefghijklmnopqrst')).toContain('project ref')
+    // the source's own phrasing: "Supabase project `<20 letters>`"
+    expect(leaks('Supabase project `abcdefghijklmnopqrst` is in Mumbai')).toContain('project ref')
     expect(leaks('DRAFT FOR LEGAL REVIEW')).toContain('review block')
     expect(leaks('plain public text')).toEqual([])
   })

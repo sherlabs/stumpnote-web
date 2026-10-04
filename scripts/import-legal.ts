@@ -18,7 +18,7 @@ export const PRIVATE_REPO =
   process.env.STUMPNOTE_APP_REPO ?? '/Users/nilesh93/Projects/personal/stumpnote'
 
 export const FORBIDDEN: Array<[string, RegExp]> = [
-  ['project ref', /project[- ]ref|\.supabase\.co|\bref[:= ]+[a-z]{20}\b/i],
+  ['project ref', /\bproject\W{0,3}[a-z]{20}\b|project[- ]ref|\.supabase\.co/i],
   ['issue number', /(^|[\s(])(GH\s*)?#\d{2,}/],
   ['source path', /\b(lib|supabase|ios|android|docs|scripts)\/[\w./-]+/],
   ['code file', /\.(dart|sql|swift|kt|ts|sh)\b/],
