@@ -1,0 +1,44 @@
+# dependencies
+node_modules/
+.pnpm-store/
+.yarn/
+npm-debug.log*
+pnpm-debug.log*
+
+# next.js / build output
+.next/
+out/
+build/
+dist/
+*.tsbuildinfo
+next-env.d.ts
+
+# env and secrets (names only live in .env.example)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# vercel
+.vercel/
+
+# payload
+media/
+/public/media/
+.payload/
+payload-types.ts.bak
+
+# test / coverage
+coverage/
+playwright-report/
+test-results/
+.lighthouseci/
+
+# local tooling and OS
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.log
+.claude/settings.local.json
