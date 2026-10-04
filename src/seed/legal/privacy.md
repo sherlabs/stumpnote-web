@@ -4,11 +4,11 @@
 
 StumpNote helps cricketers reflect on their game. This policy explains what we collect, why, who handles it, how long we keep it, and the choices you have. It covers the StumpNote player app (iPhone, Apple Watch, Android) and the StumpNote web app, and the StumpNote Coach and StumpNote Parent apps, which use the same accounts and backend.
 
-We have tried to write this in plain language. If something is unclear, contact us at {{PRIVACY_CONTACT_EMAIL}}.
+We have tried to write this in plain language. If something is unclear, contact us at {{PRIVACY_CONTACT_EMAIL}}. This policy was prepared by the operator and has not been independently legally reviewed.
 
 ## 1. Who we are
 
-StumpNote is operated by {{COMPANY_LEGAL_NAME}} (ABN/company number {{COMPANY_ABN}}), of {{COMPANY_ADDRESS}} ("StumpNote", "we", "us"). We are the controller of the personal information described here.
+StumpNote is operated by {{COMPANY_LEGAL_NAME}}, ABN {{COMPANY_ABN}}, of {{COMPANY_ADDRESS}} ("StumpNote", "we", "us"). We are the controller of the personal information described here.
 
 Privacy contact: {{PRIVACY_CONTACT_EMAIL}}.
 
@@ -52,7 +52,7 @@ If you subscribe, Apple (or Google) handles payment. We and RevenueCat receive y
 ### 3.4 Device and technical information
 
 - **Push notification tokens** (iOS, Android or browser) stored with your user ID, platform and app variant, if you allow notifications.
-- **Analytics (adult accounts):** screens viewed, feature usage events, app version, device and operating system type, and an identifier tied to your account, collected by Firebase Analytics (Google). This is switched off by default and is not collected for managed, under-18 or junior accounts.
+- **Analytics (adult accounts):** screens viewed, feature usage events, app version, device and operating system type, and an identifier tied to your account, collected by Firebase Analytics (Google). It is off until you sign in, is on for signed-in adult accounts, and is not collected for managed, under-18 or junior accounts. There is currently no separate analytics switch in the app.
 - **Service logs and metering:** per AI request, the feature name, model, token counts, a computed cost and your user ID; monthly counts of video uploads and voice transcriptions for plan limits; and request logs for debugging and abuse prevention. These record counts and sizes, not the content of your entries.
 - **Consent records:** when a guardian consents or re-consents, we store the policy version, type of consent and time.
 
@@ -62,39 +62,39 @@ We do not collect precise or coarse location, contacts, phone numbers, financial
 
 ## 4. How we use your information
 
-| Purpose                  | Examples                                                                                                                                 |
-| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| Provide the app          | Store your journal, clips and plans; show insights; sync between devices; run teams and coach sharing                                    |
-| Personalise AI           | Build a compact "player memory" summary (form, patterns, mood trend, injuries, optional readiness) so insights, drills and plans fit you |
-| Voice and video features | Transcribe voice entries, analyse technique clips, generate spoken Mindset sessions                                                      |
-| Readiness and recovery   | Combine optional health data with check-ins to estimate readiness                                                                        |
-| Subscriptions            | Verify entitlements and manage limits                                                                                                    |
-| Notifications and alerts | Reminders, coach and team events, guardian alerts about injuries or mood check-ins that a guardian is permitted to see                   |
-| Safety and security      | Prevent abuse, enforce plan limits, protect minors, respond to crisis language in mood support by showing support resources              |
-| Improve the app          | Aggregate analytics for adult accounts, debugging                                                                                        |
-| Legal                    | Comply with law, resolve disputes                                                                                                        |
+| Purpose | Examples |
+|---|---|
+| Provide the app | Store your journal, clips and plans; show insights; sync between devices; run teams and coach sharing |
+| Personalise AI | Build a compact "player memory" summary (form, patterns, mood trend, injuries, optional readiness) so insights, drills and plans fit you |
+| Voice and video features | Transcribe voice entries, analyse technique clips, generate spoken Mindset sessions |
+| Readiness and recovery | Combine optional health data with check-ins to estimate readiness |
+| Subscriptions | Verify entitlements and manage limits |
+| Notifications and alerts | Reminders, coach and team events, guardian alerts about injuries or mood check-ins that a guardian is permitted to see |
+| Safety and security | Prevent abuse, enforce plan limits, protect minors, respond to crisis language in mood support by showing support resources |
+| Improve the app | Aggregate analytics for adult accounts, debugging |
+| Legal | Comply with law, resolve disputes |
 
-Legal bases where GDPR or UK GDPR applies: contract (providing the app), consent (health data, AI processing of your content, analytics, notifications), legitimate interests (security, fair-use limits, improving the product) and legal obligation. {{LEGAL_REVIEW}}
+Legal bases where GDPR or UK GDPR applies: contract (providing the app), consent (health data, AI processing of your content, notifications), legitimate interests (security, fair-use limits, product analytics for adult accounts, improving the product) and legal obligation.
 
 ## 5. Who processes your information (sub-processors)
 
 We use these providers to run StumpNote. Each only receives what it needs.
 
-| Provider                                         | What for                                                                        | Data involved                                                                                   | Location                                    |
-| ------------------------------------------------ | ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------- |
-| **Supabase** (on Amazon Web Services)            | Database, authentication, file storage, server functions                        | All account, profile, journal, audio, video, health-summary, team and consent data              | South Asia (Mumbai, India)                  |
-| **Google Cloud: Gemini API**                     | AI analysis, insights, transcription, structured extraction, technique analysis | Text, audio, images and video you submit to AI features, plus the compact player-memory summary | Google infrastructure; may be outside India |
-| **Google Cloud Text-to-Speech**                  | Spoken Mindset audio and voice previews                                         | Text of scripts generated for you                                                               | As above                                    |
-| **Google Firebase Analytics**                    | Product analytics (adult accounts only)                                         | Usage events, device/OS, app version, account identifier                                        | Google infrastructure                       |
-| **Google Firebase Cloud Messaging**              | Delivering push notifications                                                   | Device push token, notification content                                                         | Google infrastructure                       |
-| **Google Sign-In / Sign in with Apple**          | Optional login                                                                  | Identifier, name and email you choose to share                                                  | Google / Apple                              |
-| **RevenueCat**                                   | Subscription status and entitlements                                            | User ID, purchase and subscription records                                                      | RevenueCat infrastructure (US)              |
-| **Apple** (App Store, HealthKit on device, APNs) | Billing, health source, notifications                                           | Handled by Apple under its own policies                                                         | Apple                                       |
-| **Google Play and Health Connect**               | Android billing and health source                                               | As above                                                                                        | Google                                      |
-| **Vercel**                                       | Hosting the StumpNote web app                                                   | Standard web request logs (IP address, browser)                                                 | Vercel infrastructure                       |
-| **Stripe (via RevenueCat Web Billing)**          | Web card payments. **Future: only if web billing is switched on**               | Payment handled by Stripe; we receive status only                                               | Stripe                                      |
+| Provider | What for | Data involved | Location |
+|---|---|---|---|
+| **Supabase** (on Amazon Web Services) | Database, authentication, file storage, server functions | All account, profile, journal, audio, video, health-summary, team and consent data | South Asia (Mumbai, India) |
+| **Google Cloud: Gemini API** | AI analysis, insights, transcription, structured extraction, technique analysis | Text, audio, images and video you submit to AI features, plus the compact player-memory summary | Google infrastructure; may be outside India |
+| **Google Cloud Text-to-Speech** | Spoken Mindset audio and voice previews | Text of scripts generated for you | As above |
+| **Google Firebase Analytics** | Product analytics (adult accounts only) | Usage events, device/OS, app version, account identifier | Google infrastructure |
+| **Google Firebase Cloud Messaging** | Delivering push notifications | Device push token, notification content | Google infrastructure |
+| **Google Sign-In / Sign in with Apple** | Optional login | Identifier, name and email you choose to share | Google / Apple |
+| **RevenueCat** | Subscription status and entitlements | User ID, purchase and subscription records | RevenueCat infrastructure (US) |
+| **Apple** (App Store, HealthKit on device, APNs) | Billing, health source, notifications | Handled by Apple under its own policies | Apple |
+| **Google Play and Health Connect** | Android billing and health source | As above | Google |
+| **Vercel** | Hosting the StumpNote web app | Standard web request logs (IP address, browser) | Vercel infrastructure |
+| **Stripe (via RevenueCat Web Billing)** | Web card payments. **Future: only if web billing is switched on** | Payment handled by Stripe; we receive status only | Stripe |
 
-{{LEGAL_REVIEW: confirm each provider's data processing terms, transfer mechanism and sub-processor list.}}
+Each provider handles information under its own terms and privacy policy, which you can read on its website. This list names the providers and what they do; it is not a description of their contracts. We do not sell your information to any of them.
 
 We share information with a service provider only to operate the app, with a coach, captain or guardian only as described in section 7, with authorities when the law requires it, and in a sale or restructure of our business with notice to you. We do not sell your personal information and we do not share it for cross-context behavioural advertising.
 
@@ -106,7 +106,7 @@ We share information with a service provider only to operate the app, with a coa
 - **AI can make mistakes.** Insights, plans, drills and transcriptions may be wrong, incomplete or out of date. They are guidance for reflection and training. **They are not medical, psychological or professional advice.** If you are injured or unwell, see a qualified professional. If you feel unsafe, contact local emergency services or a helpline. Mood support shows support resources when it detects distress.
 - **Safeguards.** Mindset and playbook scripts are checked by deterministic rules (for example, no breath-holding, no outcome promises, no diagnosis). Drills respect your logged injuries. Younger players get age-appropriate guidance and bowling-load limits, and AI never asks juniors about alcohol.
 - **No automated decisions with legal effect.** AI output is advisory. You decide what to act on.
-- **Training and retention by AI providers.** We do not sell your content. We do not allow our providers to use your content for their own advertising. Whether Google uses API content to train its models, and how long it retains it for abuse monitoring, depends on Google's terms for the tier we use; we will describe this precisely once confirmed. {{LEGAL_REVIEW: verify Google's data-use and retention terms for the Gemini API tier in use before stating any no-training commitment.}} We do not currently use your content to train our own models. If that changes we will tell you first and ask for any consent required.
+- **Training and retention by AI providers.** We do not sell your content. We use Google's Gemini API, which is provided under Google's Gemini API terms; those terms describe how Google handles prompts and responses, including that Google may keep logs for a limited period to detect and prevent abuse, and we send only what is needed to produce the result. We make no promise here about Google's own data practices beyond what Google publishes; please read Google's terms for the detail. We do not currently use your content to train our own models. If that changes we will tell you first and ask for any consent required.
 
 ## 7. Sharing with coaches, captains, teams and guardians
 
@@ -121,7 +121,7 @@ Nothing is shared by default beyond the rules below. Access is enforced in our d
 ## 8. Children and young people
 
 - **Age gate.** Before any account is created (email, Apple or Google), a neutral date-of-birth screen runs. People under 13 cannot create their own account, and we collect no identity or email from them at that point. The minimum age for a self-managed account is 13.
-- **Guardian-managed profiles (under 18).** A parent or guardian can create a managed profile for a child (up to 10 children) in the StumpNote Parent app, attesting that they are the child's guardian. We record that consent with the policy version. The guardian governs the account: they can review, correct, export and delete the child's data and withdraw optional consents. We rely on the guardian's attestation. {{LEGAL_REVIEW: verifiable parental consent method.}}
+- **Guardian-managed profiles (under 18).** A parent or guardian can create a managed profile for a child (up to 10 children) in the StumpNote Parent app, attesting that they are the child's guardian. We record that consent with the policy version. The guardian governs the account: they can review, correct, export and delete the child's data and withdraw optional consents. The guardian signs in to the StumpNote Parent app, creates the child's managed profile and confirms in the app that they are the child's parent or guardian. We store a consent record (the guardian, the child, the policy version and the time). We do not check identity documents or take a payment to verify this: we rely on the guardian's confirmation. If you believe a profile was created without a real guardian's consent, contact us and we will review it and delete it if needed.
 - **Linking an existing player.** A teen can invite a guardian to link. Players aged 13 and over who were guardian-managed take over their own account on claiming it; younger children stay under guardian governance.
 - **Re-consent.** When this policy changes materially, guardians are asked to re-consent in the Parent app.
 - **Junior protections.** For managed, under-18 and junior accounts: analytics is off; device health data is excluded from the profile and from AI context; heart-rate-derived AI lines require a setting that is off by default for minors; AI uses age-appropriate language, applies bowling-load limits and never asks about alcohol; Mindset personalisation stays off until the guardian turns it on; we do not use children's content for advertising, to sell, or to train our own models.
@@ -135,7 +135,7 @@ Nothing is shared by default beyond the rules below. Access is enforced in our d
 - **Backups.** Encrypted backups may hold copies for up to {{BACKUP_PURGE_DAYS}} days before they expire.
 - **Processors.** We instruct our processors to delete data they hold for us. Apple and Google keep their own records under their own policies (for example, purchase records and data in Apple Health on your device, which our deletion does not touch).
 - **Anything kept longer.** Limited records we are required to keep for tax, accounting, fraud prevention or legal claims, and de-identified usage and cost metering. AI usage and request logs are kept for up to {{USAGE_LOG_RETENTION}}.
-- **Analytics.** Firebase Analytics data is kept for the retention period configured in our Firebase project (up to 14 months) {{LEGAL_REVIEW: confirm configured retention}}.
+- **Analytics.** Firebase Analytics event data is kept for {{LEGAL_REVIEW}}, the retention period set in our Firebase project.
 - **Health data.** Disconnecting Health stops further collection. Values already synced remain until you delete them or your account.
 - **Cannot sign in?** Email {{PRIVACY_CONTACT_EMAIL}}. A guardian can request deletion of a managed child's profile the same way.
 
@@ -148,11 +148,11 @@ Depending on where you live (including under the Australian Privacy Act 1988 and
 - export it in a usable form;
 - delete it (in the app, or by email);
 - object to or restrict some processing, including profiling by player memory (we will reset it on request);
-- withdraw consent at any time (for health, AI processing, notifications or analytics) without affecting earlier processing;
+- withdraw consent at any time (for health, AI processing or notifications; for analytics, email us) without affecting earlier processing;
 - not be discriminated against for exercising your rights; and
 - complain to your privacy regulator. In Australia that is the Office of the Australian Information Commissioner (oaic.gov.au); in the EU/UK, your local data protection authority.
 
-To use a right, email {{PRIVACY_CONTACT_EMAIL}}. We will verify your identity (a guardian for a managed child) and reply within the time the law requires, normally 30 days. {{LEGAL_REVIEW: confirm for each jurisdiction served.}}
+To use a right, email {{PRIVACY_CONTACT_EMAIL}}. We will verify your identity (a guardian for a managed child) and reply within the time the law requires, normally within 30 days.
 
 ## 11. Security
 
@@ -164,11 +164,11 @@ To use a right, email {{PRIVACY_CONTACT_EMAIL}}. We will verify your identity (a
 
 ## 12. International transfers
 
-Our primary database and files are in Mumbai, India. Our providers (Google, RevenueCat, Firebase, Vercel, Apple) operate globally, including in the United States, and you may use StumpNote from anywhere. Where the law requires, we rely on appropriate safeguards such as standard contractual clauses or equivalent terms with these providers. For Australian users, we take reasonable steps under APP 8 to make sure overseas recipients handle information consistently with the APPs. {{LEGAL_REVIEW}}
+Our primary database and files are in Mumbai, India. Our providers (Google, RevenueCat, Firebase, Vercel, Apple) operate globally, including in the United States, and you may use StumpNote from anywhere. Where the law requires safeguards for transfers, we will put them in place. For Australian users, we take reasonable steps under APP 8 to make sure overseas recipients handle information consistently with the APPs. Our primary database is hosted in Mumbai, India, and providers may process information in other countries.
 
 ## 13. Cookies and the web app
 
-The StumpNote web app does not use advertising cookies. It uses browser storage (local storage and, if you enable browser notifications, a service worker and a push token) to keep you signed in, remember settings and deliver notifications you opt into. Hosting providers log standard request information (IP address, browser type) for security and reliability. Firebase Analytics runs in the web app for adult accounts as described in section 3.4. You can clear site data and block notifications in your browser at any time. {{LEGAL_REVIEW: confirm web analytics and cookie-consent requirements for EU/UK visitors.}}
+The StumpNote web app does not use advertising cookies. It uses browser storage (local storage and, if you enable browser notifications, a service worker and a push token) to keep you signed in, remember settings and deliver notifications you opt into. Hosting providers log standard request information (IP address, browser type) for security and reliability. Firebase Analytics runs in the web app, as in the mobile apps, for signed-in adult accounts only (section 3.4); it does not run before you sign in or for child accounts, and it may store its own identifiers in your browser. There is currently no cookie banner or separate analytics switch in the app. If you do not want analytics, email us and we will tell you what we can do. You can clear site data and block notifications in your browser at any time.
 
 ## 14. Changes to this policy
 
@@ -176,7 +176,7 @@ We may update this policy. We will post the new version here with a new "Last up
 
 ## 15. Contact
 
-{{COMPANY_LEGAL_NAME}}, {{COMPANY_ADDRESS}}
+{{COMPANY_LEGAL_NAME}}, ABN {{COMPANY_ABN}}, {{COMPANY_ADDRESS}}
 Email: {{PRIVACY_CONTACT_EMAIL}}
 Governing law: {{GOVERNING_LAW}}
 
@@ -184,24 +184,24 @@ Governing law: {{GOVERNING_LAW}}
 
 ## Appendix A: Data map
 
-| Data                                                                                                         | Where stored                                                                 | Processors                                                                                    | Purpose                                       | Retention                                                              |
-| ------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------- | ---------------------------------------------------------------------- |
-| Email, name, sign-in identifiers                                                                             | Supabase Auth                                                                | Supabase; Apple or Google if used to sign in                                                  | Account, sign-in, support                     | Until account deletion                                                 |
-| Date of birth / birth year, age group, guardian link                                                         | Supabase Postgres                                                            | Supabase                                                                                      | Age gate, minor safeguards, guardian features | Until account deletion                                                 |
-| Cricket profile, goals, plans, drills, scorecards                                                            | Supabase Postgres                                                            | Supabase; Google Gemini when AI features run                                                  | Core features, personalisation                | Until account deletion                                                 |
-| Journal entries, mood and readiness check-ins, injury/condition records                                      | Supabase Postgres                                                            | Supabase; Google Gemini (insights)                                                            | Reflection, insights, readiness               | Until account deletion                                                 |
-| Voice recordings and transcripts                                                                             | Supabase Storage and Postgres                                                | Supabase; Google Gemini (transcription)                                                       | Voice journaling, coach notes                 | Until deleted or account deletion                                      |
-| Video clips, thumbnails, reels, scorecard images                                                             | Supabase Storage                                                             | Supabase; Google Gemini (analysis)                                                            | Technique review                              | Until deleted or account deletion                                      |
-| Mindset audio and scripts                                                                                    | Supabase Storage and Postgres                                                | Supabase; Google Gemini; Google Cloud TTS                                                     | Guided sessions                               | Until deleted or account deletion                                      |
-| AI player memory (summaries, weakness analyses, daily briefs, embeddings)                                    | Supabase Postgres (dossier and analysis tables)                              | Supabase; Google Gemini (embeddings and generation)                                           | Personalised AI                               | Until account deletion or reset on request                             |
-| Ask-the-coach questions and answers                                                                          | Supabase Postgres                                                            | Supabase; Google Gemini                                                                       | AI coach                                      | Until account deletion                                                 |
-| Health summaries (sleep, HR, HRV, steps, energy, distance, weight, respiratory rate, blood oxygen, workouts) | Source: Apple Health / Health Connect on device. Daily summaries in Supabase | Supabase; Google Gemini only if you allow health in AI context and the account is not a minor | Readiness and recovery                        | Until disconnect and delete, or account deletion                       |
-| Watch workout and heart rate                                                                                 | Apple Health on device and watch; session summary in Supabase                | Apple; Supabase                                                                               | Training load, swing metrics, Fitness rings   | Apple Health: your device. Supabase: until deleted or account deletion |
-| Team, squad, coach links, notes                                                                              | Supabase Postgres                                                            | Supabase                                                                                      | Team and coaching features                    | Until account deletion or link removed                                 |
-| Guardian sharing switches, notifications, consent ledger                                                     | Supabase Postgres                                                            | Supabase                                                                                      | Guardian features, consent proof              | Until account deletion {{LEGAL_REVIEW: consent ledger retention}}      |
-| Subscription status and purchase history                                                                     | RevenueCat; subscription tables in Supabase; Apple/Google                    | RevenueCat; Apple; Google                                                                     | Entitlements and billing                      | Until account deletion; Apple/Google keep their own records            |
-| Push tokens (platform, app variant)                                                                          | Supabase                                                                     | Google FCM; Apple APNs                                                                        | Notifications                                 | Until sign-out removal, token refresh, or account deletion             |
-| Analytics events and account identifier (adult accounts only)                                                | Firebase Analytics                                                           | Google                                                                                        | Product analytics                             | Per Firebase setting {{LEGAL_REVIEW}}                                  |
-| AI usage and metering logs                                                                                   | Supabase                                                                     | Supabase                                                                                      | Cost, fair-use limits, abuse prevention       | Up to {{USAGE_LOG_RETENTION}}                                          |
-| Request logs                                                                                                 | Supabase                                                                     | Supabase                                                                                      | Debugging, security                           | Up to {{USAGE_LOG_RETENTION}}                                          |
-| Web request logs                                                                                             | Vercel                                                                       | Vercel                                                                                        | Hosting and security                          | Per Vercel retention                                                   |
+| Data | Where stored | Processors | Purpose | Retention |
+|---|---|---|---|---|
+| Email, name, sign-in identifiers | Supabase Auth | Supabase; Apple or Google if used to sign in | Account, sign-in, support | Until account deletion |
+| Date of birth / birth year, age group, guardian link | Supabase Postgres | Supabase | Age gate, minor safeguards, guardian features | Until account deletion |
+| Cricket profile, goals, plans, drills, scorecards | Supabase Postgres | Supabase; Google Gemini when AI features run | Core features, personalisation | Until account deletion |
+| Journal entries, mood and readiness check-ins, injury/condition records | Supabase Postgres | Supabase; Google Gemini (insights) | Reflection, insights, readiness | Until account deletion |
+| Voice recordings and transcripts | Supabase Storage and Postgres | Supabase; Google Gemini (transcription) | Voice journaling, coach notes | Until deleted or account deletion |
+| Video clips, thumbnails, reels, scorecard images | Supabase Storage | Supabase; Google Gemini (analysis) | Technique review | Until deleted or account deletion |
+| Mindset audio and scripts | Supabase Storage and Postgres | Supabase; Google Gemini; Google Cloud TTS | Guided sessions | Until deleted or account deletion |
+| AI player memory (summaries, weakness analyses, daily briefs, embeddings) | Supabase Postgres (dossier and analysis tables) | Supabase; Google Gemini (embeddings and generation) | Personalised AI | Until account deletion or reset on request |
+| Ask-the-coach questions and answers | Supabase Postgres | Supabase; Google Gemini | AI coach | Until account deletion |
+| Health summaries (sleep, HR, HRV, steps, energy, distance, weight, respiratory rate, blood oxygen, workouts) | Source: Apple Health / Health Connect on device. Daily summaries in Supabase | Supabase; Google Gemini only if you allow health in AI context and the account is not a minor | Readiness and recovery | Until disconnect and delete, or account deletion |
+| Watch workout and heart rate | Apple Health on device and watch; session summary in Supabase | Apple; Supabase | Training load, swing metrics, Fitness rings | Apple Health: your device. Supabase: until deleted or account deletion |
+| Team, squad, coach links, notes | Supabase Postgres | Supabase | Team and coaching features | Until account deletion or link removed |
+| Guardian sharing switches, notifications, consent ledger | Supabase Postgres | Supabase | Guardian features, consent proof | Kept while the account exists (each record holds the policy version, type of consent and time), and removed when the account is deleted |
+| Subscription status and purchase history | RevenueCat; subscription tables in Supabase; Apple/Google | RevenueCat; Apple; Google | Entitlements and billing | Until account deletion; Apple/Google keep their own records |
+| Push tokens (platform, app variant) | Supabase | Google FCM; Apple APNs | Notifications | Until sign-out removal, token refresh, or account deletion |
+| Analytics events and account identifier (adult accounts only) | Firebase Analytics | Google | Product analytics | {{LEGAL_REVIEW}} |
+| AI usage and metering logs | Supabase | Supabase | Cost, fair-use limits, abuse prevention | Up to {{USAGE_LOG_RETENTION}} |
+| Request logs | Supabase | Supabase | Debugging, security | Up to {{USAGE_LOG_RETENTION}} |
+| Web request logs | Vercel | Vercel | Hosting and security | Per Vercel retention |

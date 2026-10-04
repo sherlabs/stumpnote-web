@@ -11,7 +11,7 @@ const SRC = `# StumpNote Privacy Policy
 
 | Placeholder | What is needed |
 |---|---|
-| \`{{COMPANY_LEGAL_NAME}}\` | internal review text csuknuuneuuyepqfgkgy GH #754 |
+| \`{{COMPANY_LEGAL_NAME}}\` | internal review text, project ref abcdefghijklmnopqrst, GH #123 |
 
 ---
 
@@ -33,7 +33,7 @@ describe('legal importer', () => {
   it('cuts at the first WHOLE-LINE --- (table separator rows do not match)', () => {
     const body = stripReviewBlock(SRC)
     expect(body).not.toContain('Review block')
-    expect(body).not.toContain('csuknuuneuuyepqfgkgy')
+    expect(body).not.toContain('abcdefghijklmnopqrst')
     expect(body.trimStart().startsWith('# Privacy Policy')).toBe(true)
   })
 
@@ -52,7 +52,8 @@ describe('legal importer', () => {
 
   it('flags leaked internals', () => {
     expect(leaks('see lib/features/home/profile_screen.dart')).toContain('source path')
-    expect(leaks('GH #754')).toContain('issue number')
+    expect(leaks('GH #123')).toContain('issue number')
+    expect(leaks('project ref abcdefghijklmnopqrst')).toContain('project ref')
     expect(leaks('DRAFT FOR LEGAL REVIEW')).toContain('review block')
     expect(leaks('plain public text')).toEqual([])
   })
