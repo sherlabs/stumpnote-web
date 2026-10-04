@@ -191,7 +191,7 @@ Applying the migration to production is a user-approved step in S6; the S6 brief
 | Script | Does |
 |---|---|
 | `dev` | `next dev` |
-| `build` | `cross-env NODE_OPTIONS=--no-deprecation payload build` (wraps `next build`) |
+| `build` | `cross-env NODE_OPTIONS=--no-deprecation next build` (Payload 3.90.2 has no `payload build`; see D-16) |
 | `ci` | `payload migrate && pnpm build` (Vercel build command once DB exists) |
 | `start` | `next start` |
 | `db:up` / `db:down` / `db:reset` | docker compose up -d / down / down -v + migrate + seed |

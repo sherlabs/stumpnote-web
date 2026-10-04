@@ -59,3 +59,18 @@ Rules for contributors (human or agent) are in [CLAUDE.md](./CLAUDE.md).
 | `docs/ops/RESUME.md` | Recovery protocol                                                             |
 | `docs/ops/stages/`   | One brief per stage (S0..S7)                                                  |
 | `docs/spec/`         | Complete plan spec (00-overview .. 08-test-and-quality, SQL draft, decisions) |
+
+## Local development
+
+```bash
+nvm use                      # Node 24 (.nvmrc); corepack provides pnpm 10
+pnpm install
+cp .env.example .env         # then set PAYLOAD_SECRET (openssl rand -hex 32) and
+                             # DATABASE_URI=postgres://postgres:postgres@127.0.0.1:5433/stumpnote_cms
+pnpm db:up && pnpm payload migrate
+pnpm dev                     # http://localhost:3000 (site), /admin (Payload)
+pnpm check                   # lint + typecheck + unit tests + secrets scan + audit
+pnpm build && pnpm test:e2e  # production build, then Playwright smoke on a local `next start`
+```
+
+The production build must succeed with `DATABASE_URI` unset (skeleton and static pages do not read the CMS).

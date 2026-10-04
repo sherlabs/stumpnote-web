@@ -62,3 +62,35 @@ Decision: port the three behaviours of the app repo's legal renderer (substituti
 
 ## D-15 Beta CTA: `betaAccess` global, ships as waitlist (accepted; amended in spec review)
 Amendment: the waitlist form itself ships disabled (`waitlistEnabled=false`) until the privacy page is live and a deletion/unsubscribe contact exists (06-legal-pages section 6). The state stays `waitlist`; only the form is gated.
+
+
+---
+
+## D-16 Scaffold: Payload `v3.90.2` template for the admin route group only; everything else hand-built (accepted, S1, 2026-10-04)
+Context: the `main` branch of `payloadcms/payload` ships a `with-vercel-website` template that targets unreleased APIs (`generatePayloadViewport`) and fails to build against the published 3.90.2 packages. `create-payload-app@3.90.2` no longer lists that template.
+Decision: take only `src/app/(payload)` from the `v3.90.2` tag of the template (minus its SCSS file); drop the template frontend, header/footer globals, search, form-builder, nested-docs, jobs and crons; build collections, globals, site routes and config by hand to the spec. Versions: Payload 3.90.2, Next 16.3.8, React 19.3.0, Tailwind 4.3, pnpm 10.34.6 (`packageManager`), Node 24 (`engines.node = "24.x"`, `.nvmrc`).
+Consequences: no template baggage; the build script is `next build` (there is no `payload build` command in 3.90.2, the spec table in 01-architecture section 10 is corrected).
+
+## D-17 Database pool: `max` defaults to 3, not 1 (accepted, S1)
+Context: with `pool.max = 1`, `payload migrate` and any transactional request hang forever against Postgres (the adapter needs a second connection while the first is held). Verified locally against Postgres 17.
+Decision: `pool.max = Number(DATABASE_POOL_MAX ?? 3)`. Neon's pooled endpoint (PgBouncer) tolerates this easily.
+Consequences: revisit only if Neon free connection limits bite. Use `127.0.0.1`, not `localhost`, in local URLs (the Docker port is published on IPv4 only).
+
+## D-18 Postgres enum collision: `features.status` needs `enumName` (accepted, S1)
+Context: drafts create `_status` whose enum is `enum_features_status`, colliding with a select field named `status` (migration failed with "invalid input value for enum"). Same trap applies to any collection with drafts and a field called `status`.
+Decision: `enumName: 'feature_release_status'` on that field; field name stays `status` so the spec and seeds are unchanged. Apply the same pattern to any future `status` field.
+
+## D-19 `robots.ts` and `sitemap.ts` live at `src/app/`, not in `(site)` (accepted, S1)
+Context: with two root layouts, Next 16.3.8 served `/sitemap.xml` from `(site)` but 404ed `/robots.txt`. Root-level files work for both.
+
+## D-20 Next agent-rules block disabled (accepted, S1)
+`next dev` 16.3 appends a block to `CLAUDE.md`. `agentRules: false` in `next.config.ts` stops it; this repo owns its `CLAUDE.md`.
+
+## D-21 Dependency audit: overrides and one ignored advisory (accepted, S1)
+`pnpm.overrides` raise `undici` (>=7.29.1), `esbuild` (>=0.25) and `dompurify` (>=3.4.16), all pulled in by Payload packages. One high advisory remains with no patched release (`braces` via `@payloadcms/next > sass > chokidar`, a dev-time file-watching glob dependency): ignored via `pnpm.auditConfig.ignoreGhsas`. Re-check on every Payload bump.
+
+## D-22 Vercel project created in the Pro team; first skeleton deploy via CLI (proposed D-01 default applied, S1)
+Project `stumpnote-site` was created in the existing Pro team (D-01 default; the owner's literal words were "free tier", still open). A project can be moved between teams later, so this is reversible. The first production deploy was a CLI `vercel deploy --prod` (git integration was connected by `vercel link`; the first git-triggered deploy and the `ignoreCommand` behaviour with `VERCEL_GIT_PREVIOUS_SHA` still have to be observed on the next code push and recorded here). Env set: `PAYLOAD_SECRET` (Production, Preview, sensitive, different values), `ANALYTICS_MODE=fixtures`, `NEXT_PUBLIC_SERVER_URL` (Production). No `DATABASE_URI`: `/admin` answers 500 on the skeleton by design; `/` is static and unaffected.
+
+## D-23 First-user flow verified (accepted, S1)
+Against a fresh local DB: `POST /api/users/first-register` creates the user with `roles=['admin']` even though `Users.access.create = isAdmin`; a second `first-register` and an anonymous `POST /api/users` both return 403. Hook covered by `tests/unit/first-user-roles.test.ts`.
