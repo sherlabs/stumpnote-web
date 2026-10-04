@@ -2,7 +2,7 @@
 
 Single source of truth for progress. Update at the end of every work unit, then commit and push.
 
-Last updated: 2026-10-04 (S0: plan spec in progress; docs written: 00-overview, decisions, spec index, stage index, 01-architecture, SQL draft, 02-design, 03-cms-model, 04-analytics-and-admin, 05-content-brief, 06-legal-pages, 07-deploy-runbook, 08-test-and-quality (all spec docs done); next: stage briefs S1..S7)
+Last updated: 2026-10-04 (S0: plan spec in progress; docs written: 00-overview, decisions, spec index, stage index, 01-architecture, SQL draft, 02-design, 03-cms-model, 04-analytics-and-admin, 05-content-brief, 06-legal-pages, 07-deploy-runbook, 08-test-and-quality, stage briefs S1..S7; next: TASKS.md expansion + RESUME prompts + final STATUS)
 
 ## Stage table
 
