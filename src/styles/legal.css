@@ -1,7 +1,11 @@
 /* Legal pages (S5): readable measure, quiet typography, no motion. Tokens only. */
 .legal-layout {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--s-6, 48px);
+}
+.legal-section {
+  padding-top: 0;
 }
 @media (min-width: 1024px) {
   .legal-layout {
@@ -48,6 +52,7 @@
   color: var(--muted);
 }
 .legal-prose {
+  min-width: 0;
   max-width: 64ch;
   color: var(--text-body);
   font-size: 17px;

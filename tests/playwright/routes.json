@@ -18,7 +18,21 @@
     "/support",
     "/blog",
     "/blog/rss.xml",
-    "/changelog"
+    "/changelog",
+    "/legal",
+    "/privacy",
+    "/terms",
+    "/cookies",
+    "/account-deletion",
+    "/data-safety",
+    "/privacy/history",
+    "/terms/history"
   ],
-  "notFound": ["/this-page-does-not-exist", "/features/not-a-feature", "/blog/not-a-post"]
+  "notFound": [
+    "/this-page-does-not-exist",
+    "/features/not-a-feature",
+    "/blog/not-a-post",
+    "/privacy/v/not-a-version",
+    "/terms/v/not-a-version"
+  ]
 }

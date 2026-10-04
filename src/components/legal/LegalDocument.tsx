@@ -40,31 +40,21 @@ export function LegalNotice({ title, values }: { title: string; values: LegalVal
 export function LegalDocument({
   title,
   render,
-  values,
   meta,
   footer,
 }: {
   title: string
   render: Extract<LegalRender, { mode: 'full' }>
-  values: LegalValueMap
   meta?: ReactNode
   footer?: ReactNode
 }) {
   const toc = htmlHeadings(render.html)
-  const effective = (values.EFFECTIVE_DATE ?? '').trim()
-  const updated = (values.LAST_UPDATED ?? '').trim()
-  const version = (values.POLICY_VERSION ?? '').trim()
   return (
     <>
       <PageHero overline="Legal" headline={title} size="lg" headingId="legal-h">
-        <p className="legal-meta">
-          {effective && <span>Effective {effective}</span>}
-          {updated && <span>Last updated {updated}</span>}
-          {version && <span>Version {version}</span>}
-          {meta}
-        </p>
+        {meta && <p className="legal-meta">{meta}</p>}
       </PageHero>
-      <Section tight>
+      <Section tight className="legal-section">
         <div className={toc.length > 2 ? 'legal-layout' : 'legal-layout legal-layout-single'}>
           {toc.length > 2 && (
             <div className="legal-toc">

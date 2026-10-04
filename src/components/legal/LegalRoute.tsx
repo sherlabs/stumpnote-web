@@ -10,6 +10,7 @@ import {
   getLegalView,
   type LegalView,
 } from '@/lib/cms/legal'
+import { isRouteReady } from '@/lib/site-config'
 import { legalMeta, type LegalSlug } from '@/seed/legal'
 import { LegalDocument, LegalNotice } from './LegalDocument'
 
@@ -21,7 +22,9 @@ export async function legalMetadata(slug: LegalSlug): Promise<Metadata> {
     title: m.title,
     description: m.description,
     alternates: { canonical: `/${slug}` },
-    robots: render.mode === 'full' ? undefined : { index: false, follow: true },
+    // noindex while in notice mode, and for any page not yet linked/published (data-safety awaits the owner's decision)
+    robots:
+      render.mode === 'full' && isRouteReady(`/${slug}`) ? undefined : { index: false, follow: true },
   }
 }
 
@@ -39,7 +42,6 @@ export async function LegalRoute({
     <LegalDocument
       title={doc.title}
       render={render}
-      values={values}
       meta={
         withHistory ? (
           <Link href={`/${slug}/history`} className="underline underline-offset-4 hover:text-text">
@@ -125,7 +127,6 @@ export function LegalVersionView({ slug, view }: { slug: LegalSlug; view: LegalV
     <LegalDocument
       title={view.doc.title}
       render={view.render}
-      values={view.values}
       meta={
         <Link href={`/${slug}/history`} className="underline underline-offset-4 hover:text-text">
           All versions

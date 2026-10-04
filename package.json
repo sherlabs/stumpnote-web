@@ -31,7 +31,8 @@
     "test:lh": "node scripts/lighthouse.mjs",
     "seed:delete": "cross-env SEED_DELETE=1 NODE_OPTIONS=--no-deprecation payload run scripts/seed.ts",
     "import:legal": "tsx scripts/import-legal.ts",
-    "legal:bundle": "tsx scripts/import-legal.ts --bundle"
+    "legal:bundle": "tsx scripts/import-legal.ts --bundle",
+    "legal:fixture": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/legal-fixture.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.90.2",
