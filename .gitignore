@@ -42,3 +42,12 @@ test-results/
 !.vscode/extensions.json
 *.log
 .claude/settings.local.json
+
+# db dumps and local backups (never commit data)
+backups/
+*.dump
+*.sql.gz
+*.sqlite
+
+# playwright auth state
+tests/playwright/.auth/

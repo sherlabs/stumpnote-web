@@ -31,6 +31,8 @@ All three iOS apps are TestFlight-only. Nothing is on the App Store. "Shipped" i
 - Consent and sharing are explicit. A coach link stays pending until the player accepts. Guardians see three separately switchable groups.
 - One account serves player, captain, coach and parent roles.
 
+**Problem line (home chapter 2, approved):** "Most post-match thoughts are gone by Tuesday." It is a rhetorical line, not a statistic; never attach a number to it.
+
 **Taglines.** 1. **Your cricket, remembered.** (preferred) 2. Talk it out. Play it better. 3. The journal that learns your game.
 Do not use "cricket brain", "never repeat a mistake" or "win weekends".
 
@@ -140,10 +142,10 @@ Format: **Title** · status · benefit · bullets · how it works · illustrativ
 
 **14. Conditions and wellbeing check-ins** · In the beta
 - Benefit: Advice that respects how you actually are.
-- Log injuries and illness and choose per item whether coaches can see them. Optional Apple Health or Health Connect snapshot. A quick mood and confidence check-in with an optional supportive reply.
+- Log injuries and illness and choose per item whether coaches can see them. Optional Apple Health snapshot. A quick mood and confidence check-in with an optional supportive reply.
 - How: Log a condition. The next training plan avoids aggravating it.
 - Scenario: Aarav logs a hamstring strain and his next drills are not sprint-heavy.
-- Rule: "wellbeing check-ins", never "mental health tracking" or "treatment". Not medical advice. Crisis support wording: "shows support resources" only.
+- Rule: "wellbeing check-ins", never "mental health tracking" or "treatment". Not medical advice. Do not mention crisis or helpline features in marketing copy at all (the support resources shown in the app are not worldwide); if the topic comes up, point to "talk to a professional or someone you trust".
 
 **15. Game-day hub** · In the beta (readiness, plan and reflection loop: Coming soon)
 - Benefit: Everything for match day in one place.
@@ -259,10 +261,10 @@ No FAQ about languages, Android, user numbers or "does it make me better".
 
 - You write or speak journal entries about your cricket. We store them and use AI to find patterns and help you plan training.
 - AI runs through our servers using Google's services. The app asks permission before any AI feature sends your data, and you can withdraw it any time. AI can be wrong. It is not medical advice.
-- Health data from Apple Health or Health Connect is optional.
+- Health data from Apple Health is optional. (The legal pages are rendered verbatim from the policy and may mention Android and Health Connect because the policy covers those code paths; do not repeat that in marketing copy, see claims policy 8.)
 - Coaches, captains and parents only see what the sharing rules and your choices allow.
 - We do not sell your personal information. We do not use it for advertising and we do not track you across other companies' apps or sites.
-- Young players are protected by an age gate, guardian-managed profiles and extra safeguards.
+- Young players get an age gate, guardian-managed profiles and age-aware safeguards. (Never write "protected", "safe for kids" or "built for juniors first".)
 - You can delete your account inside the app.
 
 ## 9. Social proof policy
@@ -285,5 +287,7 @@ No fabricated quotes, ratings, user counts, press mentions or logos (consumer-re
 Brand variants: "StumpNote", "Stump Note", "StumpNote Coach", "StumpNote Parent". Structured data: `Organization` (name only until the entity is confirmed), `SoftwareApplication` per app without `aggregateRating`, `offers` or `installUrl` until live; `FAQPage` on `/support` only. Canonical host `stumpnote.com`; `noindex` on notice-mode pages, `/admin`, `/api`, `/lab`. One `h1` per page. Volumes are unmeasured; validate in a keyword tool before treating as targets.
 
 ## 11. Brand usage reminders
+
+Trademark line in the footer or `/legal`: "Apple, App Store, Apple Watch and TestFlight are trademarks of Apple Inc. Google and Gemini are trademarks of Google LLC." Use Apple and Google names only in plain text, never their logos or badges (no badge until an app is live).
 
 Use "StumpNote" on the site (keep "Stump Note" as a keyword variant). Mark `public/brand/stumpnote-mark.svg`. Design tokens in [02-design.md](./02-design.md). Screenshots only from synthetic data; label game-day-first screens "Coming soon".

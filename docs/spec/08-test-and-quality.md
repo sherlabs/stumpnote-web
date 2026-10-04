@@ -32,7 +32,7 @@ Projects: `chromium-desktop` (1440x900), `chromium-mobile` (Pixel 7 emulation), 
 | `pricing.spec.ts` | indicative line present on every card; no button text matching /buy|subscribe|purchase/i; page hidden when `showPricing=false` |
 | `admin.spec.ts` | `/admin/analytics/*` returns 404 or redirects for anonymous; as `viewer` and `editor` test users: 404; as `admin`: renders with "Sample data" banner in fixtures mode; `/admin` noindex header |
 | `seo.spec.ts` | `sitemap.xml` lists all published routes and no `/admin`, `/api`, `/lab`; `robots.txt` disallows them; JSON-LD parses and contains no `aggregateRating`; canonical uses `NEXT_PUBLIC_SERVER_URL` |
-| `a11y.spec.ts` | axe on every route in both colour themes: zero `serious`/`critical` violations; focus visible on first Tab |
+| `a11y.spec.ts` | axe on every route in the dark theme (and the light theme only if it ships, see 02-design section 12): zero `serious`/`critical` violations; focus visible on first Tab |
 | `visual.spec.ts` | screenshots of `/lab` component states (persona × theme × motion) and of each home chapter in its final state; `maxDiffPixelRatio 0.01`; snapshots committed for chromium-desktop only |
 | `layout-shift.spec.ts` | `PerformanceObserver` layout-shift sum < 0.05 while scrolling home at 1440 and 375 |
 

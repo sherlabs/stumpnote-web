@@ -12,11 +12,20 @@
 --      thoughts_tokens, tts_chars, saved_cost_usd, scope,
 --      subject_player_id, duration_ms, cache_layer, pricing_unknown,
 --      input_*_tokens).
---   2. Run `supabase start` locally and apply; run the repo's SQL tests
---      and schema_contract_test; add the role-privilege tests listed in
---      docs/spec/04-analytics-and-admin.md section 8.
---   3. Lines marked UNVERIFIED reference columns not confirmed against
---      origin/main migrations on 2026-10-04; check them first.
+--   2. Run `supabase start` locally and apply; run the SQL tests of the
+--      private repo and schema_contract_test; add the role-privilege tests
+--      listed in docs/spec/04-analytics-and-admin.md section 8.
+--   3. Column check: on 2026-10-04 (spec review) every table and column used
+--      below was verified against origin/main migrations of the private repo
+--      (ai_usage_log incl. the v2 columns, request_logs, entries, watch_sessions
+--      incl. deleted_at, game_day_plans, mindset_sessions incl. created_at and
+--      completed_at, mindset_checkins, mindset_takeaways incl. removed_at,
+--      guided_sessions, entry_clips, profiles incl. the guardian role value,
+--      user_subscriptions). Re-run that check if migrations changed since.
+--      Still unverified: which subscription_provider values the store webhook
+--      writes (apple and google are assumed; promo and guardian exist).
+--   4. Private-repo constraint: its schema registry comment stripper breaks on
+--      apostrophes inside SQL comments. Keep comments apostrophe-free.
 --
 -- Security choices (see docs/spec/01-architecture.md section 9):
 --   * Views are owned by postgres and use default (owner) semantics, NOT
@@ -25,7 +34,7 @@
 --   * Functions are SECURITY DEFINER with a pinned search_path.
 --   * The role is NOLOGIN here; login + password are set out of band in
 --     the SQL editor, never in a migration.
---   * The `analytics` schema must never be added to PostgREST's exposed
+--   * The `analytics` schema must never be added to the PostgREST exposed
 --     schemas ([api] schemas in config.toml).
 --   * Aggregate-only. No ids, emails or free text are exposed. Cells
 --     below analytics.config.k_min (default 5) are suppressed.
@@ -48,8 +57,8 @@ alter role payload_analytics_ro set statement_timeout = '8s';
 alter role payload_analytics_ro set idle_in_transaction_session_timeout = '10s';
 alter role payload_analytics_ro set search_path = analytics;
 grant usage on schema analytics to payload_analytics_ro;
--- Out of band (SQL editor, user action):
---   alter role payload_analytics_ro login password '<generated>';
+-- Out of band (SQL editor, user action, never in a migration):
+--   alter role payload_analytics_ro login password <generated, via the SQL editor>;
 
 -- ---------------------------------------------------------------------
 -- Config and exclusions (never granted to the role)
@@ -62,7 +71,7 @@ insert into analytics.config values ('k_min', 5) on conflict do nothing;
 create table if not exists analytics.excluded_subject (subject uuid primary key, reason text);
 
 create or replace function analytics.k_min() returns int
-language sql stable security definer set search_path = analytics as
+language sql stable security definer set search_path = analytics, pg_temp as
 $$ select coalesce((select int_value from analytics.config where key = 'k_min'), 5) $$;
 
 -- ---------------------------------------------------------------------
@@ -75,7 +84,7 @@ with a as (
   union select athlete_id, created_at::date from public.entries where coalesce(is_draft, false) = false
   union select athlete_id, started_at::date from public.watch_sessions where deleted_at is null
   union select athlete_id, created_at::date from public.game_day_plans
-  union select player_id,  created_at::date from public.mindset_sessions            -- UNVERIFIED: mindset_sessions.created_at
+  union select player_id,  created_at::date from public.mindset_sessions            -- verified: mindset_sessions.created_at
   union select player_id,  created_at::date from public.mindset_checkins
   union select athlete_id, created_at::date from public.guided_sessions
 )
@@ -89,7 +98,8 @@ where uid is not null
 create or replace view analytics.ai_daily as
 select created_at::date as day, function_name, model, scope,
   count(*) filter (where call_kind in ('generate','embed','tts'))                          as calls,
-  count(distinct subject_player_id) filter (where call_kind in ('generate','embed','tts')) as subjects,
+  case when count(distinct subject_player_id) filter (where call_kind in ('generate','embed','tts')) >= analytics.k_min()
+       then count(distinct subject_player_id) filter (where call_kind in ('generate','embed','tts')) end as subjects,  -- null below k
   coalesce(sum(prompt_tokens),0)      as prompt_tokens,
   coalesce(sum(cached_tokens),0)      as cached_tokens,
   coalesce(sum(completion_tokens),0)  as completion_tokens,
@@ -140,7 +150,7 @@ group by day;
 -- Distribution of per-subject spend. Suppressed below k_min subjects.
 create or replace function analytics.ai_subject_cost_dist(p_days int)
 returns table (subjects bigint, p50_usd numeric, p90_usd numeric, p99_usd numeric, max_usd numeric, mean_usd numeric)
-language sql stable security definer set search_path = analytics, public as $$
+language sql stable security definer set search_path = analytics, public, pg_temp as $$
   with s as (
     select subject_player_id, sum(estimated_cost_usd) as cost
     from public.ai_usage_log
@@ -159,10 +169,11 @@ language sql stable security definer set search_path = analytics, public as $$
   having count(*) >= analytics.k_min();
 $$;
 
--- Top spenders as ranks only (no ids). Suppressed below k_min subjects.
+-- Top spenders as ranks only (no ids). Suppressed below 4 x k_min subjects, because
+-- a rank list over very few subjects describes individuals.
 create or replace function analytics.ai_top_spenders(p_days int, p_limit int default 5)
 returns table (rank bigint, cost_usd numeric, calls bigint, pct_of_subject_spend numeric)
-language sql stable security definer set search_path = analytics, public as $$
+language sql stable security definer set search_path = analytics, public, pg_temp as $$
   with s as (
     select subject_player_id, sum(estimated_cost_usd) as cost, count(*) as calls
     from public.ai_usage_log
@@ -175,7 +186,7 @@ language sql stable security definer set search_path = analytics, public as $$
   select row_number() over (order by cost desc), round(cost::numeric, 4), calls,
          round((100.0 * cost / nullif(t.total,0))::numeric, 1)
   from s, t
-  where t.n >= analytics.k_min()
+  where t.n >= 4 * analytics.k_min()
   order by cost desc
   limit least(greatest(p_limit,1), 10);
 $$;
@@ -231,19 +242,20 @@ group by days.d;
 
 create or replace view analytics.signups_daily as
 select created_at::date as day,
-  case role when 'athlete' then 'player' when 'guardian' then 'parent' else role end as persona,   -- UNVERIFIED: 'guardian' role value
+  case role when 'athlete' then 'player' when 'guardian' then 'parent' else role end as persona,   -- verified: profiles.role allows guardian
   count(*) as accounts,
   count(*) filter (where onboarding_completed) as onboarded
 from public.profiles
 where not exists (select 1 from analytics.excluded_subject e where e.subject = profiles.id)
-group by 1,2;
+group by 1,2
+having count(*) >= analytics.k_min();   -- day x persona cell, suppress below k
 
 create or replace view analytics._feature_events as
 select 'entry_net' as feature, athlete_id as uid, created_at::date as d from public.entries where entry_type = 'net' and coalesce(is_draft,false) = false
 union all select 'entry_match',       athlete_id, created_at::date   from public.entries where entry_type = 'match' and coalesce(is_draft,false) = false
 union all select 'watch_session',     athlete_id, started_at::date   from public.watch_sessions where deleted_at is null
 union all select 'gameday_plan',      athlete_id, created_at::date   from public.game_day_plans
-union all select 'mindset_session',   player_id,  created_at::date   from public.mindset_sessions                                   -- UNVERIFIED: created_at
+union all select 'mindset_session',   player_id,  created_at::date   from public.mindset_sessions                                   -- verified
 union all select 'mindset_completed', player_id,  completed_at::date from public.mindset_sessions where completed_at is not null
 union all select 'mindset_takeaway',  player_id,  created_at::date   from public.mindset_takeaways where removed_at is null
 union all select 'mindset_checkin',   player_id,  created_at::date   from public.mindset_checkins
@@ -256,7 +268,8 @@ select d as day, feature, count(*) as events, count(distinct uid) as users
 from analytics._feature_events f
 where uid is not null
   and not exists (select 1 from analytics.excluded_subject e where e.subject = f.uid)
-group by 1,2;
+group by 1,2
+having count(distinct uid) >= analytics.k_min();   -- feature x day cell describes a group, suppress below k
 
 create or replace view analytics.feature_adoption_by_persona_30d as
 select feature, persona, users from (
@@ -303,7 +316,8 @@ select cohort, persona, count(*) as signed_up,
   count(*) filter (where trial_started_at is not null)                   as trial_started,
   count(*) filter (where subscription_provider in ('apple','google'))    as store_subscribed
 from base
-group by 1,2;
+group by 1,2
+having count(*) >= analytics.k_min();   -- cohort x persona cell, suppress below k
 
 create or replace view analytics.subscription_status as
 select tier, coalesce(subscription_provider,'none') as provider,
@@ -313,11 +327,12 @@ select tier, coalesce(subscription_provider,'none') as provider,
   team_subscription, coach_subscription, count(*) as users
 from public.user_subscriptions s
 where not exists (select 1 from analytics.excluded_subject e where e.subject = s.user_id)
-group by 1,2,3,4,5;
+group by 1,2,3,4,5
+having count(*) >= analytics.k_min();   -- suppress below k
 
 create or replace function analytics.data_freshness()
 returns table (ai_usage_latest timestamptz, now_utc timestamptz)
-language sql stable security definer set search_path = analytics, public as
+language sql stable security definer set search_path = analytics, public, pg_temp as
 $$ select max(created_at), now() from public.ai_usage_log $$;
 
 -- =====================================================================
@@ -345,10 +360,12 @@ revoke all on function analytics.ai_subject_cost_dist(int), analytics.ai_top_spe
 grant execute on function analytics.ai_subject_cost_dist(int), analytics.ai_top_spenders(int,int),
   analytics.data_freshness(), analytics.k_min() to payload_analytics_ro;
 
--- Expected negative tests (write them in the private repo's SQL tests):
+-- Expected tests (write them in the SQL tests of the private repo):
 --   set role payload_analytics_ro;
 --   select * from public.profiles;                 -- permission denied
 --   select * from analytics._activity_user_day;    -- permission denied
 --   select * from analytics.config;                -- permission denied
 --   insert into analytics.excluded_subject ...;    -- read-only transaction
---   select rolbypassrls from pg_roles where rolname='payload_analytics_ro'; -- false
+--   select rolbypassrls from pg_roles where rolname = payload_analytics_ro; -- false (quote the name in the real test)
+--   select count(*) from analytics.ai_daily;       -- works (owner semantics bypass RLS on ai_usage_log)
+--   select * from any public RPC;                  -- permission denied (see spec 04 section 8, pre-apply step)

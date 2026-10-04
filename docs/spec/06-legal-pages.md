@@ -21,7 +21,7 @@ Footer also links Apple's standard EULA (https://www.apple.com/legal/internet-se
 
 Import rule: render from the markdown sources, not from the diverged HTML pages in the app repo. Section links such as `[Privacy Policy](/privacy)` resolve on the new host. The draft footer note disappears when no placeholder remains.
 
-## 2. Rendering mechanism (port of the app repo's legal renderer, `src/lib/legal/render.ts`)
+## 2. Rendering mechanism (behaviour reference: the private app repo's `scripts/legal/render.sh` and `docs/legal/legal_config.json`; the file to create in THIS repo is `src/lib/legal/render.ts`)
 
 Three behaviours plus a gate, all unit-tested:
 
@@ -78,6 +78,7 @@ Until `COMPANY_LEGAL_NAME` is set, the footer reads "© 2026 StumpNote" with no 
 ## 6. Analytics and the waitlist (new disclosures)
 
 - The privacy draft's own checklist asks to confirm the marketing site adds no analytics before publishing. With a cookieless provider (D-06; PostHog cookieless mode or Plausible): draft `/cookies`; add a "Marketing site" row to the data map; state that the only cookie is the admin session cookie (strictly necessary); no Google Analytics or advertising tags.
+- **Gate:** the waitlist form is OFF by default (`beta-access.waitlistEnabled = false`). It may be switched on only when (a) `/privacy` renders its full page, not notice mode, and includes the website/waitlist section, and (b) a monitored contact exists for deletion and unsubscribe requests. Collecting email addresses while the privacy page says "being finalised" and no contact exists is not acceptable. With the gate off, `/join` shows the Coming-soon line and the link to the web app.
 - The waitlist form collects email, optional persona and consent. Add a "Website and waitlist" section to the policy, a clear consent line on the form (stored verbatim per record), and an unsubscribe/deletion route (support email or the in-app path). Mark new wording `{{LEGAL_REVIEW: ...}}` until cleared. Collect no age or children's data.
 
 ## 7. Content QA for legal pages (S5 acceptance)

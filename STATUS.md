@@ -2,7 +2,7 @@
 
 Single source of truth for progress. Update at the end of every work unit, then commit and push.
 
-Last updated: 2026-10-04 (S0 done: full plan spec, stage briefs S1..S7, TASKS expanded, RESUME prompts. Next action: execute S1 per `docs/ops/stages/S1-scaffold.md`)
+Last updated: 2026-10-04 (S0 done: full plan spec, stage briefs S1..S7, TASKS expanded, RESUME prompts. Spec reviewed 2026-10-04, see docs/spec/00-overview.md section 10. Next action: execute S1 per `docs/ops/stages/S1-scaffold.md`)
 
 ## Stage table
 
@@ -21,15 +21,16 @@ Status values: `not started`, `in progress`, `blocked`, `done`. Stage numbering 
 
 ## Decisions made by the owner (2026-10-04)
 
-See [docs/spec/USER-DECISIONS.md](docs/spec/USER-DECISIONS.md) (authoritative). DB: Neon via Vercel Marketplace; analytics plugin: `payload-dashboard-analytics` (NouanceLabs), to be verified for Payload 3 in S6 with a documented fallback to a custom admin view; legal values: take from https://www.sherlabs.com/privacy and related pages, proposed for approval in S5, retention values still to be approved; no App Store availability claims until the apps are live.
+See [docs/spec/USER-DECISIONS.md](docs/spec/USER-DECISIONS.md) (authoritative). DB: Neon via Vercel Marketplace; analytics plugin: `@nouance/payload-dashboard-analytics` (NouanceLabs; NOT the unscoped `payload-dashboard-analytics`), to be verified for Payload 3 in S6 with a documented fallback to a custom admin view; legal values: take from https://www.sherlabs.com/privacy and related pages, proposed for approval in S5, retention values still to be approved; no App Store availability claims until the apps are live.
 
 ## Decisions needed from the user
 
 Recommended defaults are in [docs/spec/00-overview.md](docs/spec/00-overview.md) section 8 and the decision log [docs/spec/decisions.md](docs/spec/decisions.md). The agent builds the default unless told otherwise; tell the next session or edit this list to override.
 
-- [ ] D-01 Hosting: existing Vercel **Pro** team (the one hosting app.stumpnote.com), project `stumpnote-site` (default) vs Hobby via GitHub Actions with the fair-use risk accepted. Hobby cannot Git-import an org repo and is non-commercial only.
+- [ ] D-01 Hosting: existing Vercel **Pro** team (the one hosting app.stumpnote.com), project `stumpnote-site` (default) vs Hobby (direct Git import) with the fair-use risk accepted in writing. Hobby is non-commercial, personal use only (Vercel fair-use guidelines).
 - [ ] D-06 Website analytics fallback provider. You chose the NouanceLabs plugin; its registry metadata (latest 0.3.0 from 2023, peer `payload ^1.6.16`) says it will not run on Payload 3, so S6 will verify and most likely fall back to a custom admin view. Pick the provider for that view: Plausible (the plugin's privacy-friendly option; paid, billing is yours) or PostHog Cloud EU (free, cookieless). If unanswered: S6 ships on fixtures with the PostHog adapter wired but inactive; nothing goes live until you choose.
 - [ ] D-LEGAL proposed values: S5 will list the entity, address, mailbox and governing-law values found on sherlabs.com here for your approval before publishing anything.
+- [ ] Spec review (2026-10-04) questions: (a) the SQL draft `docs/spec/supabase-analytics-views.sql` publishes table/column/function names of the private app database in this public repo (not secret, but internal); keep it here for recoverability (default) or move it to the private repo at S6-09 and keep only the view list in the public spec. (b) Waitlist form ships OFF (`waitlistEnabled=false`) until `/privacy` is live and a deletion/unsubscribe contact exists; confirm. (c) Which `subscription_provider` values does the store webhook write (draft assumes `apple`, `google`)? (d) Hobby fair-use: only relevant if you reject the Pro-team default.
 - [ ] D-14 Show indicative pricing before the App Store launch (default: show, labelled indicative, no buy button).
 - [ ] Legal values: all 16 keys in `docs/spec/06-legal-pages.md` section 4 (default: pages ship in notice mode, noindex).
 - [ ] Copyright holder wording in `NOTICE` (currently "Sherlabs"; confirm legal entity).
@@ -47,6 +48,7 @@ Format: `- [Sn] what | why | exact next click-path for the user | date`. Nothing
 
 - [S1] Neon database provisioning | Marketplace install requires accepting Neon terms and choosing a plan | Vercel dashboard, the Pro team, Storage, Create Database, Neon, accept terms, plan Free, name `stumpnote-cms`, region nearest you, connect to project `stumpnote-site` for Production and Preview | pending
 - [S1] Vercel Blob store | may prompt for terms | Vercel dashboard, project `stumpnote-site`, Storage, Create, Blob | pending
+- [S1] Vercel GitHub App access to `sherlabs/stumpnote-web` (only if `vercel git connect` cannot see the repo) | org Owner must grant the app the repo | GitHub, sherlabs org settings, Installed GitHub Apps, Vercel, Configure, add `stumpnote-web` (or All repositories) | pending
 - [S1] First Payload admin user | needs a typed password; the agent never types passwords | after the first deploy with a DB, open `https://<deployment>/admin`, create the first user, then tell the next session it exists | pending
 - [S6] Web analytics provider account | terms acceptance (PostHog) or billing (Plausible) | PostHog: posthog.com, sign up, EU region, create project, Project settings, Web analytics, enable "Cookieless server hash mode"; Personal API keys, create with Query Read scope; add the PostHog env names from `docs/spec/01-architecture.md` section 5 to Vercel Production. Plausible: plausible.io, subscribe, add site `stumpnote.com`, create Stats API key; add the `PLAUSIBLE_*` env names | pending
 - [S6] Analytics views migration + read-only role password | production DB change in the private repo | say "prepare the analytics migration PR" to a session; review and merge it; apply; in the Supabase SQL editor run the `alter role ... login password` line; add `STUMPNOTE_ANALYTICS_DATABASE_URL` to Vercel Production; set `ANALYTICS_MODE=live` | pending
@@ -58,3 +60,4 @@ Format: `- [Sn] what | why | exact next click-path for the user | date`. Nothing
 
 - 2026-10-04: S0 bootstrap done. Public repo `sherlabs/stumpnote-web` created, recovery scaffolding committed to `main`.
 - 2026-10-04: S0 plan spec written: `docs/spec/00..08`, `supabase-analytics-views.sql` (draft), `decisions.md`; stage briefs `docs/ops/stages/S1..S7`; `TASKS.md` expanded; `docs/ops/RESUME.md` prompts. Stage numbering changed (planning folded into S0). S0 done. Next: S1.
+- 2026-10-04: adversarial spec review done (14 issues fixed: D-01 claim corrected, plugin name trap, first-admin lockout, CSP nonce vs static, ignoreCommand, k-anonymity gaps in SQL draft, honesty rewording, waitlist gate). Log in docs/spec/00-overview.md section 10.

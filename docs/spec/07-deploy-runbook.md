@@ -12,7 +12,7 @@ Hard rules: the agent never accepts terms, picks a paid plan, enters payment det
 |---|---|
 | GitHub repo | `sherlabs/stumpnote-web` (public, default `main`) |
 | Local clone | `/Users/nilesh93/Projects/personal/stumpnote-site` |
-| Vercel team | the user's existing **Pro** team that hosts `app.stumpnote.com` (D-01; its slug is visible in `vercel teams ls`; not recorded here). Fallback: the Hobby team via GitHub Actions. |
+| Vercel team | the user's existing **Pro** team that hosts `app.stumpnote.com` (D-01; its slug is visible in `vercel teams ls`; not recorded here). Fallback (user accepts fair-use risk in writing): the Hobby team, direct Git import. |
 | Vercel project | **`stumpnote-site`**. Do not touch the existing project `stumpnote-web` (the Flutter web app). |
 | Domain | `stumpnote.com` (already registered in the Pro team; apex and `www` unused today; `app` CNAME serves the Flutter app) |
 | Registrar / DNS | Namecheap BasicDNS (nameservers `dns1/dns2.registrar-servers.com`); email forwarding MX + SPF present and must be kept |
@@ -31,7 +31,7 @@ Settings: Framework preset Next.js; root `.`; install `pnpm install --frozen-loc
 
 `vercel.json` (committed):
 ```json
-{ "ignoreCommand": "git diff --quiet HEAD^ HEAD -- . ':!docs' ':!*.md'" }
+{ "ignoreCommand": "git diff --quiet ${VERCEL_GIT_PREVIOUS_SHA:-HEAD^} HEAD -- . ':!docs' ':!*.md'" }
 ```
 
 Env vars: `npx vercel env add <NAME> production` (value via stdin, pasted by the agent only when the user has provided it; never echoed to logs); mark Sensitive. Preview scope gets separate non-production values. `.env.example` lists names only.
@@ -45,7 +45,7 @@ Skeleton deploy (S1, DB-free): push to `main` and confirm `https://stumpnote-sit
 - After install, Neon writes env vars into the project. Map them: set `DATABASE_URI` = pooled URL, `DATABASE_URI_UNPOOLED` = direct URL (Neon names them `DATABASE_URL`/`POSTGRES_URL` and `DATABASE_URL_UNPOOLED`; create the two names the app expects or rename in the project settings).
 - Preview environment: create a Neon branch `preview` and point the Preview-scoped `DATABASE_URI*` at it. Previews never use the main branch.
 - Then switch the build command to `pnpm ci`, redeploy, and watch `payload migrate` in the build log.
-- Free-plan behaviour: scale-to-zero after 5 minutes, 100 compute-hours/month, 1 GB. Builds wake it.
+- Free-plan behaviour (verified 2026-10-04 on neon.com/docs): scale-to-zero after 5 minutes (cannot be disabled), 100 CU-hours per project per month, 1 GB storage per project, point-in-time restore window 6 hours. Builds wake it.
 
 **Vercel Blob (D-05).** Dashboard, project `stumpnote-site`, Storage, Create, Blob (may prompt for terms: user step). Creates `BLOB_READ_WRITE_TOKEN` in the project env. Keep image sizes to three.
 
@@ -86,7 +86,7 @@ Order: verify the production deployment on its `*.vercel.app` URL first; then ad
 | What broke | Action |
 |---|---|
 | Bad deployment | Dashboard, Deployments, previous production deployment, **Promote** (Instant Rollback); or `npx vercel rollback`; or `git revert` on `main` |
-| Bad migration | Neon console, Restore (point-in-time, short window on free) or restore a branch; `pg_dump` taken before destructive migrations (`scripts/db-dump.sh`, output gitignored) |
+| Bad migration | Neon console, Restore (point-in-time, 6 hours on the Free plan, so act the same day) or restore a branch; `pg_dump` taken before destructive migrations (`scripts/db-dump.sh`, output gitignored) |
 | DNS | Delete the new `A @` and `CNAME www` records; the domain returns to its previous state (no web record). Re-add old records only if the pre-change screenshot shows them |
 | Admin lockout | Reset via Resend email if configured; otherwise an admin runs a one-off local script against the production DB with the unpooled URL exported for that shell only |
 
@@ -101,7 +101,7 @@ Order: verify the production deployment on its `*.vercel.app` URL first; then ad
 | Vercel WAF | after launch | Project, Firewall: rate-limit `/api/users/login` and the waitlist route; optional IP allow-list on `/admin` |
 | Function logs | ad hoc | Project, Logs (short retention; export if needed) |
 
-Hobby-plan figures, if the fallback is used: 100 GB fast data transfer, 1M invocations, 5,000 image transformations, 100 deployments/day, daily-only cron, 1-month analytics retention.
+Hobby-plan figures, if the fallback is used (Vercel docs, 2026-09): 100 GB fast data transfer, 1,000,000 function invocations, 5,000 image transformations, 100 deployments/day, 3 WAF custom rules (Pro: 40), 1 hour of runtime logs (Pro: 1 day), no Spend Management, non-commercial use only; cron is limited (see the cron docs before relying on it, the spec uses none).
 
 ## 7. GitHub repo hardening (S7)
 

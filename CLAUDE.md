@@ -38,6 +38,7 @@ Marketing site + Payload CMS admin for StumpNote. This repo is **PUBLIC**. Read 
 - Design: follow the StumpNote brand (dark canvas #0B1114, text #F2F5F4, muted #96A1AB; persona accents teal #00B9AE player, #FD9423 coach, #CC5572 parent, #89C012 team; Archivo 900 display + Hanken Grotesk body; Lucide icons; the "M" brush-stroke mark). Tokens in one place; no one-off hardcoded colors.
 
 ## 6. Tooling notes
+- Analytics plugin name trap: the owner's choice is the scoped npm package `@nouance/payload-dashboard-analytics`. The unscoped `payload-dashboard-analytics` is a different publisher (GA4-only, depends on `@payloadcms/db-mongodb`); never install it.
 - Disk is tight on this Mac: use the pnpm store; delete `node_modules` and `.next` after verification.
 - Never broad-`pkill`; stop only processes you started (by PID).
 - Truncate noisy output (`| tail -50`, `grep`).

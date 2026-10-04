@@ -75,6 +75,7 @@ All colours and type come from here. No hard-coded hex in components (lint rule:
 [data-persona="coach"]  { --accent: var(--accent-coach); }
 [data-persona="parent"] { --accent: var(--accent-parent); }
 [data-persona="team"]   { --accent: var(--accent-team); }
+/* Light theme is OPTIONAL (stretch, S5+). Accent colours as TEXT fail AA on the light canvas (teal about 2.4:1), so a shipped light theme must use --accent-ink for accent text. The values below are a naive draft: if light ships, take the re-derived palette from the private repo `docs/design/set-a/light-mode.md` (canvas #F2F5F4, persona fills deepened for a white label at 4.5:1) instead. v1 ships dark only; if light is cut, remove ThemeToggle and the "both themes" a11y runs. */
 [data-theme="light"] { --canvas:#F7F8F7; --surface:#FFFFFF; --text:#0B1114; --text-body:#2B343B; --muted:#5B6770; --tertiary:#7C8894;
   --hairline-1: rgb(0 0 0 / 0.06); --hairline-2: rgb(0 0 0 / 0.08); --hairline-3: rgb(0 0 0 / 0.12); }
 ```
@@ -280,7 +281,7 @@ Legend: `[CTA]` filled accent button, `(link)` text link, `{M}` the mark, `~~~` 
 ### Security & privacy `/security`
 ```
 │ SECURITY & PRIVACY                                              │
-│ Built for juniors first.                                        │
+│ Clear about your data.                                          │
 │ short-version bullets (7, from the policy's own summary)        │
 │ sections: Age gate · Guardian consent · Sharing switches · What we store · AI consent · Deletion
 │ (Read the full Privacy Policy →) (Account deletion →) (Data safety summary →)
@@ -354,3 +355,14 @@ Grid of every signature component with controls: persona switch, motion on/off, 
 | GSAP, Lenis, OGL | separate chunks, loaded after idle or on viewport entry | `next/dynamic` |
 
 Mobile: no pinned sections under 1024 px; test on a throttled mid-range profile, not just desktop.
+
+## 12. Scope cut list (design ambition versus deliverability)
+
+Estimated agent effort is about 135 hours (see TASKS.md); the signature set in S2 (ten components, about 8 h estimated) is the most optimistic line. If a stage runs over or a budget in section 11 fails, cut in this order, one item at a time, re-measure, and record the cut in `decisions.md`:
+1. Light theme and `ThemeToggle` (dark only).
+2. `HeroRings` WebGL shader (keep the SVG `AmbientRings`; the static hero already meets the concept).
+3. `BailsLoader` route-change flourish (keep only the 404 use).
+4. Lenis smooth scroll (native scroll; ScrollTrigger still works).
+5. `VoiceNoteTyper` and `QuickLogStrip` animation (render static final state).
+6. Pinned "How it learns" scrub (stacked cards on all widths).
+Never cut: the M self-paint on the hero, reduced-motion handling, the real-DOM-text alternatives, the contrast table, the legal notice mode. Known performance risk: main-thread time from GSAP/ScrollTrigger/SplitText initialisation on mid-range phones (TBT <= 150 ms); mitigation is the idle-mount rule plus `gsap.matchMedia` gating, and the first thing to measure in S3.

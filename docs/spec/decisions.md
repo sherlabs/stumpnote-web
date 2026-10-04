@@ -7,8 +7,8 @@ Add new entries at the bottom; never edit an accepted entry, add a superseding o
 ---
 
 ## D-01 Hosting plan: existing Vercel Pro team (proposed, 2026-10-04)
-Context: user asked for "Vercel free tier". Vercel Hobby is non-commercial only and cannot Git-import org-owned repos. The user's account already has a Pro team hosting `app.stumpnote.com`.
-Decision: deploy `stumpnote-site` into that Pro team. Fallback if the user insists on Hobby: GitHub Actions `vercel build` + `vercel deploy --prebuilt` with a `VERCEL_TOKEN` repo secret and the fair-use risk recorded.
+Context: user asked for "Vercel free tier". Vercel Hobby is for non-commercial, personal use only (fair-use guidelines, checked 2026-10-04); the claim in the first draft that Hobby cannot Git-import org repos was not supported by current Vercel docs and was removed in the spec review. The user's account already has a Pro team hosting `app.stumpnote.com`.
+Decision: deploy `stumpnote-site` into that Pro team. Fallback if the user insists on Hobby: direct Git import of the repo with the fair-use risk recorded in writing by the user. No GitHub Actions deploy path (it needs a `VERCEL_TOKEN` repo secret, forbidden by CLAUDE.md).
 Consequences: zero incremental cost; Spend Management available; a "Pause production deployments" setting there would pause the app too, so budgets use notifications only.
 
 ## D-02 Payload >= 3.90.2 on Next 16 App Router, Node 24, pnpm 10, Tailwind 4 (accepted)
@@ -28,8 +28,8 @@ Consequences: Docker required locally (already present for `supabase start`).
 Consequences: brand assets stay in `/public`; Blob store creation may prompt for terms (BLOCKED gate if so).
 
 ## D-06 Website analytics: owner chose the NouanceLabs `payload-dashboard-analytics` plugin; verify in S6; fallback = custom admin view (accepted direction, provider pending)
-Context: owner decision D-ANALYTICS in `USER-DECISIONS.md` (2026-10-04). Technical pre-check the same day: npm latest 0.3.0 (2023-05-25), peer `payload ^1.6.16`, React 16 to 18; expected incompatible with Payload 3.90. The community PostHog plugin for Payload 3 exposes its data endpoint without a `req.user` check, so it is not an alternative. GA4 plugins need a consent banner.
-Decision: S6 step S6-00 installs the plugin in a scratch branch, records the result (`pnpm install` peer errors, admin boot) in `STATUS.md`. If incompatible: custom admin view at `/admin/analytics/web`, server-side read, cookieless provider, aggregate-only, same panels. Provider for the fallback is the owner's call: Plausible (plugin's privacy-friendly provider; paid) or PostHog Cloud EU (free, `cookieless_mode: "always"`, `person_profiles: "never"`). If the owner has not answered when S6 runs: ship on fixtures with the PostHog adapter wired but inactive (the agent may not create paid resources); live tracking waits for the owner's provider choice and account gate.
+Context: owner decision D-ANALYTICS in `USER-DECISIONS.md` (2026-10-04). Technical pre-check the same day: npm `@nouance/payload-dashboard-analytics` latest 0.3.0 (2023-05-25), peer `payload ^1.6.16`, React 16 to 18, repo last pushed 2023-08-28, providers Plausible and Google Analytics only; expected incompatible with Payload 3.90. The unscoped npm package `payload-dashboard-analytics` (2.2.0, peer `payload ^3.29`) is NOT the owner's plugin (different publisher, GA4-only, depends on `@payloadcms/db-mongodb`) and must not be installed as a substitute. The community PostHog plugin for Payload 3 was not evaluated (auth model unknown), so it is not an alternative. GA4 plugins need a consent banner.
+Decision: S6 step S6-00 installs `@nouance/payload-dashboard-analytics` (scoped name only) in a scratch branch, records the result (`pnpm install` peer errors, admin boot) in `STATUS.md`. If incompatible: custom admin view at `/admin/analytics/web`, server-side read, cookieless provider, aggregate-only, same panels. Provider for the fallback is the owner's call: Plausible (plugin's privacy-friendly provider; paid) or PostHog Cloud EU (free, `cookieless_mode: "always"`, `person_profiles: "never"`). If the owner has not answered when S6 runs: ship on fixtures with the PostHog adapter wired but inactive (the agent may not create paid resources); live tracking waits for the owner's provider choice and account gate.
 Consequences: `src/analytics/web-provider.ts` is an interface with `plausible.ts` and `posthog.ts` adapters; the site snippet is loaded only for the configured provider; `/cookies` describes whichever runs; account creation is a BLOCKED gate either way.
 
 ## D-LEGAL Legal values come from the owner's existing sherlabs.com policy pages (accepted, owner decision)
@@ -60,4 +60,5 @@ Decision: port the three behaviours of the app repo's legal renderer (substituti
 
 ## D-14 Pricing: show indicative plans, no buy button, CMS toggle to hide (proposed)
 
-## D-15 Beta CTA: `betaAccess` global, ships as waitlist (accepted)
+## D-15 Beta CTA: `betaAccess` global, ships as waitlist (accepted; amended in spec review)
+Amendment: the waitlist form itself ships disabled (`waitlistEnabled=false`) until the privacy page is live and a deletion/unsubscribe contact exists (06-legal-pages section 6). The state stays `waitlist`; only the form is gated.

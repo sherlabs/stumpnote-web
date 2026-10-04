@@ -19,7 +19,7 @@ Every non-legal content route live from Payload with full field sets, Live Previ
   - `/players`, `/captains`, `/coaches`, `/parents` from `personas` (one template; `data-persona` set per page; parents page `leadWith=consent` shows the consent block first).
   - `/pricing` from `pages` `pricing` using the `pricing-table` block; `showPricing=false` → `notFound()`; indicative line forced in the renderer.
   - `/security` from `pages` `security` (principles + rich text + links to legal routes).
-  - `/join` (state-driven from `beta-access`; waitlist form shared with S3).
+  - `/join` (state-driven from `beta-access`; waitlist form shared with S3 and hidden unless `waitlistEnabled`).
   - `/support` (FAQ accordion from `faqs`; contact line from `legal-values.SUPPORT_EMAIL` or the in-app route; link to `/account-deletion`).
   - `/blog`, `/blog/[slug]`, `/blog/rss.xml`; `/changelog` grouped by month.
   - `[slug]` fallback for other `pages`.

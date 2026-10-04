@@ -6,7 +6,7 @@ Hard rules: admin role only; server components only; aggregate-only; k-anonymity
 
 ## 1. Website analytics (D-06; owner decision D-ANALYTICS in [USER-DECISIONS.md](./USER-DECISIONS.md))
 
-**Step zero in S6: verify the owner's chosen plugin.** The owner chose the NouanceLabs `payload-dashboard-analytics` plugin. Registry metadata on 2026-10-04 (latest 0.3.0, 2023-05-25, peer `payload ^1.6.16`) says it will not install against Payload 3.90. S6 proves it one way or the other in a scratch branch and records the result in `STATUS.md`. If it works: wire it with its privacy-friendly provider (Plausible) and skip the custom view for web analytics (keep sections 2 and 3). If it does not: build the custom view below for the provider the owner picks; never switch plugins silently.
+**Step zero in S6: verify the owner's chosen plugin.** The owner chose the NouanceLabs plugin, npm `@nouance/payload-dashboard-analytics` (use the scoped name; the unscoped `payload-dashboard-analytics` is an unrelated package and must not be installed). Registry metadata on 2026-10-04 (latest 0.3.0, 2023-05-25, peer `payload ^1.6.16`, repo last pushed 2023-08-28, providers Plausible and Google Analytics) says it will not install against Payload 3.90. S6 proves it one way or the other in a scratch branch and records the result in `STATUS.md`. If it works: wire it with its privacy-friendly provider (Plausible) and skip the custom view for web analytics (keep sections 2 and 3). If it does not: build the custom view below for the provider the owner picks; never switch plugins silently.
 
 **Provider abstraction:** `src/analytics/web-provider.ts` exposes `getWebPanels(range)`; adapters `plausible.ts` (Stats API v2, server key) and `posthog.ts` (HogQL). Panels and event names below are provider-neutral.
 
@@ -25,7 +25,7 @@ Project setting required in PostHog: Web analytics, "Cookieless server hash mode
 
 **If Plausible is chosen instead:** script `https://plausible.io/js/script.js` (cookieless by design), Stats API v2 with a server-side key (`PLAUSIBLE_API_KEY`, `PLAUSIBLE_SITE_ID`, `PLAUSIBLE_API_HOST`); custom events via `plausible('cta_click_beta', {props})`. Plausible has no free plan, so the account is a BLOCKED billing step for the owner.
 
-**Plugins not used and why:** the Payload 3 community PostHog plugin exposes its data endpoint without an authentication check; GA4 plugins require a consent banner (only if the owner explicitly chooses GA4).
+**Plugins not used and why:** the Payload 3 community PostHog plugin (auth model not evaluated); GA4 plugins require a consent banner (only if the owner explicitly chooses GA4); the unscoped npm package `payload-dashboard-analytics` (a different publisher from the owner's plugin, GA4-only, depends on `@payloadcms/db-mongodb`) is excluded. If the owner's plugin is ever wired, its `access` option must be admin-only: the README example `(user) => Boolean(user)` would expose analytics to every logged-in role.
 
 **Consent/cookie stance:** cookieless, aggregate-only, no cross-site tracking, no advertising tags. `/cookies` states this and names the admin session cookie. Child-account analytics in the app are off; the marketing site does not know who is a child and collects nothing identifying.
 
@@ -100,7 +100,7 @@ No cron (D-09), so alerts are "on view" and in the providers:
 ## 6. Privacy rules (enforced)
 
 1. Aggregate-only: no view returns an id, email, name, free text, or a row describing one person.
-2. k-anonymity: `analytics.config.k_min = 5`; any cell below is suppressed in SQL, not in the UI. Changing k is a reviewed private-repo change.
+2. k-anonymity: `analytics.config.k_min = 5`; any breakdown cell that describes a group (feature x day, signups by day x persona, funnel and retention cohorts, persona adoption, subscription mix, `ai_daily.subjects`) is suppressed in SQL below k (rows dropped, or `subjects` null), not in the UI. `ai_top_spenders` needs at least 4 x k subjects. Overall totals (DAU/WAU/MAU, AI spend per function and day) are operational counts, not suppressed, and a function x day cost can still reflect one subject when usage is tiny; this is an accepted exposure for the founder-only admin and is stated in the UI. Expect sparse panels at beta scale: that is by design. Cell suppression is not differencing-proof (a total minus visible cells reveals a hidden cell); acceptable for the admin-only audience. Changing k is a reviewed private-repo change.
 3. Excluded accounts: founder and test accounts are listed in `analytics.excluded_subject` (SQL editor only) and removed from activity, retention and distributions.
 4. Server-only: `src/analytics/*` import `server-only`; browsers receive rendered aggregates only.
 5. Role gate: `admin` role required; a Playwright test asserts 404 for anonymous and `viewer`/`editor`.
@@ -116,9 +116,10 @@ Recharts 3 in client components that receive already-fetched props. Palette: Pay
 
 - Role privileges: `payload_analytics_ro` cannot read `public.*`, cannot write, is not a member of `authenticator`, `anon` or `authenticated`, has `rolbypassrls = false`.
 - Grants: exactly the 14 views + 4 functions in section 9 are readable/executable; the two internal views and both tables are not.
-- k-suppression: with fewer than k subjects, `feature_adoption_by_persona_30d`, `retention_weekly`, `ai_subject_cost_dist`, `ai_top_spenders` return no rows.
+- k-suppression: with fewer than k subjects, `feature_adoption_daily`, `feature_adoption_by_persona_30d`, `retention_weekly`, `signups_daily`, `funnel_weekly`, `subscription_status`, `ai_subject_cost_dist` return no rows and `ai_daily.subjects` is null; `ai_top_spenders` returns no rows below 4 x k subjects.
+- RLS and owner semantics: as `payload_analytics_ro`, `select count(*) from analytics.ai_daily` works (views run with owner privileges, which bypass RLS on the base tables) while any `public` table or RPC is denied.
 - Existing `schema_contract_test` stays green.
-- Open risk to check: any `SECURITY DEFINER` function in `public` that PUBLIC can execute would be executable by the new role too. List them and revoke from PUBLIC with explicit grants to `anon`, `authenticated`, `service_role` before applying.
+- Pre-apply step: list the functions in `public` that PUBLIC can execute (default function privileges) and tighten their grants with explicit grants to the intended roles, because a new role inherits PUBLIC execute rights; then add a SQL test that `payload_analytics_ro` is denied on every `public` RPC.
 
 ## 9. Full SQL object list (must match the GRANT block in the SQL file)
 
@@ -148,4 +149,4 @@ Internal, not granted: views `analytics._activity_user_day`, `analytics._feature
 
 ## 10. Fixture shapes
 
-One JSON file per object above under `src/analytics/fixtures/`, each an array of rows with the exact column names and plausible synthetic values (small, invented numbers; 120 days for daily views). A `generate-fixtures.ts` script produces them deterministically from a seed so they can be regenerated without hand-editing.
+One JSON file per object above under `src/analytics/fixtures/`, each an array of rows with the exact column names and plausible synthetic values (`ai_daily.subjects` is nullable; include null rows to exercise the UI) (small, invented numbers; 120 days for daily views). A `generate-fixtures.ts` script produces them deterministically from a seed so they can be regenerated without hand-editing.
