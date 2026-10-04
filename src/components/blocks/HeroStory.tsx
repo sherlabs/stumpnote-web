@@ -9,8 +9,8 @@ import { isRouteReady } from '@/lib/site-config'
 import type { BlockContext, BlockOf } from './types'
 
 const ORBIT = [
-  { label: 'Daily focus', cls: 'right-[12%] top-[7%]', d: '0s' },
-  { label: 'AI read', cls: 'right-[1%] top-[52%]', d: '-2.4s' },
+  { label: 'Daily focus', cls: 'right-[17%] top-[7%]', d: '0s' },
+  { label: 'AI read', cls: 'right-[12%] top-[60%]', d: '-2.4s' },
   { label: 'Memory', cls: 'left-[30%] bottom-[9%]', d: '-4.8s' },
 ]
 

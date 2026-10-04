@@ -19,7 +19,7 @@ test('home: wordmark, heading, link to the web app, no horizontal scroll', async
   await page.goto('/')
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Your cricket, remembered')
   await expect(
-    page.locator('main').getByRole('link', { name: 'Open the web app' }),
+    page.locator('main').getByRole('link', { name: 'Open the web app' }).first(),
   ).toHaveAttribute('href', 'https://app.stumpnote.com')
   const overflow = await page.evaluate(
     () => document.documentElement.scrollWidth - document.documentElement.clientWidth,

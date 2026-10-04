@@ -33,6 +33,7 @@ export function Statement({ block }: { block: BlockOf<'statement'> }) {
             <li
               key={f.id ?? i}
               className="statement-frag"
+              data-text={f.text}
               style={
                 {
                   '--x': `${SPOTS[i].x}%`,
@@ -40,9 +41,7 @@ export function Statement({ block }: { block: BlockOf<'statement'> }) {
                   '--d': SPOTS[i].d,
                 } as React.CSSProperties
               }
-            >
-              {f.text}
-            </li>
+            />
           ))}
         </ul>
         <h2 id="statement-h" className="display-2 relative z-10 max-w-[19ch]">

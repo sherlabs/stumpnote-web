@@ -26,7 +26,9 @@
     "secrets": "bash scripts/check-secrets.sh",
     "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm secrets && pnpm audit --prod --audit-level=high",
     "seed": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/seed.ts",
-    "seed:dry": "cross-env SEED_DRY_RUN=1 NODE_OPTIONS=--no-deprecation payload run scripts/seed.ts"
+    "seed:dry": "cross-env SEED_DRY_RUN=1 NODE_OPTIONS=--no-deprecation payload run scripts/seed.ts",
+    "size": "node scripts/size-check.mjs",
+    "test:lh": "node scripts/lighthouse.mjs"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.90.2",
@@ -53,6 +55,7 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
+    "@lhci/cli": "^0.15.1",
     "@playwright/test": "1.63.0",
     "@tailwindcss/postcss": "^4.1.18",
     "@types/node": "24.12.3",

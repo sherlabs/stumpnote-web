@@ -68,9 +68,9 @@ Format: `- [ ] ID title (owner: agent|user) (deps) (est)`. Estimates are agent w
 - [x] S3-08 Features carousel (agent) (S3-04) (1.5h)
 - [x] S3-09 Game day, Mind, Body, Team, Privacy, CTA chapters + waitlist server action (form gated by `beta-access.waitlistEnabled`, default off; Local API with overrideAccess, collection create access denied) (agent) (S3-06) (4h)
 - [x] S3-10 Footer wiring + `track()` no-op events (agent) (S3-09) (0.5h)
-- [ ] S3-11 home/layout-shift specs, Lighthouse on `/`, size-limit (agent) (S3-10) (2h)
-- [ ] S3-12 Mobile pass 320/375/768 (agent) (S3-11) (1h)
-- [ ] S3-13 Clean, STATUS (Lighthouse numbers)/TASKS, commit, push (agent) (0.25h)
+- [x] S3-11 home/layout-shift specs, Lighthouse on `/`, size-limit (agent) (S3-10) (2h)
+- [x] S3-12 Mobile pass 320/375/768 (agent) (S3-11) (1h)
+- [x] S3-13 Clean, STATUS (Lighthouse numbers)/TASKS, commit, push (agent) (0.25h)
 
 ## S4 CMS pages + seed (brief: S4-cms-pages.md)
 

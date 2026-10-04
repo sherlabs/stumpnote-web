@@ -18,7 +18,7 @@ function ActionCard({ scenario }: { scenario?: Chapter['scenario'] }) {
   return (
     <div className="flex w-full max-w-[460px] flex-col gap-5 rounded-3 border border-[var(--hairline-2)] bg-surface p-6">
       <p className="eyebrow">Today&apos;s focus</p>
-      <p className="display-3 text-text">
+      <p className="title text-text">
         {scenario?.text ? scenario.text : 'One thing to work on today.'}
       </p>
       <p className="eyebrow !text-muted">

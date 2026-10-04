@@ -51,7 +51,7 @@ function fromCms(docs: Array<number | Feature>, area?: string | null): FeatureCa
 export function FeatureCarousel({ block }: { block: BlockOf<'feature-carousel'> }) {
   const cms = block.features?.length ? fromCms(block.features, block.filterByArea) : []
   const cards = cms.length ? cms : FEATURE_CARDS
-  const scroller = useRef<HTMLUListElement>(null)
+  const scroller = useRef<HTMLDivElement>(null)
 
   const step = useCallback((dir: 1 | -1) => {
     const el = scroller.current
@@ -102,49 +102,51 @@ export function FeatureCarousel({ block }: { block: BlockOf<'feature-carousel'> 
           </button>
         </div>
       </div>
-      <ul
+      <div
         ref={scroller}
         tabIndex={0}
         role="region"
         aria-roledescription="carousel"
         aria-label="Features"
         onKeyDown={onKey}
-        className="carousel bleed mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-6 [scrollbar-width:none] lg:mt-14"
+        className="carousel bleed mt-10 snap-x snap-mandatory overflow-x-auto pb-6 [scrollbar-width:none] lg:mt-14"
       >
-        {cards.map((f, n) => {
-          const href = `/features/${f.slug}`
-          const linked = isRouteReady(href)
-          return (
-            <li key={f.slug} className="feature-card snap-start">
-              <article className="feature-card-inner">
-                <div className="flex items-start justify-between gap-3">
-                  <span className="feature-icon" aria-hidden>
-                    <BlockIcon name={f.icon} size={24} />
-                  </span>
-                  <Badge status={f.status} />
-                </div>
-                <h3 className="title mt-10">{f.title}</h3>
-                <p className="mt-3 text-[16px] leading-[1.5] text-body">{f.benefit}</p>
-                <div className="mt-auto flex items-end justify-between gap-4 pt-8">
-                  <span aria-hidden className="feature-num mono-num">
-                    {String(n + 1).padStart(2, '0')}
-                  </span>
-                  {linked && (
-                    <Link
-                      href={href}
-                      className="feature-card-link inline-flex min-h-11 items-center gap-2 text-[15px] font-semibold text-text"
-                    >
-                      Learn more
-                      <ArrowRight aria-hidden size={16} />
-                      <span className="absolute inset-0" aria-hidden />
-                    </Link>
-                  )}
-                </div>
-              </article>
-            </li>
-          )
-        })}
-      </ul>
+        <ul className="carousel-track">
+          {cards.map((f, n) => {
+            const href = `/features/${f.slug}`
+            const linked = isRouteReady(href)
+            return (
+              <li key={f.slug} className="feature-card snap-start">
+                <article className="feature-card-inner">
+                  <div className="flex items-start justify-between gap-3">
+                    <span className="feature-icon" aria-hidden>
+                      <BlockIcon name={f.icon} size={24} />
+                    </span>
+                    <Badge status={f.status} />
+                  </div>
+                  <h3 className="title mt-10">{f.title}</h3>
+                  <p className="mt-3 text-[16px] leading-[1.5] text-body">{f.benefit}</p>
+                  <div className="mt-auto flex items-end justify-between gap-4 pt-8">
+                    <span aria-hidden className="feature-num mono-num">
+                      {String(n + 1).padStart(2, '0')}
+                    </span>
+                    {linked && (
+                      <Link
+                        href={href}
+                        className="feature-card-link inline-flex min-h-11 items-center gap-2 text-[15px] font-semibold text-text"
+                      >
+                        Learn more
+                        <ArrowRight aria-hidden size={16} />
+                        <span className="absolute inset-0" aria-hidden />
+                      </Link>
+                    )}
+                  </div>
+                </article>
+              </li>
+            )
+          })}
+        </ul>
+      </div>
     </Section>
   )
 }

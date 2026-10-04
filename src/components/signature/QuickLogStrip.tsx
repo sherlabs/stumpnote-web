@@ -67,7 +67,7 @@ export function QuickLogStrip({ reducedMotion, persona, className }: SignaturePr
             key={k}
             type="button"
             onClick={() => log(k)}
-            aria-label={`Log ${WORD[k]}`}
+            aria-label={`${k}, log ${WORD[k]}`}
             className="qls-key grid min-h-11 place-items-center rounded-2 border border-[var(--hairline-3)] bg-transparent text-[17px] font-bold text-text mono-num transition-colors hover:bg-[var(--hairline-2)] active:bg-accent active:text-canvas"
           >
             {k}

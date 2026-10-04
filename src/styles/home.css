@@ -104,6 +104,10 @@ html[data-motion='on'] .orbit-chip {
   padding: 0;
   list-style: none;
 }
+/* The words are generated content (decorative, aria-hidden): they are not text for contrast audits or search. */
+.statement-frag::before {
+  content: attr(data-text);
+}
 .statement-frag {
   padding: 6px 12px;
   border: 1px solid var(--hairline-2);
@@ -232,15 +236,22 @@ html[data-motion='on'] .orbit-chip {
     align-items: center;
     min-height: 72svh;
   }
+  /* The inactive steps drop to --muted (7.2:1 on the canvas) instead of fading with opacity, so every state passes AA. */
   html[data-motion='on'] .learn-card {
     border-color: transparent;
     background: transparent;
     padding: 0;
-    opacity: 0.32;
-    transition: opacity var(--dur-2) var(--ease-out);
+    --text: var(--muted);
+    --text-body: var(--muted);
+    --tertiary: var(--muted);
+  }
+  html[data-motion='on'] .learn-card * {
+    transition: color var(--dur-2) var(--ease-out);
   }
   html[data-motion='on'] .learn-step[data-active] .learn-card {
-    opacity: 1;
+    --text: inherit;
+    --text-body: inherit;
+    --tertiary: inherit;
   }
 }
 
@@ -289,7 +300,15 @@ html[data-motion='on'] .orbit-chip {
   color: transparent;
   -webkit-text-stroke: 1px var(--hairline-3);
 }
-.carousel > li {
+.carousel-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.carousel-track > li {
   flex: 0 0 min(82vw, 340px);
 }
 .feature-card-inner {
