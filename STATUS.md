@@ -8,16 +8,16 @@ Last updated: 2026-10-04 (S0 done: full plan spec, stage briefs S1..S7, TASKS ex
 
 Status values: `not started`, `in progress`, `blocked`, `done`. Stage numbering changed on 2026-10-04: planning is part of S0; S1..S7 are the build stages.
 
-| Stage | Name | Depends on | Status | Blocked | Last commit | Next action |
-|---|---|---|---|---|---|---|
-| S0 | Bootstrap + plan spec (`docs/spec/*`, stage briefs S1..S7, TASKS, RESUME) | - | done | no | 4dc0787 | none |
-| S1 | Scaffold: Next + Payload + Tailwind, DB adapter, collections skeleton, quality scripts, Docker Postgres, first DB-free skeleton deploy | S0 | not started | no | - | Execute `docs/ops/stages/S1-scaffold.md` from S1-01 |
-| S2 | Design system + motion foundation + `/lab` | S1 | not started | no | - | Execute `docs/ops/stages/S2-design-system.md` |
-| S3 | Home page: hero + storytelling | S2 | not started | no | - | Execute `docs/ops/stages/S3-home.md` |
-| S4 | CMS pages: features, personas, pricing, security, join, support + seed | S2 (S3 renderers) | not started | no | - | Execute `docs/ops/stages/S4-cms-pages.md` |
-| S5 | Legal pages (notice mode) + SEO/OG/sitemap/JSON-LD + a11y/perf pass | S3, S4 | not started | no | - | Execute `docs/ops/stages/S5-legal-seo-quality.md` |
-| S6 | Admin: website analytics + AI-spend and product analytics views | S1 (parallel with S3..S5) | not started | no | - | Execute `docs/ops/stages/S6-admin-analytics.md` on fixtures; live only after user gates |
-| S7 | Launch: domain cutover, awards polish, Lighthouse, repo hardening, handoff | S3..S6 | not started | no | - | Execute `docs/ops/stages/S7-launch.md` |
+| Stage | Name                                                                                                                                   | Depends on                | Status      | Blocked | Last commit | Next action                                                                             |
+| ----- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- | ----------- | ------- | ----------- | --------------------------------------------------------------------------------------- |
+| S0    | Bootstrap + plan spec (`docs/spec/*`, stage briefs S1..S7, TASKS, RESUME)                                                              | -                         | done        | no      | 4dc0787     | none                                                                                    |
+| S1    | Scaffold: Next + Payload + Tailwind, DB adapter, collections skeleton, quality scripts, Docker Postgres, first DB-free skeleton deploy | S0                        | not started | no      | -           | Execute `docs/ops/stages/S1-scaffold.md` from S1-01                                     |
+| S2    | Design system + motion foundation + `/lab`                                                                                             | S1                        | not started | no      | -           | Execute `docs/ops/stages/S2-design-system.md`                                           |
+| S3    | Home page: hero + storytelling                                                                                                         | S2                        | not started | no      | -           | Execute `docs/ops/stages/S3-home.md`                                                    |
+| S4    | CMS pages: features, personas, pricing, security, join, support + seed                                                                 | S2 (S3 renderers)         | not started | no      | -           | Execute `docs/ops/stages/S4-cms-pages.md`                                               |
+| S5    | Legal pages (notice mode) + SEO/OG/sitemap/JSON-LD + a11y/perf pass                                                                    | S3, S4                    | not started | no      | -           | Execute `docs/ops/stages/S5-legal-seo-quality.md`                                       |
+| S6    | Admin: website analytics + AI-spend and product analytics views                                                                        | S1 (parallel with S3..S5) | not started | no      | -           | Execute `docs/ops/stages/S6-admin-analytics.md` on fixtures; live only after user gates |
+| S7    | Launch: domain cutover, awards polish, Lighthouse, repo hardening, handoff                                                             | S3..S6                    | not started | no      | -           | Execute `docs/ops/stages/S7-launch.md`                                                  |
 
 ## Decisions made by the owner (2026-10-04)
 

@@ -16,7 +16,10 @@ const readApprovedOnly: Access = ({ req }) =>
 export const Testimonials: CollectionConfig = {
   ...publicContentBase,
   slug: 'testimonials',
-  admin: { useAsTitle: 'attribution', defaultColumns: ['attribution', 'role', 'approved', '_status'] },
+  admin: {
+    useAsTitle: 'attribution',
+    defaultColumns: ['attribution', 'role', 'approved', '_status'],
+  },
   access: {
     read: readApprovedOnly,
     create: isEditor,
@@ -39,7 +42,9 @@ export const Testimonials: CollectionConfig = {
     {
       name: 'materialConnection',
       type: 'text',
-      admin: { description: 'Disclosure of any material connection. Juniors: note guardian consent.' },
+      admin: {
+        description: 'Disclosure of any material connection. Juniors: note guardian consent.',
+      },
     },
     {
       name: 'approved',

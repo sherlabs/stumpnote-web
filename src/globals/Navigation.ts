@@ -3,7 +3,12 @@ import { isEditor } from '@/access'
 
 const linkFields = [
   { name: 'label', type: 'text' as const, required: true },
-  { name: 'url', type: 'text' as const, required: true, admin: { description: 'Path (/features) or full URL.' } },
+  {
+    name: 'url',
+    type: 'text' as const,
+    required: true,
+    admin: { description: 'Path (/features) or full URL.' },
+  },
 ]
 
 export const Navigation: GlobalConfig = {
@@ -16,7 +21,11 @@ export const Navigation: GlobalConfig = {
       maxRows: 6,
       fields: linkFields,
     },
-    { name: 'headerCta', type: 'group', fields: linkFields.map((f) => ({ ...f, required: false })) },
+    {
+      name: 'headerCta',
+      type: 'group',
+      fields: linkFields.map((f) => ({ ...f, required: false })),
+    },
     {
       name: 'footerColumns',
       type: 'array',

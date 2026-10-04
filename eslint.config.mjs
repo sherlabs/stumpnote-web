@@ -1,16 +1,9 @@
-import { dirname } from 'path'
-import { fileURLToPath } from 'url'
-import { FlatCompat } from '@eslint/eslintrc'
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-})
+import nextVitals from 'eslint-config-next/core-web-vitals'
+import nextTypescript from 'eslint-config-next/typescript'
 
 const eslintConfig = [
-  ...compat.extends('next/core-web-vitals', 'next/typescript'),
+  ...nextVitals,
+  ...nextTypescript,
   {
     rules: {
       '@typescript-eslint/ban-ts-comment': 'warn',
@@ -28,10 +21,34 @@ const eslintConfig = [
           caughtErrorsIgnorePattern: '^(_|ignore)',
         },
       ],
+      // Design tokens live in src/styles/tokens.css only: no hard-coded hex colours elsewhere.
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'Literal[value=/#[0-9a-fA-F]{3,8}\\b/]',
+          message: 'Use a design token (src/styles/tokens.css) instead of a hex colour.',
+        },
+        {
+          selector: 'TemplateElement[value.raw=/#[0-9a-fA-F]{3,8}\\b/]',
+          message: 'Use a design token (src/styles/tokens.css) instead of a hex colour.',
+        },
+      ],
     },
   },
   {
-    ignores: ['.next/', 'src/payload-types.ts', 'src/payload-generated-schema.ts'],
+    // Metadata/theme-color and server config legitimately carry the brand canvas colour once.
+    files: ['src/app/(site)/layout.tsx', 'next.config.ts', 'tests/**', 'scripts/**'],
+    rules: { 'no-restricted-syntax': 'off' },
+  },
+  {
+    ignores: [
+      '.next/',
+      'node_modules/',
+      'migrations/',
+      'src/payload-types.ts',
+      'src/app/(payload)/**',
+      'next-env.d.ts',
+    ],
   },
 ]
 

@@ -21,8 +21,17 @@ export const WaitlistSignups: CollectionConfig = {
       })),
     },
     { name: 'consent', type: 'checkbox', required: true },
-    { name: 'consentText', type: 'text', required: true, admin: { description: 'Exact consent line shown to the visitor.' } },
-    { name: 'source', type: 'text', admin: { description: 'Page path the form was submitted from.' } },
+    {
+      name: 'consentText',
+      type: 'text',
+      required: true,
+      admin: { description: 'Exact consent line shown to the visitor.' },
+    },
+    {
+      name: 'source',
+      type: 'text',
+      admin: { description: 'Page path the form was submitted from.' },
+    },
     // Optional ipHash (HMAC-SHA256 with a server secret, truncated) is decided in S3-09; never a plain hash.
   ],
 }

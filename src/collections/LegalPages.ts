@@ -9,7 +9,10 @@ import { publishedOnly } from '@/access'
  */
 export const LegalPages: CollectionConfig = {
   slug: 'legal-pages',
-  admin: { useAsTitle: 'title', defaultColumns: ['title', 'slug', 'reviewStatus', '_status', 'updatedAt'] },
+  admin: {
+    useAsTitle: 'title',
+    defaultColumns: ['title', 'slug', 'reviewStatus', '_status', 'updatedAt'],
+  },
   access: { read: publishedOnly, create: isEditor, update: isEditor, delete: isAdmin },
   versions: { drafts: { autosave: false }, maxPerDoc: 50 },
   fields: [
@@ -24,7 +27,11 @@ export const LegalPages: CollectionConfig = {
       ),
     },
     { name: 'title', type: 'text', required: true },
-    { name: 'body', type: 'textarea', admin: { description: 'Markdown with {{KEY}} placeholders, stored verbatim.' } },
+    {
+      name: 'body',
+      type: 'textarea',
+      admin: { description: 'Markdown with {{KEY}} placeholders, stored verbatim.' },
+    },
     { name: 'effectiveDate', type: 'date' },
     { name: 'lastUpdated', type: 'date' },
     { name: 'policyVersion', type: 'text' },

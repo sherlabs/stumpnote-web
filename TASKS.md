@@ -11,6 +11,7 @@ Status markers: `[ ]` open, `[~]` in progress, `[x]` done, `[!]` blocked (explai
 Format: `- [ ] ID title (owner: agent|user) (deps) (est)`. Estimates are agent working time in hours, rough.
 
 ## S0 Bootstrap + plan spec
+
 - [x] S0-01 Create public repo sherlabs/stumpnote-web and clone (owner: agent)
 - [x] S0-02 Recovery scaffolding: README, NOTICE, .gitignore, CLAUDE.md, RESUME.md, STATUS.md, TASKS.md (owner: agent)
 - [x] S0-03 Write docs/spec/00..08 + SQL draft + decisions.md (owner: agent)
@@ -18,6 +19,7 @@ Format: `- [ ] ID title (owner: agent|user) (deps) (est)`. Estimates are agent w
 - [x] S0-05 Expand TASKS.md, finalise STATUS.md, refine RESUME.md prompts (owner: agent)
 
 ## S1 Scaffold (brief: docs/ops/stages/S1-scaffold.md)
+
 - [ ] S1-01 Scaffold from Payload `with-vercel-website` template into repo (owner: agent) (S0) (1h)
 - [ ] S1-02 Pin versions per D-02; swap to `@payloadcms/db-postgres`; install (agent) (S1-01) (0.5h)
 - [ ] S1-03 `payload.config.ts`: adapter, serverURL, conditional storage/email, no jobs (agent) (S1-02) (1h)
@@ -41,6 +43,7 @@ Format: `- [ ] ID title (owner: agent|user) (deps) (est)`. Estimates are agent w
 - [ ] S1-17 After gates: map `DATABASE_URI`/`_UNPOOLED`, Neon preview branch, build command `pnpm ci`, first prod migration (agent) (S1-U1) (1h)
 
 ## S2 Design system + motion foundation (brief: S2-design-system.md)
+
 - [ ] S2-01 Tokens finalised, lint rule for hex, contrast table measured (agent) (S1) (1h)
 - [ ] S2-02 Self-hosted fonts via next/font/local with licence file (agent) (S1) (1h)
 - [ ] S2-03 ui primitives: Button, TextLink, Overline, Badge, Card, Field, Checkbox, Notice (agent) (S2-01) (2h)
@@ -54,6 +57,7 @@ Format: `- [ ] ID title (owner: agent|user) (deps) (est)`. Estimates are agent w
 - [ ] S2-11 Clean, STATUS/TASKS, commit, push (agent) (0.25h)
 
 ## S3 Home page (brief: S3-home.md)
+
 - [ ] S3-01 Block renderers (hero-story, statement, chapter, persona-tabs, feature-carousel, cta-beta, principles, rich-text, testimonials) (agent) (S2) (3h)
 - [ ] S3-02 `pages` full fields + blocks; migration; types (agent) (S3-01) (1h)
 - [ ] S3-03 Home seed JSON from the content brief (agent) (S3-02) (1h)
@@ -69,6 +73,7 @@ Format: `- [ ] ID title (owner: agent|user) (deps) (est)`. Estimates are agent w
 - [ ] S3-13 Clean, STATUS (Lighthouse numbers)/TASKS, commit, push (agent) (0.25h)
 
 ## S4 CMS pages + seed (brief: S4-cms-pages.md)
+
 - [ ] S4-01 Full fields for features, personas, faqs, posts, changelog, testimonials, waitlist, redirects, media; access matrix; migration (agent) (S2, S3-01) (3h)
 - [ ] S4-02 Globals full fields + revalidation hooks (agent) (S4-01) (1h)
 - [ ] S4-03 Live Preview + draft preview route (agent) (S4-02) (1h)
@@ -82,6 +87,7 @@ Format: `- [ ] ID title (owner: agent|user) (deps) (est)`. Estimates are agent w
 - [ ] S4-U1 Decide show/hide pricing (D-14) (owner: user)
 
 ## S5 Legal + SEO + quality pass (brief: S5-legal-seo-quality.md)
+
 - [ ] S5-00 Read sherlabs.com policy pages; propose legal values in STATUS for owner approval, publish nothing (agent) (S4) (0.5h)
 - [ ] S5-01 legal-pages full fields, versions, strict-gate and policyVersion hooks; legal-values global (agent) (S4) (2h)
 - [ ] S5-02 `legal/render.ts` + unit tests (agent) (S5-01) (2h)
@@ -101,6 +107,7 @@ Format: `- [ ] ID title (owner: agent|user) (deps) (est)`. Estimates are agent w
 - [ ] S5-U4 Provide a monitored deletion/unsubscribe contact and approve the website/waitlist privacy section; then set `waitlistEnabled=true` (owner: user)
 
 ## S6 Admin analytics (brief: S6-admin-analytics.md)
+
 - [ ] S6-00 Verify the NouanceLabs `payload-dashboard-analytics` plugin against Payload 3 in a scratch branch; record result in STATUS; plugin or documented fallback (agent) (S1) (1h)
 - [ ] S6-01 `src/analytics/*` server-only modules, zod types, fixtures generator, cache (agent) (S1) (4h)
 - [ ] S6-02 `requireAdmin` + audit write + throttle (agent) (S6-01) (1h)
@@ -120,6 +127,7 @@ Format: `- [ ] ID title (owner: agent|user) (deps) (est)`. Estimates are agent w
 - [ ] S6-12 When told: prepare the private-repo PR from a fresh clone per the instructions doc (agent) (S6-U2 pre-step) (2h)
 
 ## S7 Launch (brief: S7-launch.md)
+
 - [ ] S7-01 Pre-flight: full suites against production URL (agent) (S3..S6) (2h)
 - [ ] S7-02 Awards polish pass per checklist (agent) (S7-01) (4h)
 - [ ] S7-03 CSP enforcing (agent) (S7-01) (1h)
@@ -136,4 +144,5 @@ Format: `- [ ] ID title (owner: agent|user) (deps) (est)`. Estimates are agent w
 - [ ] S7-U4 Follow-ups outside this repo: app-repo 308 redirects for legal URLs, App Store Connect URLs, legacy sherlabs.com redirects, Gemini tier confirmation, TestFlight public link (owner: user)
 
 ## Estimate summary (agent hours, rough)
+
 S1 ~12 · S2 ~22 · S3 ~22 · S4 ~22 · S5 ~22 · S6 ~22 · S7 ~14. Total about 135 agent hours across sessions; each stage is resumable at task granularity.

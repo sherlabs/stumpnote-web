@@ -4,7 +4,9 @@ import { isAdmin } from '@/access'
 export const BetaAccess: GlobalConfig = {
   slug: 'beta-access',
   access: { read: () => true, update: isAdmin },
-  admin: { description: 'Drives every beta call to action. No App Store claims until the apps are live.' },
+  admin: {
+    description: 'Drives every beta call to action. No App Store claims until the apps are live.',
+  },
   fields: [
     {
       name: 'state',

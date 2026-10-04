@@ -37,7 +37,9 @@ export const Users: CollectionConfig = {
       saveToJWT: true,
       // `create` stays open: the collection hook decides (first user => admin, otherwise viewer).
       access: { create: () => true, update: isAdminField },
-      admin: { description: 'Admin: everything incl. analytics. Editor: content. Viewer: read-only.' },
+      admin: {
+        description: 'Admin: everything incl. analytics. Editor: content. Viewer: read-only.',
+      },
     },
   ],
 }

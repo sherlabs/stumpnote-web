@@ -4,11 +4,11 @@ Marketing website for **StumpNote** (the cricket performance journal for players
 
 > Status: planned (S0 done). Full spec in [docs/spec/](./docs/spec/README.md); live stage table in [STATUS.md](./STATUS.md).
 
-| | |
-|---|---|
-| Build | ![build](https://img.shields.io/badge/build-pending-lightgrey) |
-| Deploy | ![deploy](https://img.shields.io/badge/vercel-not%20deployed-lightgrey) |
-| Stage | ![stage](https://img.shields.io/badge/stage-S0%20done%20%E2%86%92%20S1-blue) |
+|        |                                                                              |
+| ------ | ---------------------------------------------------------------------------- |
+| Build  | ![build](https://img.shields.io/badge/build-pending-lightgrey)               |
+| Deploy | ![deploy](https://img.shields.io/badge/vercel-not%20deployed-lightgrey)      |
+| Stage  | ![stage](https://img.shields.io/badge/stage-S0%20done%20%E2%86%92%20S1-blue) |
 
 (Badges are placeholders; replace with real workflow/Vercel badges once those exist.)
 
@@ -50,12 +50,12 @@ Rules for contributors (human or agent) are in [CLAUDE.md](./CLAUDE.md).
 
 ## Repo map
 
-| Path | Purpose |
-|---|---|
-| `STATUS.md` | Live stage table, blockers, decisions needed |
-| `TASKS.md` | Task backlog and ID scheme |
-| `CLAUDE.md` | Working rules for agents |
-| `NOTICE` | Proprietary / all rights reserved |
-| `docs/ops/RESUME.md` | Recovery protocol |
-| `docs/ops/stages/` | One brief per stage (S0..S7) |
-| `docs/spec/` | Complete plan spec (00-overview .. 08-test-and-quality, SQL draft, decisions) |
+| Path                 | Purpose                                                                       |
+| -------------------- | ----------------------------------------------------------------------------- |
+| `STATUS.md`          | Live stage table, blockers, decisions needed                                  |
+| `TASKS.md`           | Task backlog and ID scheme                                                    |
+| `CLAUDE.md`          | Working rules for agents                                                      |
+| `NOTICE`             | Proprietary / all rights reserved                                             |
+| `docs/ops/RESUME.md` | Recovery protocol                                                             |
+| `docs/ops/stages/`   | One brief per stage (S0..S7)                                                  |
+| `docs/spec/`         | Complete plan spec (00-overview .. 08-test-and-quality, SQL draft, decisions) |

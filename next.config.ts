@@ -53,6 +53,8 @@ const noIndex = { key: 'X-Robots-Tag', value: 'noindex, nofollow' }
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // Next 16.3 appends an agent-rules block to CLAUDE.md on `next dev`; this repo owns its CLAUDE.md.
+  agentRules: false,
   poweredByHeader: false,
   images: {
     // Brand assets live in /public; CMS images come from Vercel Blob (already WebP-sized by Payload).

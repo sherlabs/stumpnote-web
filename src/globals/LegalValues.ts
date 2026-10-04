@@ -26,7 +26,9 @@ export const LEGAL_VALUE_KEYS = [
 export const LegalValues: GlobalConfig = {
   slug: 'legal-values',
   access: { read: () => true, update: isAdmin },
-  admin: { description: 'Legal placeholder values. Empty values stay visible as notices on the site.' },
+  admin: {
+    description: 'Legal placeholder values. Empty values stay visible as notices on the site.',
+  },
   fields: [
     ...LEGAL_VALUE_KEYS.map((name) =>
       name === 'DELETE_ACCOUNT_PATH'

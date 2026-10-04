@@ -22,7 +22,10 @@ const run = async (opts: {
 
 describe('firstUserRoles', () => {
   it('forces admin for the very first user, ignoring client input', async () => {
-    const { result } = await run({ existingUsers: 0, data: { email: 'a@example.test', roles: ['viewer'] } })
+    const { result } = await run({
+      existingUsers: 0,
+      data: { email: 'a@example.test', roles: ['viewer'] },
+    })
     expect(result.roles).toEqual(['admin'])
   })
 
@@ -32,7 +35,10 @@ describe('firstUserRoles', () => {
   })
 
   it('resets roles to viewer when a non-admin / anonymous caller creates a later user', async () => {
-    const anon = await run({ existingUsers: 3, data: { email: 'b@example.test', roles: ['admin'] } })
+    const anon = await run({
+      existingUsers: 3,
+      data: { email: 'b@example.test', roles: ['admin'] },
+    })
     expect(anon.result.roles).toEqual(['viewer'])
     const editor = await run({
       existingUsers: 3,

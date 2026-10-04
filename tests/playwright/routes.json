@@ -1,0 +1,4 @@
+{
+  "ok": ["/", "/lab", "/robots.txt", "/sitemap.xml"],
+  "notFound": ["/this-page-does-not-exist"]
+}

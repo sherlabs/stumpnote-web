@@ -11,11 +11,15 @@ export const slugField = (source: string = 'title'): Field => ({
   required: true,
   unique: true,
   index: true,
-  admin: { position: 'sidebar', description: 'URL segment. Auto-generated from the title when empty.' },
+  admin: {
+    position: 'sidebar',
+    description: 'URL segment. Auto-generated from the title when empty.',
+  },
   hooks: {
     beforeValidate: [
       ({ value, data }) => {
-        const raw = typeof value === 'string' && value.trim() ? value : (data?.[source] as string | undefined)
+        const raw =
+          typeof value === 'string' && value.trim() ? value : (data?.[source] as string | undefined)
         return typeof raw === 'string' ? slugify(raw) : value
       },
     ],

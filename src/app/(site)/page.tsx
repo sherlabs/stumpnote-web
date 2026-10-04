@@ -14,8 +14,8 @@ export default function HomePage() {
         Your cricket, remembered.
       </h1>
       <p className="max-w-[var(--measure)] text-[length:clamp(18px,1.4vw,22px)] leading-normal text-muted">
-        A voice-first cricket journal with an AI that remembers your game. The new site is on its way.
-        iPhone apps are in TestFlight beta and coming to the App Store.
+        A voice-first cricket journal with an AI that remembers your game. The new site is on its
+        way. iPhone apps are in TestFlight beta and coming to the App Store.
       </p>
       <p>
         <a

@@ -31,6 +31,8 @@ export const Features: CollectionConfig = {
       // Public vocabulary only: the four labels allowed on the site.
       name: 'status',
       type: 'select',
+      // Postgres: `_status` (drafts) already owns enum_features_status; give ours its own enum name.
+      enumName: 'feature_release_status',
       required: true,
       defaultValue: 'in-beta',
       options: [

@@ -56,7 +56,11 @@ export default buildConfig({
   editor: richText,
   db: postgresAdapter({
     // Pool is created lazily: a build without DATABASE_URI never connects.
-    pool: { connectionString: process.env.DATABASE_URI, max: 1 },
+    // max=1 deadlocks Payload (migrations and transactions need a second connection); see decisions.md.
+    pool: {
+      connectionString: process.env.DATABASE_URI,
+      max: Number(process.env.DATABASE_POOL_MAX ?? 3),
+    },
     // Push is opt-in even locally so nobody mixes push and migrations.
     push: process.env.NODE_ENV === 'development' && process.env.PAYLOAD_PUSH === 'true',
     migrationDir: path.resolve(dirname, '../migrations'),
