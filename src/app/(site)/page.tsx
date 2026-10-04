@@ -1,30 +1,39 @@
-import Image from 'next/image'
+import { HeroRings } from '@/components/signature/HeroRings'
+import { MStroke } from '@/components/signature/MStroke'
+import { PersonaChips } from '@/components/site/PersonaChips'
+import { Button } from '@/components/ui/Button'
+import { Overline } from '@/components/ui/Overline'
+import { WEB_APP_URL } from '@/lib/site-config'
 
-// Skeleton home (S1). Static, no CMS reads: the DB-free build must succeed.
+// S2 hero preview: shell + signature pieces on a static page. S3 replaces this with the CMS-driven story.
 export const dynamic = 'force-static'
 
 export default function HomePage() {
   return (
-    <div className="mx-auto flex min-h-svh max-w-[var(--content-max)] flex-col justify-center gap-8 px-[var(--gutter)] py-24">
-      <div className="flex items-center gap-4">
-        <Image src="/brand/stumpnote-mark.svg" alt="" width={56} height={57} priority />
-        <span className="font-display text-3xl font-black tracking-tight text-text">StumpNote</span>
+    <section className="relative overflow-hidden">
+      <div className="container-x grid min-h-[calc(100svh-68px)] items-center gap-10 py-[var(--s-8)]">
+        <div className="relative z-10 flex flex-col gap-7">
+          <Overline accent>Voice-first cricket journal</Overline>
+          <h1 className="display-1 lg:max-w-[11ch]">Your cricket, remembered.</h1>
+          <p className="body-lg measure max-w-[48ch]">
+            Talk for a minute after a session. StumpNote turns it into a journal entry, then uses everything you have
+            logged so every brief, drill, plan and answer is about your game.
+          </p>
+          <div className="flex flex-wrap items-center gap-3">
+            <Button href={WEB_APP_URL} arrow>
+              Open the web app
+            </Button>
+            <p className="body-sm text-muted">iPhone apps are in TestFlight beta, coming to the App Store.</p>
+          </div>
+          <PersonaChips className="pt-2" />
+        </div>
+        <div className="relative order-first mx-auto aspect-square w-full max-w-[300px] sm:max-w-[380px] lg:pointer-events-none lg:absolute lg:right-[-3vw] lg:top-1/2 lg:order-none lg:mx-0 lg:w-[min(46vw,660px)] lg:max-w-none lg:-translate-y-1/2">
+          <HeroRings className="absolute inset-0" />
+          <div className="absolute left-1/2 top-1/2 w-[46%] -translate-x-1/2 -translate-y-[52%]">
+            <MStroke mode="paint" delay={0.15} />
+          </div>
+        </div>
       </div>
-      <h1 className="max-w-[14ch] font-display text-[clamp(56px,9vw,128px)] font-black leading-[0.9] tracking-[-0.04em] text-text">
-        Your cricket, remembered.
-      </h1>
-      <p className="max-w-[var(--measure)] text-[length:clamp(18px,1.4vw,22px)] leading-normal text-muted">
-        A voice-first cricket journal with an AI that remembers your game. The new site is on its
-        way. iPhone apps are in TestFlight beta and coming to the App Store.
-      </p>
-      <p>
-        <a
-          href="https://app.stumpnote.com"
-          className="inline-flex min-h-11 items-center rounded-full bg-accent px-6 font-semibold text-canvas transition-transform duration-[var(--dur-2)] ease-[var(--ease-out)] hover:-translate-y-0.5"
-        >
-          Open the web app
-        </a>
-      </p>
-    </div>
+    </section>
   )
 }

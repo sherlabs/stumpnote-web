@@ -80,7 +80,26 @@ All colours and type come from here. No hard-coded hex in components (lint rule:
   --hairline-1: rgb(0 0 0 / 0.06); --hairline-2: rgb(0 0 0 / 0.08); --hairline-3: rgb(0 0 0 / 0.12); }
 ```
 
-Contrast notes (compute and record in S2): `--muted` #96A1AB on #0B1114 is about 7.4:1 (fine for body); `--tertiary` #7C8894 is about 5:1 (fine for 11px overlines at 600 weight, still AA); teal #00B9AE on canvas is about 8:1 as text; parent rose #CC5572 on canvas is about 4.3:1, so small parent text uses `--accent-parent-text` #E07A93. Accent-filled buttons use `--canvas` as label colour (dark on accent).
+Contrast table (MEASURED in S2 with `node scripts/contrast.mjs`, WCAG 2.2 relative luminance; re-run after any token change):
+
+| Pair | on `--canvas` #0B1114 | on `--surface` #141920 | Verdict |
+|---|---|---|---|
+| `--text` #F2F5F4 | 17.33:1 | 16.09:1 | AAA |
+| `--text-body` #C9D0D6 | 12.20:1 | 11.33:1 | AAA |
+| `--muted` #96A1AB | 7.23:1 | 6.71:1 | AA (AAA on canvas) |
+| `--tertiary` #7C8894 | 5.26:1 | 4.88:1 | AA (11px overlines at 600 weight and up) |
+| `--error` #FF8A80 | 8.33:1 | 7.73:1 | AAA |
+| teal `--accent-player` #00B9AE | 7.74:1 | 7.19:1 | AAA as text |
+| coach `--accent-coach` #FD9423 | 8.54:1 | 7.93:1 | AAA as text |
+| team `--accent-team` #89C012 | 8.70:1 | 8.08:1 | AAA as text |
+| parent `--accent-parent` #CC5572 | 4.63:1 | **4.30:1** | AA on canvas only; on `--surface` it is large text / UI only, so small parent text always uses `--accent-parent-text` |
+| parent text `--accent-parent-text` #E07A93 | 6.68:1 | 6.20:1 | AA |
+| `--canvas` label on teal fill | 7.74:1 | | AAA |
+| `--canvas` label on coach fill | 8.54:1 | | AAA |
+| `--canvas` label on parent fill | 4.63:1 | | AA |
+| `--canvas` label on team fill | 8.70:1 | | AAA |
+
+Rules that follow: accent-filled buttons use `--canvas` as the label colour; accent as small text on `--surface` is allowed for teal, coach and team only; under `data-persona="parent"` the `--accent-text` token resolves to `--accent-parent-text`. `color-mix` tokens (`--accent-ink`, `--accent-soft`) are computed at runtime and are never used for text on dark.
 
 Design grammar from Set A, enforced in review: one focal headline or numeral at 56px+ per screen; one filled accent element per screen; navigation, tabs and selected states are neutral, never accent; status is neutral + words/glyphs, never traffic-light colour alone.
 

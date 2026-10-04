@@ -1,0 +1,269 @@
+/* Signature component styles: keyframes and state rules. Tokens only; no hex. */
+
+/* ---------- MStroke ---------- */
+.mstroke-brush {
+  stroke-dasharray: 1 3;
+  stroke-dashoffset: 0;
+}
+.mstroke[data-mode='scrub'] .mstroke-brush {
+  stroke-dashoffset: calc(1 - var(--p, 1));
+}
+.mstroke-shine {
+  opacity: 0;
+}
+@keyframes sn-paint {
+  from {
+    stroke-dashoffset: 1.02;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes sn-shine {
+  0% {
+    opacity: 0;
+    transform: translateX(0) skewX(-18deg);
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(230px) skewX(-18deg);
+  }
+}
+@keyframes sn-loop-brush {
+  0% {
+    stroke-dashoffset: 1.02;
+    animation-timing-function: cubic-bezier(0.35, 0.1, 0.3, 1);
+  }
+  58%,
+  93% {
+    stroke-dashoffset: 0;
+  }
+  94%,
+  100% {
+    stroke-dashoffset: 1.02;
+  }
+}
+@keyframes sn-loop-ink {
+  0%,
+  84% {
+    opacity: 1;
+  }
+  93%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes sn-loop-shine {
+  0%,
+  60% {
+    opacity: 0;
+    transform: translateX(0) skewX(-18deg);
+  }
+  64%,
+  76% {
+    opacity: 1;
+  }
+  80%,
+  100% {
+    opacity: 0;
+    transform: translateX(230px) skewX(-18deg);
+  }
+}
+html[data-motion='on'] .mstroke[data-mode='paint'] .mstroke-brush {
+  animation: sn-paint 1.2s cubic-bezier(0.215, 0.61, 0.355, 1) var(--mdelay, 0s) both;
+}
+html[data-motion='on'] .mstroke[data-mode='paint'] .mstroke-shine {
+  animation: sn-shine 0.9s var(--ease-in-out) calc(var(--mdelay, 0s) + 1.1s) both;
+}
+html[data-motion='on'] .mstroke[data-mode='loop'] .mstroke-brush {
+  animation: sn-loop-brush 2.4s linear infinite;
+}
+html[data-motion='on'] .mstroke[data-mode='loop'] .mstroke-ink {
+  animation: sn-loop-ink 2.4s linear infinite;
+}
+html[data-motion='on'] .mstroke[data-mode='loop'] .mstroke-shine {
+  animation: sn-loop-shine 2.4s linear infinite;
+}
+html[data-motion='on'] .mstroke[data-paused] * {
+  animation-play-state: paused;
+}
+
+/* Component-level static override (the "reducedMotion" prop): everything at its final state. */
+[data-static],
+[data-static] * {
+  animation: none !important;
+  transition: none !important;
+}
+[data-static] [data-reveal],
+[data-static][data-reveal] {
+  opacity: 1 !important;
+  transform: none !important;
+}
+[data-static] [data-reveal-style='draw'] {
+  stroke-dashoffset: 0 !important;
+}
+
+/* ---------- BailsLoader ---------- */
+.bail {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.bail-a {
+  transform: translate(-14px, 66px) rotate(-78deg);
+}
+.bail-b {
+  transform: translate(20px, 68px) rotate(64deg);
+}
+@keyframes sn-bail-a {
+  0% {
+    transform: translate(0, 0) rotate(0);
+  }
+  35% {
+    transform: translate(-3px, -16px) rotate(-18deg);
+    animation-timing-function: cubic-bezier(0.5, 0, 0.9, 0.6);
+  }
+  100% {
+    transform: translate(-14px, 66px) rotate(-78deg);
+  }
+}
+@keyframes sn-bail-b {
+  0% {
+    transform: translate(0, 0) rotate(0);
+  }
+  35% {
+    transform: translate(3px, -18px) rotate(18deg);
+    animation-timing-function: cubic-bezier(0.5, 0, 0.9, 0.6);
+  }
+  100% {
+    transform: translate(20px, 68px) rotate(64deg);
+  }
+}
+html[data-motion='on'] .bails .bail-a {
+  animation: sn-bail-a 0.95s var(--ease-out) 0.35s both;
+}
+html[data-motion='on'] .bails .bail-b {
+  animation: sn-bail-b 0.95s var(--ease-out) 0.42s both;
+}
+
+/* ---------- Draw-on (SeriesChart) ---------- */
+[data-reveal-style='draw'] {
+  stroke-dasharray: 1 1.05;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1.8s var(--ease-in-out) calc(var(--i, 0) * 120ms);
+}
+html[data-motion='on'] [data-reveal-style='draw'][data-reveal='idle'] {
+  opacity: 1;
+  transform: none;
+  stroke-dashoffset: 1.05;
+}
+
+/* ---------- PitchHeatGrid ---------- */
+.heat-cell {
+  /* Non-peak cells stay <= 46% accent so the light label keeps >= 4.5:1; the peak is the one solid accent fill. */
+  background: color-mix(in oklab, var(--accent) calc(var(--v) * 46%), var(--surface));
+}
+.heat-cell[data-peak] {
+  background: var(--accent);
+  color: var(--canvas);
+}
+@keyframes sn-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 70%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 16px transparent;
+  }
+}
+html[data-motion='on'] .heat-cell[data-peak][data-reveal='in'] {
+  animation: sn-pulse 1.1s var(--ease-out) 0.9s 1 both;
+}
+
+/* ---------- KineticTranscript ---------- */
+.kt-w {
+  transition:
+    color var(--dur-2) var(--ease-out),
+    transform var(--dur-3) var(--ease-out);
+}
+.kt-beat {
+  color: var(--text);
+  font-weight: 800;
+}
+html[data-motion='on'] .kt:not([data-kt='done']) .kt-w:not([data-on]) {
+  color: var(--tertiary);
+}
+html[data-motion='on'] .kt:not([data-kt='done']) .kt-w[data-now].kt-beat {
+  transform: scale(1.06);
+}
+html[data-motion='on'] .kt:not([data-kt='done']) .kt-w[data-on] {
+  color: var(--text-body);
+}
+html[data-motion='on'] .kt:not([data-kt='done']) .kt-beat[data-on] {
+  color: var(--text);
+}
+[data-static] .kt-w {
+  color: var(--text-body) !important;
+  transform: none !important;
+}
+[data-static] .kt-beat {
+  color: var(--text) !important;
+}
+
+/* ---------- QuickLogStrip ---------- */
+@keyframes sn-pop {
+  0% {
+    transform: scale(0.6);
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 60%, transparent);
+  }
+  60% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 14px transparent;
+  }
+}
+html[data-motion='on'] .qls-slot[data-new] {
+  animation: sn-pop 0.5s var(--ease-out) both;
+}
+
+/* ---------- VoiceNoteTyper ---------- */
+.vnt-bar {
+  height: var(--h, 50%);
+  opacity: 0.85;
+}
+@keyframes sn-bar {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+@keyframes sn-caret {
+  50% {
+    opacity: 0;
+  }
+}
+html[data-motion='on'] [data-typing] .vnt-bar {
+  animation: sn-bar 0.9s ease-in-out var(--d, 0s) infinite;
+}
+html[data-motion='on'] .vnt-caret {
+  animation: sn-caret 0.9s steps(1) infinite;
+}
+.vnt-chip {
+  transition:
+    opacity var(--dur-3) var(--ease-out),
+    transform var(--dur-3) var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 120ms);
+}
+html[data-motion='on'] .vnt-chip:not([data-done]) {
+  opacity: 0;
+  transform: translateY(8px);
+}

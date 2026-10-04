@@ -21,10 +21,12 @@
   --accent: var(--accent-player); /* swapped by [data-persona] */
   --accent-ink: color-mix(in oklab, var(--accent) 70%, black);
   --accent-soft: color-mix(in oklab, var(--accent) 16%, transparent);
+  --accent-hi: color-mix(in oklab, var(--accent) 80%, white);
+  --accent-text: var(--accent); /* accent as small text; parent swaps to its lighter text tint */
 
   /* type */
-  --font-display: 'Archivo', system-ui, sans-serif;
-  --font-body: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-display: var(--font-archivo), 'Archivo', system-ui, sans-serif;
+  --font-body: var(--font-hanken), 'Hanken Grotesk', system-ui, sans-serif;
 
   /* spacing (4px base) */
   --s-1: 4px;
@@ -61,6 +63,7 @@
 }
 [data-persona='parent'] {
   --accent: var(--accent-parent);
+  --accent-text: var(--accent-parent-text);
 }
 [data-persona='team'] {
   --accent: var(--accent-team);
