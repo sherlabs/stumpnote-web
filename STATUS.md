@@ -52,3 +52,7 @@ Format: `- [Sn] what | why | exact next click-path for the user | date`. Nothing
 
 - 2026-10-04: S0 bootstrap done. Public repo `sherlabs/stumpnote-web` created, recovery scaffolding committed to `main`.
 - 2026-10-04: S0 plan spec started. Stage numbering changed (planning folded into S0; S1..S7 = build stages). Research findings consolidated into `docs/spec/`.
+
+
+## Decisions made by the owner (2026-10-04)
+See docs/spec/USER-DECISIONS.md — DB: Neon via Vercel Marketplace; analytics plugin: payload-dashboard-analytics (NouanceLabs); legal values: take from https://www.sherlabs.com/privacy, retention still to be approved.
