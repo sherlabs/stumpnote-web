@@ -10,7 +10,7 @@ Status values: `not started`, `in progress`, `blocked`, `done`. Stage numbering 
 
 | Stage | Name | Depends on | Status | Blocked | Last commit | Next action |
 |---|---|---|---|---|---|---|
-| S0 | Bootstrap + plan spec (`docs/spec/*`, stage briefs S1..S7, TASKS, RESUME) | - | done | no | see git log (S0 final) | none |
+| S0 | Bootstrap + plan spec (`docs/spec/*`, stage briefs S1..S7, TASKS, RESUME) | - | done | no | 4dc0787 | none |
 | S1 | Scaffold: Next + Payload + Tailwind, DB adapter, collections skeleton, quality scripts, Docker Postgres, first DB-free skeleton deploy | S0 | not started | no | - | Execute `docs/ops/stages/S1-scaffold.md` from S1-01 |
 | S2 | Design system + motion foundation + `/lab` | S1 | not started | no | - | Execute `docs/ops/stages/S2-design-system.md` |
 | S3 | Home page: hero + storytelling | S2 | not started | no | - | Execute `docs/ops/stages/S3-home.md` |
