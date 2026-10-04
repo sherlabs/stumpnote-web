@@ -2,7 +2,7 @@
 
 Single source of truth for progress. Update at the end of every work unit, then commit and push.
 
-Last updated: 2026-10-04 (S0: plan spec in progress; docs written: 00-overview, decisions, spec index, stage index, 01-architecture, SQL draft; next doc: 02-design)
+Last updated: 2026-10-04 (S0: plan spec in progress; docs written: 00-overview, decisions, spec index, stage index, 01-architecture, SQL draft, 02-design; next doc: 03-cms-model + 04-analytics-and-admin)
 
 ## Stage table
 
