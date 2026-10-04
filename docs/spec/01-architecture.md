@@ -114,6 +114,7 @@ Rules: the `(payload)` admin bundle must never be imported from `(site)`; analyt
 | `PLAUSIBLE_API_HOST` | prod | `https://plausible.io`; only if Plausible is chosen |
 | `ANALYTICS_MODE` | all | `fixtures` (default) or `live` |
 | `STUMPNOTE_ANALYTICS_DATABASE_URL` | prod | Read-only role over the Supabase pooler, `analytics` schema only |
+| `STUMPNOTE_ANALYTICS_CA_CERT` | prod | Optional PEM CA for the pooler TLS chain (`\n` for newlines). TLS is always verified |
 | `REVENUECAT_SECRET_API_KEY` | prod | v2 key with overview-metrics read only (phase 2) |
 | `REVENUECAT_PROJECT_ID` | prod | phase 2 |
 | `LEGAL_STRICT` | prod | `1` blocks publishing a legal page that still has placeholders |

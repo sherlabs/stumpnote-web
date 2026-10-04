@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { TrackView } from '@/components/site/TrackView'
 import { PageView } from '@/components/pages/PageView'
 import { getContentPage, getSettings } from '@/lib/cms/content'
 import { getBlockContext } from '@/lib/cms/route-context'
@@ -24,5 +25,10 @@ export default async function Page() {
   ])
   // D-14: the owner can switch pricing off in Site settings; the route then 404s and the nav link disappears.
   if (!page || !settings.showPricing) notFound()
-  return <PageView page={page} ctx={ctx} />
+  return (
+    <>
+      <TrackView event="pricing_view" />
+      <PageView page={page} ctx={ctx} />
+    </>
+  )
 }
