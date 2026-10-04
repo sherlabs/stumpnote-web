@@ -2,13 +2,13 @@
 
 Marketing website for **StumpNote** (the cricket performance journal for players, coaches and parents), plus a **Payload CMS** admin panel that carries website analytics and StumpNote AI-spend / product analytics views.
 
-> Status: bootstrapping. See [STATUS.md](./STATUS.md) for the live stage table.
+> Status: planned (S0 done). Full spec in [docs/spec/](./docs/spec/README.md); live stage table in [STATUS.md](./STATUS.md).
 
 | | |
 |---|---|
 | Build | ![build](https://img.shields.io/badge/build-pending-lightgrey) |
 | Deploy | ![deploy](https://img.shields.io/badge/vercel-not%20deployed-lightgrey) |
-| Stage | ![stage](https://img.shields.io/badge/stage-S0%20plan%20spec-blue) |
+| Stage | ![stage](https://img.shields.io/badge/stage-S0%20done%20%E2%86%92%20S1-blue) |
 
 (Badges are placeholders; replace with real workflow/Vercel badges once those exist.)
 
