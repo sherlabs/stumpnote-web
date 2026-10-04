@@ -34,9 +34,9 @@ Efficiency rules for agents (from the owner's CLAUDE.md): iterate with targeted 
 |---|---|---|
 | GitHub (`gh` CLI, account `nilesh93`, org `sherlabs`) | repo, pushes | already authenticated in keyring |
 | Chrome with logged-in Vercel + GitHub sessions (Claude in Chrome tools) | Vercel project setup/deploy UI steps | load tools via ToolSearch `select:mcp__claude-in-chrome__tabs_context_mcp,mcp__claude-in-chrome__tabs_create_mcp,mcp__claude-in-chrome__tabs_close_mcp,mcp__claude-in-chrome__navigate,mcp__claude-in-chrome__computer,mcp__claude-in-chrome__find,mcp__claude-in-chrome__read_page,mcp__claude-in-chrome__get_page_text,mcp__claude-in-chrome__form_input,mcp__claude-in-chrome__javascript_tool`; own tab, close after; never type passwords |
-| Vercel (free tier / Hobby) | hosting | deploy via documented path in S7 only |
-| Payload CMS database | Payload storage | needs a DB; free-tier option chosen in S2 (decision recorded). Creating a paid resource or accepting provider terms is BLOCKED for the user |
-| Payload analytics plugin | website analytics in admin | chosen in S5 |
+| Vercel (plan per decision D-01, default existing Pro team) | hosting | deploy via `docs/spec/07-deploy-runbook.md`; project `stumpnote-site` |
+| Payload CMS database | Payload storage | Neon free via Vercel Marketplace (D-03); local dev uses Docker Postgres (D-04). Accepting provider terms is BLOCKED for the user |
+| PostHog Cloud (D-06) | website analytics in admin (S6) | custom admin view, no third-party Payload plugin; account creation is a user step |
 | Private app repo (read-only clone) | docs to mine: `docs/features/*`, `docs/design/set-a/*`, `docs/privacy`, `docs/PRIVACY_POLICY.md`, `docs/TERMS_OF_USE.md`, `docs/terms`, `docs/support`, `docs/release/APP_STORE_READINESS.md`, `docs/AI_COST.md`, `scripts/ai-cost/report.sh`, `docs/web/*`, `assets/images/stumpnote_mark.svg` | `git -C /Users/nilesh93/Projects/personal/stumpnote fetch -q origin` then `git -C ... show origin/main:<path>` |
 | Supabase (StumpNote prod) | AI-spend and product analytics views (S6) | read-only access via env secrets stored only in Vercel/Payload env; never committed; if keys are not available, record BLOCKED |
 

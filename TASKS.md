@@ -10,27 +10,32 @@ Status markers: `[ ]` open, `[~]` in progress, `[x]` done, `[!]` blocked (explai
 
 Format: `- [ ] S<n>-<NN> short imperative title (owner: agent|user) (refs: docs/...)`
 
-## S0 Bootstrap
-- [x] S0-01 Create public repo sherlabs/stumpnote-web and clone
-- [x] S0-02 Recovery scaffolding: README, NOTICE, .gitignore, CLAUDE.md, RESUME.md, STATUS.md, TASKS.md, spec placeholder
+Stage numbering changed 2026-10-04: planning is part of S0; S1..S7 are build stages (see STATUS.md). No S1-xx ids existed before the change, so none were reused.
 
-## S1 Plan and spec
-(empty: populated by the planning work unit)
+## S0 Bootstrap + plan spec
+- [x] S0-01 Create public repo sherlabs/stumpnote-web and clone (owner: agent)
+- [x] S0-02 Recovery scaffolding: README, NOTICE, .gitignore, CLAUDE.md, RESUME.md, STATUS.md, TASKS.md (owner: agent)
+- [~] S0-03 Write docs/spec/00..08 + SQL draft + decisions.md (owner: agent) (refs: docs/spec/README.md)
+- [ ] S0-04 Write stage briefs S1..S7 (owner: agent) (refs: docs/ops/stages/README.md)
+- [ ] S0-05 Expand TASKS.md, finalise STATUS.md, refine RESUME.md prompts (owner: agent)
 
-## S2 Foundation
-(empty)
+## S1 Scaffold
+(expanded in S0-05)
 
-## S3 Marketing site
-(empty)
+## S2 Design system + motion foundation
+(expanded in S0-05)
 
-## S4 Legal and support
-(empty)
+## S3 Home page
+(expanded in S0-05)
 
-## S5 Website analytics
-(empty)
+## S4 CMS pages + seed
+(expanded in S0-05)
 
-## S6 AI spend and product analytics
-(empty)
+## S5 Legal + SEO + quality pass
+(expanded in S0-05)
 
-## S7 Deploy and QA
-(empty)
+## S6 Admin analytics
+(expanded in S0-05)
+
+## S7 Launch
+(expanded in S0-05)

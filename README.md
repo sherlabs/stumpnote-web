@@ -8,7 +8,7 @@ Marketing website for **StumpNote** (the cricket performance journal for players
 |---|---|
 | Build | ![build](https://img.shields.io/badge/build-pending-lightgrey) |
 | Deploy | ![deploy](https://img.shields.io/badge/vercel-not%20deployed-lightgrey) |
-| Stage | ![stage](https://img.shields.io/badge/stage-S0%20bootstrap-blue) |
+| Stage | ![stage](https://img.shields.io/badge/stage-S0%20plan%20spec-blue) |
 
 (Badges are placeholders; replace with real workflow/Vercel badges once those exist.)
 
@@ -16,9 +16,9 @@ Marketing website for **StumpNote** (the cricket performance journal for players
 
 - Public marketing site for StumpNote (home, features, personas, pricing/beta, support, legal).
 - Payload CMS admin (`/admin`) for content, plus analytics dashboards:
-  - website analytics (via a Payload analytics plugin; chosen in stage S5)
-  - StumpNote AI spend and product analytics (read-only views over cost data; chosen and designed in stage S6)
-- Deployed to Vercel (free tier).
+  - website analytics (provider decision D-06 in `docs/spec/00-overview.md`; built in stage S6)
+  - StumpNote AI spend and product analytics (read-only aggregate views; designed in `docs/spec/04-analytics-and-admin.md`; built in stage S6)
+- Deployed to Vercel (plan decision D-01 in `docs/spec/00-overview.md`).
 
 The StumpNote app itself lives in a separate **private** repo. The Flutter web app is at <https://app.stumpnote.com>; this site links to it.
 
@@ -28,11 +28,12 @@ This repository is public for transparency. It is **not** open source. See [NOTI
 
 ## Run locally
 
-Prerequisites (until stage S2 lands, there is no app code yet): Node 20+, pnpm 9+.
+Prerequisites (until stage S1 lands, there is no app code yet): Node 24.x, pnpm 10, Docker (for the local Postgres).
 
 ```sh
 pnpm install
 cp .env.example .env     # fill in values locally; never commit .env
+pnpm db:up               # local Postgres 17 in Docker
 pnpm dev                 # site + Payload admin on http://localhost:3000
 ```
 
@@ -57,4 +58,4 @@ Rules for contributors (human or agent) are in [CLAUDE.md](./CLAUDE.md).
 | `NOTICE` | Proprietary / all rights reserved |
 | `docs/ops/RESUME.md` | Recovery protocol |
 | `docs/ops/stages/` | One brief per stage (S0..S7) |
-| `docs/spec/` | Product, design and technical spec |
+| `docs/spec/` | Complete plan spec (00-overview .. 08-test-and-quality, SQL draft, decisions) |

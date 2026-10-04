@@ -29,7 +29,7 @@ Marketing site + Payload CMS admin for StumpNote. This repo is **PUBLIC**. Read 
 - No GitHub Actions workflows that require secrets.
 
 ## 4. Deploy
-- Deploy only via the documented path (defined in stage S7 brief; Vercel free tier, project linked to this GitHub repo). Do not invent alternative hosting.
+- Deploy only via the documented path (`docs/spec/07-deploy-runbook.md`; Vercel project `stumpnote-site` linked to this GitHub repo; plan per decision D-01). Do not invent alternative hosting.
 - All secrets live in Vercel / Payload environment settings only.
 
 ## 5. Quality budgets
