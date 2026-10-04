@@ -26,6 +26,11 @@ import { MetaTitleComponent as MetaTitleComponent_a8a977ebc872c5d5ea7ee689724c08
 import { MetaDescriptionComponent as MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { MetaImageComponent as MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
+import { default as default_0997763157d8d6081379ced77d4f53ab } from '../../../admin/components/AnalyticsNavLinks'
+import { default as default_f6eed5f854457c6eb47e6756cb1c01b8 } from '../../../admin/components/DashboardTiles'
+import { default as default_b15725cae4d11d5b111900e9cead5de4 } from '../../../admin/views/analytics/web'
+import { default as default_bc089b45e4b81e914b36e63a3cb64c57 } from '../../../admin/views/analytics/ai-spend'
+import { default as default_2141adbd09ecea6db6ccc51f4c254c56 } from '../../../admin/views/analytics/product'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e } from '@payloadcms/storage-vercel-blob/client'
 
@@ -87,6 +92,11 @@ export const importMap = {
     MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860,
   '@payloadcms/plugin-seo/client#PreviewComponent':
     PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
+  '/admin/components/AnalyticsNavLinks#default': default_0997763157d8d6081379ced77d4f53ab,
+  '/admin/components/DashboardTiles#default': default_f6eed5f854457c6eb47e6756cb1c01b8,
+  '/admin/views/analytics/web#default': default_b15725cae4d11d5b111900e9cead5de4,
+  '/admin/views/analytics/ai-spend#default': default_bc089b45e4b81e914b36e63a3cb64c57,
+  '/admin/views/analytics/product#default': default_2141adbd09ecea6db6ccc51f4c254c56,
   '@payloadcms/next/rsc#CollectionCards': CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1,
   '@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler':
     VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e,

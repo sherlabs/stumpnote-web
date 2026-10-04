@@ -45,6 +45,28 @@ export default buildConfig({
     user: Users.slug,
     importMap: { baseDir: path.resolve(dirname) },
     meta: { titleSuffix: ' | StumpNote admin' },
+    components: {
+      // Analytics (S6). Every view re-checks the admin role itself: Payload serves custom views to anyone.
+      views: {
+        analyticsWeb: {
+          Component: '/admin/views/analytics/web',
+          path: '/analytics/web',
+          meta: { title: 'Website analytics' },
+        },
+        analyticsAiSpend: {
+          Component: '/admin/views/analytics/ai-spend',
+          path: '/analytics/ai-spend',
+          meta: { title: 'AI spend' },
+        },
+        analyticsProduct: {
+          Component: '/admin/views/analytics/product',
+          path: '/analytics/product',
+          meta: { title: 'Product analytics' },
+        },
+      },
+      beforeDashboard: ['/admin/components/DashboardTiles'],
+      afterNavLinks: ['/admin/components/AnalyticsNavLinks'],
+    },
     livePreview: {
       breakpoints: [
         { label: 'Mobile', name: 'mobile', width: 375, height: 667 },
