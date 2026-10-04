@@ -129,16 +129,16 @@ Format: `- [ ] ID title (owner: agent|user) (deps) (est)`. Estimates are agent w
 
 ## S7 Launch (brief: S7-launch.md)
 
-- [ ] S7-01 Pre-flight: full suites against production URL (agent) (S3..S6) (2h)
-- [ ] S7-02 Awards polish pass per checklist (agent) (S7-01) (4h)
-- [ ] S7-03 CSP enforcing (agent) (S7-01) (1h)
-- [ ] S7-04 Domain cutover per runbook (agent, after S7-U1) (1h)
-- [ ] S7-05 Spend Management notifications + WAF rules (agent, dashboard, after S7-U2) (0.5h)
-- [ ] S7-06 GitHub hardening: scanning, Dependabot, CODEOWNERS, ci.yml, ruleset, badges (agent) (S7-01) (1.5h)
-- [ ] S7-07 Final production Lighthouse table in STATUS (agent) (S7-04) (1h)
-- [ ] S7-08 Awards pack doc (agent) (S7-02) (1h)
-- [ ] S7-09 HANDOFF.md (agent) (S7-07) (1.5h)
-- [ ] S7-10 Changelog entry, STATUS all done, TASKS post-launch list, clean, commit, push (agent) (0.5h)
+- [x] S7-01 Pre-flight: full suites against production URL (agent) (S3..S6) (2h)
+- [x] S7-02 Awards polish pass per checklist (agent) (S7-01) (4h)
+- [x] S7-03 CSP enforcing (agent) (S7-01) (1h)
+- [!] S7-04 Domain cutover per runbook (agent, after S7-U1) (1h)
+- [!] S7-05 Spend Management notifications + WAF rules (agent, dashboard, after S7-U2) (0.5h)
+- [x] S7-06 GitHub hardening: scanning, Dependabot, CODEOWNERS, ci.yml, ruleset, badges (agent) (S7-01) (1.5h)
+- [x] S7-07 Final production Lighthouse table in STATUS (agent) (S7-04) (1h)
+- [x] S7-08 Awards pack doc (agent) (S7-02) (1h)
+- [x] S7-09 HANDOFF.md (agent) (S7-07) (1.5h)
+- [x] S7-10 Changelog entry, STATUS all done, TASKS post-launch list, clean, commit, push (agent) (0.5h)
 - [ ] S7-U1 Approve Namecheap DNS edit (D-10) (owner: user)
 - [ ] S7-U2 Approve WAF rules and spend notification settings (owner: user)
 - [ ] S7-U3 Submit to awards (paid; optional) (owner: user)
@@ -147,3 +147,15 @@ Format: `- [ ] ID title (owner: agent|user) (deps) (est)`. Estimates are agent w
 ## Estimate summary (agent hours, rough)
 
 S1 ~12 · S2 ~22 · S3 ~22 · S4 ~22 · S5 ~22 · S6 ~22 · S7 ~14. Total about 135 agent hours across sessions; each stage is resumable at task granularity.
+
+## Post-launch (owner-gated or ongoing)
+
+- [ ] Create the first admin at `/admin` (urgent; S1-U3)
+- [ ] Neon `preview` branch, repoint Preview env, then build command `pnpm ci` (S1-17 remainder)
+- [ ] S7-04 DNS cutover once D-10 is approved; then re-run Lighthouse and the e2e suite against `https://stumpnote.com`
+- [ ] S7-05 WAF rate limits and Spend Management notifications (S7-U2)
+- [ ] Legal review for cookies / account deletion / data safety; set `LEGAL_REVIEW_DONE`
+- [ ] Analytics provider choice and live data (D-06, S6-U1..U4)
+- [ ] Awards submission (S7-U3, paid, optional)
+- [ ] Follow-ups outside this repo (S7-U4)
+

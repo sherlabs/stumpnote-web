@@ -7,12 +7,12 @@ Submitting costs money (Awwwards, CSSDA and FWA charge per submission or per tie
 | Gate | State | Where |
 |---|---|---|
 | Custom domain `stumpnote.com` serving the site over HTTPS | Pending the owner's DNS approval (S7-U1) | `docs/spec/07-deploy-runbook.md` section 4 |
-| Production database attached and content seeded | Pending the Neon gate (S1-U1) and a seed run (S4-09) | `STATUS.md`, Blocked |
-| Legal pages published (or the honest notice mode left on) | Notice mode today; real values pending (S5-U1/U2) | `docs/ops/HANDOFF.md` section 4 |
+| Production database attached and content seeded | Done 2026-10-04; the owner still has to create the first admin | `docs/ops/HANDOFF.md` section 2 |
+| Legal pages published (or the honest notice mode left on) | Privacy, Terms, Support published; Cookies, Account deletion, Data safety in notice mode until reviewed | `docs/ops/HANDOFF.md` section 4 |
 | iOS apps on the App Store | Not yet: the site says "In the beta" and "Coming soon" everywhere | do not submit a claim the site cannot back |
 | Lighthouse (mobile) at or above the budgets on the production URL | Table in `STATUS.md`, S7-07 | `pnpm test:lh --base=<origin>` |
 
-Recommendation: submit after the apex domain is live and the Neon database is seeded, so jurors see the CMS-backed site and a short, clean URL. Juries judge the live URL, not the repo.
+Recommendation: submit after the apex domain is live and the Neon database is seeded, so jurors see a short, clean URL. Juries judge the live URL, not the repo.
 
 ## 2. Site facts
 
@@ -89,7 +89,7 @@ Awwwards lists the main tags to pick: Dark, Typography, Scrolling, Animation, Mo
 | Usability defended (keyboard, focus, targets, no touch scroll-jack) | Done | Playwright nav and a11y specs; axe zero serious/critical |
 | Accessibility defended (WCAG 2.2 AA, reduced motion, text alternatives) | Done | `a11y.spec.ts`, `motion.spec.ts` (reduced-motion project) |
 | Performance defended | Mostly: applied-throttling LCP is within budget; the Lighthouse lantern estimate is above 2.0 s (decision D-40, open for the owner) | `STATUS.md` Lighthouse table |
-| Content defended (no lorem, no placeholders, legal live or honest notice) | Done (notice mode until legal values arrive) | Claims unit test, content QA |
+| Content defended (no lorem, no placeholders, legal live or honest notice) | Done (three legal pages live, three in honest notice mode) | Claims unit test, content QA |
 | Works 320 to 2560 px, no horizontal scroll; legal print stylesheet | Done | Overflow checks in the e2e suite (320 to 1440); print CSS on legal pages |
 | OG images, favicon set, 404 with bails | Done | `opengraph-image`, manifest, `global-not-found` |
 | Custom domain on HTTPS | Pending the owner (S7-U1) | Runbook section 4 |
