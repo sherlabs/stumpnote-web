@@ -27,9 +27,11 @@ export function FeatureCardLink({
       <p className="mt-3 text-[16px] leading-[1.5] text-body">{f.benefit}</p>
       <div className="mt-auto flex items-end justify-between gap-4 pt-8">
         {n !== undefined ? (
-          <span aria-hidden className="feature-num mono-num">
-            {String(n + 1).padStart(2, '0')}
-          </span>
+          <span
+            aria-hidden
+            className="feature-num mono-num"
+            data-n={String(n + 1).padStart(2, '0')}
+          />
         ) : (
           <span />
         )}

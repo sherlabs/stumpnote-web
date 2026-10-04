@@ -12,6 +12,8 @@ export type BlockContext = {
   faqs?: FaqVM[]
   /** Show the 90-day trial line on pricing (Site settings). */
   showTrialLine?: boolean
+  /** The first block sits in the initial viewport (page has a short hero): skip its reveal-hide so LCP is not delayed. */
+  eagerFirst?: boolean
 }
 
 export type PersonaOption = 'inherit' | 'player' | 'coach' | 'parent' | 'team' | null | undefined

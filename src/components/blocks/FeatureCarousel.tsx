@@ -136,6 +136,7 @@ export function FeatureCarousel({ block }: { block: BlockOf<'feature-carousel'> 
                         className="feature-card-link inline-flex min-h-11 items-center gap-2 text-[15px] font-semibold text-text"
                       >
                         Learn more
+                        <span className="sr-only"> about {f.title}</span>
                         <ArrowRight aria-hidden size={16} />
                         <span className="absolute inset-0" aria-hidden />
                       </Link>

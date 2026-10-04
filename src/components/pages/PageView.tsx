@@ -51,7 +51,10 @@ export function PageView({
         />
       )}
       {afterHero}
-      <RenderBlocks blocks={(page.layout ?? []) as Block[]} ctx={ctx} />
+      <RenderBlocks
+        blocks={(page.layout ?? []) as Block[]}
+        ctx={{ ...ctx, eagerFirst: Boolean(showHero) }}
+      />
       {extra}
     </>
   )

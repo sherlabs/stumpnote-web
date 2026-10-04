@@ -29,6 +29,9 @@ export function PageHero({
   size?: 'xl' | 'lg'
 }) {
   const lines = headline.split('\n').filter(Boolean)
+  // Explicit short lines are fitted to the viewport on phones (see .page-h1-fit) so the web-font swap cannot re-wrap them.
+  const longest = Math.max(...lines.map((l) => l.length))
+  const fit = lines.length > 1 && longest <= 24
   return (
     <section aria-labelledby={headingId} className={cn('page-hero relative z-10', className)}>
       <div aria-hidden className="page-hero-glow" />
@@ -50,7 +53,9 @@ export function PageHero({
               className={cn(
                 size === 'xl' ? 'display-1 max-w-[14ch]' : 'display-2 max-w-[18ch]',
                 'page-h1',
+                fit && 'page-h1-fit',
               )}
+              style={fit ? ({ '--fit': longest } as React.CSSProperties) : undefined}
             >
               {lines.map((l, i) => (
                 <span

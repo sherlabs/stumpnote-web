@@ -28,7 +28,8 @@
     "seed": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/seed.ts",
     "seed:dry": "cross-env SEED_DRY_RUN=1 NODE_OPTIONS=--no-deprecation payload run scripts/seed.ts",
     "size": "node scripts/size-check.mjs",
-    "test:lh": "node scripts/lighthouse.mjs"
+    "test:lh": "node scripts/lighthouse.mjs",
+    "seed:delete": "cross-env SEED_DELETE=1 NODE_OPTIONS=--no-deprecation payload run scripts/seed.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.90.2",

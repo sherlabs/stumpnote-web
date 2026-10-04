@@ -40,9 +40,11 @@ export function PricingTable({
             >
               <header className="flex items-baseline justify-between gap-3">
                 <h3 className="title">{p.name}</h3>
-                <span aria-hidden className="plan-num mono-num">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
+                <span
+                  aria-hidden
+                  className="plan-num mono-num"
+                  data-n={String(i + 1).padStart(2, '0')}
+                />
               </header>
               <p className="plan-price mt-8">
                 <span className="plan-amount">{p.priceLabel}</span>

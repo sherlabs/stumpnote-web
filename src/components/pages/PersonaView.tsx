@@ -28,9 +28,11 @@ function Lead({ lead }: { lead: NonNullable<PersonaVM['lead']> }) {
           <ol className="lead-steps" role="list">
             {lead.items.map((i, n) => (
               <li key={i.title} className="lead-step">
-                <span aria-hidden className="feature-num mono-num">
-                  {String(n + 1).padStart(2, '0')}
-                </span>
+                <span
+                  aria-hidden
+                  className="feature-num mono-num"
+                  data-n={String(n + 1).padStart(2, '0')}
+                />
                 <div>
                   <h3 className="title">{i.title}</h3>
                   <p className="mt-2 text-[16px] leading-[1.5] text-body">{i.text}</p>
@@ -89,9 +91,11 @@ export function PersonaView({
           <ul className="proof-list" role="list">
             {p.proofPoints.map((t, n) => (
               <li key={t} className="proof-item">
-                <span aria-hidden className="proof-n mono-num">
-                  {String(n + 1).padStart(2, '0')}
-                </span>
+                <span
+                  aria-hidden
+                  className="proof-n mono-num"
+                  data-n={String(n + 1).padStart(2, '0')}
+                />
                 <span className="flex gap-3 text-[18px] leading-[1.45] text-text">
                   <Check
                     aria-hidden

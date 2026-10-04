@@ -24,7 +24,7 @@ export default async function FeaturesPage() {
       <PageHero
         overline="Features"
         headline={'Everything reads\nthe same memory.'}
-        subcopy="Log once and every brief, drill, plan and answer starts from your game. Twenty-two features, one profile that keeps learning."
+        subcopy="Log once and every brief, drill, plan and answer starts from your game."
       />
       <Section labelledBy="all-features-h" tight>
         <h2 id="all-features-h" className="sr-only">

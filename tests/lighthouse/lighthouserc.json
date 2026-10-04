@@ -1,7 +1,17 @@
 {
   "ci": {
     "collect": {
-      "url": ["http://localhost:3101/"],
+      "url": [
+        "http://localhost:3101/",
+        "http://localhost:3101/features",
+        "http://localhost:3101/features/journal",
+        "http://localhost:3101/players",
+        "http://localhost:3101/parents",
+        "http://localhost:3101/pricing",
+        "http://localhost:3101/security",
+        "http://localhost:3101/join",
+        "http://localhost:3101/support"
+      ],
       "numberOfRuns": 3,
       "startServerCommand": "pnpm exec next start -p 3101",
       "startServerReadyPattern": "Ready",

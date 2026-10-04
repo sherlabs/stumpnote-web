@@ -142,3 +142,24 @@ The form renders only when `beta-access.waitlistEnabled` is true (ships false). 
 
 ## D-39 Lighthouse gates on applied throttling; lantern estimate recorded as informational; CSS inlined (accepted, S3; owner may overrule)
 `pnpm test:lh` runs Lighthouse mobile with applied (DevTools) throttling: 4x CPU, 150 ms RTT, 1.6 Mbps, the same profile the Chrome-emulated runs use. Result on `/`: Performance 0.99, Accessibility 1.00, Best practices 1.00, SEO 1.00, FCP = LCP 1.6 s, CLS 0, TBT 90 ms. `pnpm test:lh --simulate` gives Lighthouse's lantern estimate (the PageSpeed-style number): Performance 0.92 to 0.94 and LCP 2.8 to 3.3 s, which MISSES the 2.0 s budget. Cause: lantern treats every script requested before first paint as a render dependency, and the Next 16 + React 19 baseline alone is about 140 KB gzip (react-dom 70, Next client 42, shared 14 + 8); app code is about 25 KB. The same artifact shows on the deployed URL. Real observed LCP (CDP 4x CPU, 1.6 Mbps) is 1.2 s before and 1.6 s after CSS inlining under Lighthouse's harsher latency multiplier. Getting the lantern number under 2.0 s would need most signature components converted to server components (S5 perf pass candidate); not done in S3. `experimental.inlineCss` is on (removes the CSS round trip: FCP/LCP 2.2 s to 1.6 s under applied throttling); side effect: the Payload admin HTML carries its CSS inline (about 1.3 MB raw per full page load; SPA navigation afterwards is unaffected). On mobile the lead paragraph, not the h1, is the LCP node (larger text area); both paint in the first frame.
+
+## D-41 /blog and /changelog exist but are not linked until they have content (accepted, S4)
+Both routes render (empty state, `noindex`, out of the sitemap) but stay out of `READY_ROUTES`, so nav and footer do not link to empty pages. S7 publishes the "Website launched" changelog entry; add `/changelog` (and `/blog` with the first post) to `READY_ROUTES` then.
+
+## D-42 Content is typed TS, not JSON, and FAQs got a slug (accepted, S4; deviates from the brief's `*.json`)
+`src/seed/data/{features,personas,faqs}.ts` and `src/seed/pages/content-pages.ts` follow D-32: one typed source for the seed, the code fallback (production has no database until Neon is attached) and `claims.test.ts`. `faqs` gained a `slug` (idempotent seed key, anchors). Lexical bodies come from `src/seed/lexical.ts`, so seed and fallback render identically.
+
+## D-43 Live Preview uses the editor's session, not a preview secret (accepted, S4; deviates from the brief's `PREVIEW_SECRET`)
+`admin.livePreview.url` points at `/next/preview/<collection>/<slug>`, a dynamic route that calls `payload.auth()` and 404s unless a staff user is signed in (same-origin cookie in the iframe). Public pages stay fully static (no `draftMode()`), and no secret ever reaches a client. `/next/*` already carries `noindex` and `no-store` headers.
+
+## D-44 Seed policy: create missing, never overwrite (accepted, S4)
+`pnpm seed` creates documents that do not exist and skips the rest, so re-running changes nothing and editors' changes survive. Globals fill blank fields only. `SEED_FORCE=1` overwrites, `SEED_DELETE=1` (`pnpm seed:delete`) removes the seeded documents. This replaces S3's update-on-every-run for `home`.
+
+## D-45 Features filter is CSS-only; FAQ accordion is native `<details>` (accepted, S4)
+Radio inputs + `:has()` filter the 22 cards with zero JavaScript (the `/` budget is at 165 of 170 KB), and all 22 stay in the DOM. Decorative outlined numerals are drawn from `data-n` via `::before` so no transparent-coloured text exists for contrast checkers.
+
+## D-46 Team member has no route of its own (accepted, S4)
+Five persona records, four routes: `members` renders as a section on `/captains` (the home tabs already link there).
+
+## D-47 Pricing: video row and Free column (accepted, S4; owner to confirm)
+The comparison table shows Free video uploads as "None", following the wireframe in 02-design section 9; the brief does not state it explicitly. Change in the CMS if Free has an allowance. The 90-day trial line is off by default (`site-settings.showTrialLine`).

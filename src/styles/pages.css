@@ -97,10 +97,24 @@
 }
 .filter-chips {
   display: flex;
-  flex-wrap: wrap;
   gap: 8px;
-  padding: 0;
+  padding: 4px var(--gutter);
+  margin-inline: calc(-1 * var(--gutter));
   border: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.chip {
+  flex: none;
+  white-space: nowrap;
+}
+@media (min-width: 900px) {
+  .filter-chips {
+    flex-wrap: wrap;
+    overflow: visible;
+    margin-inline: 0;
+    padding-inline: 0;
+  }
 }
 .chip-input {
   position: absolute;
@@ -502,4 +516,29 @@ html[data-motion='on'] .faq-item[open] .faq-answer {
 .lead-step .feature-num {
   font-size: 32px;
   line-height: 1.1;
+}
+
+/* Decorative outlined numerals are drawn from data-n so no transparent-coloured text exists in the DOM (axe). */
+.feature-num[data-n]::before,
+.proof-n[data-n]::before,
+.plan-num[data-n]::before {
+  content: attr(data-n);
+}
+
+/* Phones: size the headline so its longest explicit line fits one row in the real font AND in the metric-adjusted
+   fallback, so the font swap never changes the line count (CLS). 0.62em is the average advance of Archivo 900. */
+@media (max-width: 639px) {
+  .page-h1-fit {
+    --fit-size: calc((100vw - 2 * var(--gutter)) / (var(--fit) * 0.62));
+  }
+  .page-h1-fit.display-1 {
+    font-size: min(clamp(40px, 13vw, 83px), var(--fit-size));
+  }
+  .page-h1-fit.display-2 {
+    font-size: min(clamp(34px, calc(5.4vw + 4px), 96px), var(--fit-size));
+  }
+  .page-h1-fit.max-w-\[14ch\],
+  .page-h1-fit.max-w-\[18ch\] {
+    max-width: none;
+  }
 }

@@ -7,7 +7,7 @@ import { BlockIcon } from './icons'
 import type { BlockOf } from './types'
 
 /** Privacy chapter: three calm principles. Motion is intentionally minimal (one fade through data-reveal). */
-export function Principles({ block }: { block: BlockOf<'principles'> }) {
+export function Principles({ block, eager }: { block: BlockOf<'principles'>; eager?: boolean }) {
   const link =
     block.link?.url && block.link.label && isRouteReady(block.link.url) ? block.link : null
   return (
@@ -25,8 +25,8 @@ export function Principles({ block }: { block: BlockOf<'principles'> }) {
         {(block.items ?? []).map((it, i) => (
           <li
             key={it.id ?? i}
-            data-reveal="idle"
-            data-reveal-style="fade"
+            data-reveal={eager ? undefined : 'idle'}
+            data-reveal-style={eager ? undefined : 'fade'}
             className="flex flex-col gap-5 bg-canvas p-7 md:p-9"
           >
             <span className="grid h-11 w-11 place-items-center rounded-full border border-[var(--hairline-3)] text-text">

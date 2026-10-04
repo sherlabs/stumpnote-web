@@ -32,7 +32,7 @@ export function RenderBlocks({ blocks, ctx }: { blocks: Block[]; ctx: BlockConte
           case 'feature-carousel':
             return <FeatureCarousel key={key} block={block} />
           case 'principles':
-            return <Principles key={key} block={block} />
+            return <Principles key={key} block={block} eager={Boolean(ctx.eagerFirst) && i === 0} />
           case 'cta-beta':
             return <CtaBeta key={key} block={block} ctx={ctx} />
           case 'rich-text':
