@@ -6,11 +6,17 @@
         "http://localhost:3101/features",
         "http://localhost:3101/features/journal",
         "http://localhost:3101/players",
+        "http://localhost:3101/captains",
+        "http://localhost:3101/coaches",
         "http://localhost:3101/parents",
         "http://localhost:3101/pricing",
         "http://localhost:3101/security",
         "http://localhost:3101/join",
-        "http://localhost:3101/support"
+        "http://localhost:3101/support",
+        "http://localhost:3101/privacy",
+        "http://localhost:3101/terms",
+        "http://localhost:3101/legal",
+        "http://localhost:3101/blog"
       ],
       "numberOfRuns": 3,
       "startServerCommand": "pnpm exec next start -p 3101",

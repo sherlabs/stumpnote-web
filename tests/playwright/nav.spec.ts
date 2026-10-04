@@ -26,10 +26,13 @@ test('every internal link in header and footer resolves (no 404)', async ({ page
   }
 })
 
-test('footer disclosure and no legal links to unbuilt routes', async ({ page }) => {
+test('footer disclosure and legal links (S5 built them), no unbuilt data-safety link', async ({ page }) => {
   await page.goto('/pricing')
   await expect(page.locator('footer')).toContainText('AI-generated insights are guidance')
-  await expect(page.locator('footer a[href="/privacy"]')).toHaveCount(0)
+  for (const h of ['/privacy', '/terms', '/cookies', '/account-deletion']) {
+    await expect(page.locator(`footer a[href="${h}"]`)).toHaveCount(1)
+  }
+  await expect(page.locator('footer a[href="/data-safety"]')).toHaveCount(0)
 })
 
 test('mobile sheet opens, lists links, closes with Escape', async ({ page, isMobile }) => {

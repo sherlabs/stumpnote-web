@@ -163,3 +163,18 @@ Five persona records, four routes: `members` renders as a section on `/captains`
 
 ## D-47 Pricing: video row and Free column (accepted, S4; owner to confirm)
 The comparison table shows Free video uploads as "None", following the wireframe in 02-design section 9; the brief does not state it explicitly. Change in the CMS if Free has an allowance. The 90-day trial line is off by default (`site-settings.showTrialLine`).
+
+## D-48 Legal rendering, versions and gates (accepted, S5)
+`src/lib/legal/render.ts` is pure and server-only by usage (never imported by a client component). Values are HTML- and markdown-escaped on substitution; `{{LEGAL_REVIEW: ...}}` markers count as placeholders until `LEGAL_REVIEW_DONE=yes`, and the `{{LEGAL_REVIEW}}` value key is distinguished by the colon. Notice mode never emits body HTML at all, so placeholder text cannot leak. The same `getLegalView` feeds routes and the sitemap. The `policyVersion` hook compares against the latest PUBLISHED version via `findVersions` (not the draft value). `/privacy/v/<x>` renders that version's body with the current legal values and that version's own dates. History and old-version routes are always `noindex` and out of the sitemap. `/data-safety` exists but is `noindex`, unlinked and out of the sitemap until the owner decides (S5-U3).
+
+## D-49 Legal import scrubs internal identifiers; bodies ship as a generated TS bundle (accepted, S5)
+`pnpm import:legal` reads the three sources from the private repo, cuts at the first WHOLE-LINE `---` (table separator rows do not match), unwraps backticks around `{{KEY}}` tokens, drops the leading title (the route renders it), and removes backticked table, column, setting and bucket names from the public text. It fails if any internal marker survives (project ref, issue numbers, source paths, review-block headings). `src/seed/legal/*.md` is the reviewable source; `bodies.ts` is generated from it (`pnpm legal:bundle`) so production without a database (Neon gate) serves the same text in notice mode. `pnpm seed` creates legal pages as DRAFTS only.
+
+## D-50 OG images render at build with embedded fonts; root-level metadata files (accepted, S5)
+Satori cannot read woff2 or variable fonts, so Archivo 900 and Hanken 500 are static TTF instances embedded as base64 (`src/lib/seo/fonts-data.ts`, OFL) and the mark SVG is inlined: no file reads at build or runtime. `opengraph-image.tsx` exists for the site default, `/features/[slug]`, `/blog/[slug]` and the four persona routes; the rest inherit the site default. `robots.ts`, `sitemap.ts` and `manifest.ts` stay at `src/app/` root (two root layouts). OG and Twitter titles and descriptions derive from each route's own `title`/`description`.
+
+## D-51 JSON-LD scope and honesty exclusions (accepted, S5)
+Home carries one `@graph` (Organization, WebSite, three SoftwareApplication on iOS); `/support` carries FAQPage built from exactly the FAQs it shows (`selectFaqs`). `aggregateRating`, `review` and `offers` never appear. `installUrl` appears only for the Player app, only in state `appstore`, only with a real URL. `legalName` appears only once `COMPANY_LEGAL_NAME` is set. All enforced by `tests/unit/seo/jsonld.test.ts` and `seo.spec.ts`.
+
+## D-52 Lighthouse set widened; `/blog` and `/changelog` stay unlinked (accepted, S5)
+The gate now covers 15 routes (adds captains, coaches, privacy in notice mode, terms, legal, blog). `/blog` and `/changelog` are still empty-state, noindex and unlinked until S7 publishes content (D-41).
