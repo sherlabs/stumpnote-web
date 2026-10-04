@@ -24,5 +24,14 @@ export const AnalyticsSettings: GlobalConfig = {
       options: ['7d', '30d', '90d'].map((value) => ({ label: value, value })),
     },
     { name: 'fixturesBanner', type: 'checkbox', defaultValue: true },
+    {
+      name: 'monthlyBudgetUsd',
+      type: 'number',
+      min: 0,
+      admin: {
+        description:
+          'Monthly AI budget in USD for the AI-spend view (over-pace state). Entered by an admin; never seeded.',
+      },
+    },
   ],
 }

@@ -1,0 +1,22 @@
+[
+  { "day": "2026-07-18", "persona": "player", "accounts": 5, "onboarded": 4 },
+  { "day": "2026-07-19", "persona": "player", "accounts": 6, "onboarded": 5 },
+  { "day": "2026-07-26", "persona": "player", "accounts": 5, "onboarded": 4 },
+  { "day": "2026-08-01", "persona": "player", "accounts": 6, "onboarded": 5 },
+  { "day": "2026-08-09", "persona": "player", "accounts": 6, "onboarded": 5 },
+  { "day": "2026-08-23", "persona": "player", "accounts": 5, "onboarded": 4 },
+  { "day": "2026-08-30", "persona": "player", "accounts": 7, "onboarded": 6 },
+  { "day": "2026-09-01", "persona": "player", "accounts": 5, "onboarded": 4 },
+  { "day": "2026-09-05", "persona": "player", "accounts": 7, "onboarded": 5 },
+  { "day": "2026-09-06", "persona": "player", "accounts": 6, "onboarded": 5 },
+  { "day": "2026-09-12", "persona": "player", "accounts": 5, "onboarded": 4 },
+  { "day": "2026-09-13", "persona": "player", "accounts": 7, "onboarded": 6 },
+  { "day": "2026-09-15", "persona": "player", "accounts": 5, "onboarded": 4 },
+  { "day": "2026-09-19", "persona": "player", "accounts": 8, "onboarded": 6 },
+  { "day": "2026-09-22", "persona": "player", "accounts": 6, "onboarded": 5 },
+  { "day": "2026-09-24", "persona": "player", "accounts": 6, "onboarded": 5 },
+  { "day": "2026-09-25", "persona": "player", "accounts": 6, "onboarded": 5 },
+  { "day": "2026-09-27", "persona": "player", "accounts": 7, "onboarded": 6 },
+  { "day": "2026-09-28", "persona": "player", "accounts": 5, "onboarded": 4 },
+  { "day": "2026-09-30", "persona": "player", "accounts": 6, "onboarded": 5 }
+]

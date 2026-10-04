@@ -1,0 +1,58 @@
+[
+  {
+    "tier": "free",
+    "provider": "none",
+    "trial_state": "no_trial",
+    "team_subscription": false,
+    "coach_subscription": false,
+    "users": 312
+  },
+  {
+    "tier": "free",
+    "provider": "none",
+    "trial_state": "trial_ended",
+    "team_subscription": false,
+    "coach_subscription": false,
+    "users": 64
+  },
+  {
+    "tier": "pro",
+    "provider": "none",
+    "trial_state": "in_trial",
+    "team_subscription": false,
+    "coach_subscription": false,
+    "users": 47
+  },
+  {
+    "tier": "pro",
+    "provider": "apple",
+    "trial_state": "trial_ended",
+    "team_subscription": false,
+    "coach_subscription": false,
+    "users": 29
+  },
+  {
+    "tier": "pro",
+    "provider": "google",
+    "trial_state": "trial_ended",
+    "team_subscription": false,
+    "coach_subscription": false,
+    "users": 8
+  },
+  {
+    "tier": "pro",
+    "provider": "apple",
+    "trial_state": "trial_ended",
+    "team_subscription": true,
+    "coach_subscription": false,
+    "users": 11
+  },
+  {
+    "tier": "pro",
+    "provider": "apple",
+    "trial_state": "trial_ended",
+    "team_subscription": false,
+    "coach_subscription": true,
+    "users": 6
+  }
+]

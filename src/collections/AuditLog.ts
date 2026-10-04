@@ -4,11 +4,15 @@ import { isAdmin, nobody } from '@/access'
 /** Append-only record of admin analytics views and publishes. Written by hooks/views via the Local API. */
 export const AuditLog: CollectionConfig = {
   slug: 'audit-log',
-  admin: { useAsTitle: 'action', defaultColumns: ['action', 'panel', 'user', 'createdAt'] },
+  admin: {
+    useAsTitle: 'action',
+    defaultColumns: ['action', 'panel', 'user', 'createdAt'],
+    description: 'Append-only. Written by analytics views and publish hooks; admins can read it.',
+  },
   access: { create: nobody, read: isAdmin, update: nobody, delete: nobody },
   fields: [
-    { name: 'user', type: 'relationship', relationTo: 'users' },
-    { name: 'action', type: 'text', required: true },
+    { name: 'user', type: 'relationship', relationTo: 'users', index: true },
+    { name: 'action', type: 'text', required: true, index: true },
     { name: 'panel', type: 'text' },
     { name: 'range', type: 'text' },
     { name: 'ip', type: 'text' },

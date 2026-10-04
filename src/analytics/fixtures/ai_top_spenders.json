@@ -1,0 +1,7 @@
+[
+  { "rank": 1, "cost_usd": 1.2034, "calls": 311, "pct_of_subject_spend": 14.4 },
+  { "rank": 2, "cost_usd": 0.9871, "calls": 262, "pct_of_subject_spend": 11.8 },
+  { "rank": 3, "cost_usd": 0.7412, "calls": 198, "pct_of_subject_spend": 8.9 },
+  { "rank": 4, "cost_usd": 0.6633, "calls": 174, "pct_of_subject_spend": 7.9 },
+  { "rank": 5, "cost_usd": 0.5204, "calls": 151, "pct_of_subject_spend": 6.2 }
+]

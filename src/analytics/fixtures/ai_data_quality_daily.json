@@ -1,0 +1,842 @@
+[
+  {
+    "day": "2026-06-03",
+    "rows": 86,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-06-04",
+    "rows": 84,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-06-05",
+    "rows": 92,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-06-06",
+    "rows": 120,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-06-07",
+    "rows": 122,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-06-08",
+    "rows": 85,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-06-09",
+    "rows": 85,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-06-10",
+    "rows": 93,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-06-11",
+    "rows": 90,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-06-12",
+    "rows": 109,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-06-13",
+    "rows": 128,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-06-14",
+    "rows": 137,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-06-15",
+    "rows": 81,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-06-16",
+    "rows": 94,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-06-17",
+    "rows": 103,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-06-18",
+    "rows": 115,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-06-19",
+    "rows": 109,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-06-20",
+    "rows": 146,
+    "rows_no_subject": 1,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-06-21",
+    "rows": 145,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-06-22",
+    "rows": 101,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-06-23",
+    "rows": 102,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-06-24",
+    "rows": 110,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-06-25",
+    "rows": 114,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-06-26",
+    "rows": 138,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-06-27",
+    "rows": 151,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-06-28",
+    "rows": 151,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-06-29",
+    "rows": 94,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-06-30",
+    "rows": 117,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-07-01",
+    "rows": 122,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-07-02",
+    "rows": 118,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-07-03",
+    "rows": 127,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-07-04",
+    "rows": 160,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-07-05",
+    "rows": 172,
+    "rows_no_subject": 1,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-07-06",
+    "rows": 110,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-07-07",
+    "rows": 118,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-07-08",
+    "rows": 117,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-07-09",
+    "rows": 136,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-07-10",
+    "rows": 131,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-07-11",
+    "rows": 193,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-07-12",
+    "rows": 170,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-07-13",
+    "rows": 116,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-07-14",
+    "rows": 130,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-07-15",
+    "rows": 142,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-07-16",
+    "rows": 130,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-07-17",
+    "rows": 141,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-07-18",
+    "rows": 189,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-07-19",
+    "rows": 173,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-07-20",
+    "rows": 108,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-07-21",
+    "rows": 135,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-07-22",
+    "rows": 148,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-07-23",
+    "rows": 143,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-07-24",
+    "rows": 150,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-07-25",
+    "rows": 186,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-07-26",
+    "rows": 174,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-07-27",
+    "rows": 120,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-07-28",
+    "rows": 136,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-07-29",
+    "rows": 152,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-07-30",
+    "rows": 174,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-07-31",
+    "rows": 170,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-08-01",
+    "rows": 206,
+    "rows_no_subject": 1,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-08-02",
+    "rows": 209,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-08-03",
+    "rows": 149,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-08-04",
+    "rows": 148,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-08-05",
+    "rows": 149,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-08-06",
+    "rows": 180,
+    "rows_no_subject": 1,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-08-07",
+    "rows": 173,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-08-08",
+    "rows": 221,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-08-09",
+    "rows": 232,
+    "rows_no_subject": 1,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-08-10",
+    "rows": 158,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-08-11",
+    "rows": 152,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-08-12",
+    "rows": 179,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-08-13",
+    "rows": 170,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-08-14",
+    "rows": 199,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-08-15",
+    "rows": 237,
+    "rows_no_subject": 1,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-08-16",
+    "rows": 235,
+    "rows_no_subject": 1,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-08-17",
+    "rows": 148,
+    "rows_no_subject": 1,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-08-18",
+    "rows": 147,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-08-19",
+    "rows": 162,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-08-20",
+    "rows": 177,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-08-21",
+    "rows": 199,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-08-22",
+    "rows": 254,
+    "rows_no_subject": 1,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-08-23",
+    "rows": 212,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 2,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-08-24",
+    "rows": 155,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 2,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-08-25",
+    "rows": 181,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 2,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-08-26",
+    "rows": 184,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 2,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-08-27",
+    "rows": 213,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 2,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-08-28",
+    "rows": 193,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-08-29",
+    "rows": 269,
+    "rows_no_subject": 1,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-08-30",
+    "rows": 258,
+    "rows_no_subject": 1,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-08-31",
+    "rows": 159,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-09-01",
+    "rows": 191,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-09-02",
+    "rows": 213,
+    "rows_no_subject": 1,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-09-03",
+    "rows": 205,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-09-04",
+    "rows": 208,
+    "rows_no_subject": 1,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-09-05",
+    "rows": 230,
+    "rows_no_subject": 1,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-09-06",
+    "rows": 256,
+    "rows_no_subject": 1,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-09-07",
+    "rows": 165,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-09-08",
+    "rows": 208,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-09-09",
+    "rows": 182,
+    "rows_no_subject": 1,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-09-10",
+    "rows": 217,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-09-11",
+    "rows": 221,
+    "rows_no_subject": 1,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-09-12",
+    "rows": 282,
+    "rows_no_subject": 1,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 2
+  },
+  {
+    "day": "2026-09-13",
+    "rows": 284,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 2
+  },
+  {
+    "day": "2026-09-14",
+    "rows": 190,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-09-15",
+    "rows": 192,
+    "rows_no_subject": 1,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-09-16",
+    "rows": 208,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-09-17",
+    "rows": 221,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-09-18",
+    "rows": 241,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-09-19",
+    "rows": 286,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-09-20",
+    "rows": 291,
+    "rows_no_subject": 1,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-09-21",
+    "rows": 209,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-09-22",
+    "rows": 218,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-09-23",
+    "rows": 225,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-09-24",
+    "rows": 230,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-09-25",
+    "rows": 267,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-09-26",
+    "rows": 286,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 2
+  },
+  {
+    "day": "2026-09-27",
+    "rows": 277,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  },
+  {
+    "day": "2026-09-28",
+    "rows": 193,
+    "rows_no_subject": 1,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-09-29",
+    "rows": 229,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 0
+  },
+  {
+    "day": "2026-09-30",
+    "rows": 218,
+    "rows_no_subject": 0,
+    "pricing_unknown_rows": 0,
+    "zero_token_rows": 1
+  }
+]

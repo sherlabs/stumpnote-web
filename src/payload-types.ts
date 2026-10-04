@@ -985,6 +985,8 @@ export interface WaitlistSignup {
   createdAt: string;
 }
 /**
+ * Append-only. Written by analytics views and publish hooks; admins can read it.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "audit-log".
  */
@@ -1945,6 +1947,10 @@ export interface AnalyticsSetting {
   provider?: ('none' | 'posthog' | 'plausible' | 'nouance-plugin') | null;
   defaultRange?: ('7d' | '30d' | '90d') | null;
   fixturesBanner?: boolean | null;
+  /**
+   * Monthly AI budget in USD for the AI-spend view (over-pace state). Entered by an admin; never seeded.
+   */
+  monthlyBudgetUsd?: number | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2090,6 +2096,7 @@ export interface AnalyticsSettingsSelect<T extends boolean = true> {
   provider?: T;
   defaultRange?: T;
   fixturesBanner?: T;
+  monthlyBudgetUsd?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

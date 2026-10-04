@@ -1,0 +1,23 @@
+[
+  { "feature": "entry_net", "persona": "player", "users": 31 },
+  { "feature": "entry_net", "persona": "coach", "users": 17 },
+  { "feature": "entry_net", "persona": "parent", "users": 7 },
+  { "feature": "entry_match", "persona": "player", "users": 22 },
+  { "feature": "entry_match", "persona": "coach", "users": 10 },
+  { "feature": "watch_session", "persona": "player", "users": 18 },
+  { "feature": "watch_session", "persona": "coach", "users": 6 },
+  { "feature": "gameday_plan", "persona": "player", "users": 10 },
+  { "feature": "gameday_plan", "persona": "coach", "users": 7 },
+  { "feature": "mindset_session", "persona": "player", "users": 15 },
+  { "feature": "mindset_session", "persona": "coach", "users": 9 },
+  { "feature": "mindset_completed", "persona": "player", "users": 13 },
+  { "feature": "mindset_completed", "persona": "coach", "users": 7 },
+  { "feature": "mindset_takeaway", "persona": "player", "users": 12 },
+  { "feature": "mindset_takeaway", "persona": "coach", "users": 5 },
+  { "feature": "mindset_checkin", "persona": "player", "users": 18 },
+  { "feature": "mindset_checkin", "persona": "coach", "users": 8 },
+  { "feature": "mindset_checkin", "persona": "parent", "users": 6 },
+  { "feature": "guided_session", "persona": "player", "users": 6 },
+  { "feature": "ask_coach", "persona": "player", "users": 35 },
+  { "feature": "ask_coach", "persona": "coach", "users": 16 }
+]
