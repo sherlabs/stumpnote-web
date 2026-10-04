@@ -18,10 +18,9 @@ test('unknown route returns 404', async ({ request }) => {
 test('home: wordmark, heading, link to the web app, no horizontal scroll', async ({ page }) => {
   await page.goto('/')
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Your cricket, remembered')
-  await expect(page.locator('main').getByRole('link', { name: 'Open the web app' })).toHaveAttribute(
-    'href',
-    'https://app.stumpnote.com',
-  )
+  await expect(
+    page.locator('main').getByRole('link', { name: 'Open the web app' }),
+  ).toHaveAttribute('href', 'https://app.stumpnote.com')
   const overflow = await page.evaluate(
     () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
   )

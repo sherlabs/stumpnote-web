@@ -67,9 +67,11 @@ export function Nav() {
           </ul>
         </nav>
         <div className="flex items-center gap-2">
-          <Button href={cta.href} variant="primary" className="hidden !min-h-10 !px-5 sm:inline-flex">
-            {cta.label}
-          </Button>
+          <div className="hidden min-[420px]:block">
+            <Button href={cta.href} variant="primary" className="!min-h-10 !px-5">
+              {cta.label}
+            </Button>
+          </div>
           <button
             ref={openerRef}
             type="button"

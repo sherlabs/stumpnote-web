@@ -22,10 +22,30 @@ import {
   SquadGrid,
   VoiceNoteTyper,
 } from '@/components/signature'
-import { Badge, BADGE_LABELS, Button, Card, Checkbox, Field, Notice, Overline, TextLink } from '@/components/ui'
+import {
+  Badge,
+  BADGE_LABELS,
+  Button,
+  Card,
+  Checkbox,
+  Field,
+  Notice,
+  Overline,
+  TextLink,
+} from '@/components/ui'
 import { PERSONAS } from '@/lib/site-config'
 
-function Cell({ id, title, children, wide }: { id: string; title: string; children: ReactNode; wide?: boolean }) {
+function Cell({
+  id,
+  title,
+  children,
+  wide,
+}: {
+  id: string
+  title: string
+  children: ReactNode
+  wide?: boolean
+}) {
   return (
     <div data-lab={id} className={wide ? 'md:col-span-2' : undefined}>
       <h3 className="eyebrow mb-4">{title}</h3>
@@ -46,10 +66,13 @@ export function LabClient() {
         <Overline>Lab · noindex</Overline>
         <h1 className="display-2 mt-4">Every component, every state.</h1>
         <p className="body-lg measure mt-4 max-w-[56ch] text-muted">
-          Review surface for the design system. Switch persona, theme, motion and data seed; each demo shows its final
-          state and where it animates, a replay.
+          Review surface for the design system. Switch persona, theme, motion and data seed; each
+          demo shows its final state and where it animates, a replay.
         </p>
-        <div data-lab="controls" className="mt-8 flex flex-wrap items-center gap-3 rounded-3 border border-[var(--hairline-2)] bg-surface p-4">
+        <div
+          data-lab="controls"
+          className="mt-8 flex flex-wrap items-center gap-3 rounded-3 border border-[var(--hairline-2)] bg-surface p-4"
+        >
           <div className="flex flex-wrap gap-2" role="group" aria-label="Persona">
             {PERSONAS.map((p) => (
               <button
@@ -79,11 +102,24 @@ export function LabClient() {
           <Button variant="secondary" onClick={() => setRun((n) => n + 1)}>
             Replay all
           </Button>
+          <nav aria-label="Jump to section" className="flex gap-4 text-[14px]">
+            <TextLink href="#ui" tone="muted">
+              UI
+            </TextLink>
+            <TextLink href="#site" tone="muted">
+              Site
+            </TextLink>
+            <TextLink href="#signature" tone="muted">
+              Signature
+            </TextLink>
+          </nav>
         </div>
       </Section>
 
       <Section id="ui" labelledBy="ui-h" tight>
-        <h2 id="ui-h" className="display-3 mb-10">UI primitives</h2>
+        <h2 id="ui-h" className="display-3 mb-10">
+          UI primitives
+        </h2>
         <div className="grid gap-12 md:grid-cols-2">
           <Cell id="buttons" title="Button">
             <div className="flex flex-wrap items-center gap-3">
@@ -97,7 +133,9 @@ export function LabClient() {
             <div className="flex flex-col items-start gap-3">
               <TextLink href="/lab">Internal link</TextLink>
               <TextLink href="https://app.stumpnote.com">Open the web app</TextLink>
-              <TextLink href="/lab" tone="muted">Muted link</TextLink>
+              <TextLink href="/lab" tone="muted">
+                Muted link
+              </TextLink>
               <Overline accent>Accent overline</Overline>
             </div>
           </Cell>
@@ -130,10 +168,22 @@ export function LabClient() {
           </Cell>
           <Cell id="forms" title="Field, Checkbox, Notice">
             <div className="flex flex-col gap-5">
-              <Field label="Email" type="email" placeholder="you@example.com" hint="We only use this to reach you about the beta." />
-              <Field label="Email with error" type="email" defaultValue="not-an-email" error="Enter a valid email address." />
+              <Field
+                label="Email"
+                type="email"
+                placeholder="you@example.com"
+                hint="We only use this to reach you about the beta."
+              />
+              <Field
+                label="Email with error"
+                type="email"
+                defaultValue="not-an-email"
+                error="Enter a valid email address."
+              />
               <Checkbox label="I agree to be contacted about the beta." />
-              <Notice title="Notice mode">This page is being finalised. Some details are not yet published.</Notice>
+              <Notice title="Notice mode">
+                This page is being finalised. Some details are not yet published.
+              </Notice>
             </div>
           </Cell>
           <Cell id="type" title="Type scale" wide>
@@ -153,7 +203,9 @@ export function LabClient() {
       </Section>
 
       <Section id="site" labelledBy="site-h" tight>
-        <h2 id="site-h" className="display-3 mb-10">Site shell</h2>
+        <h2 id="site-h" className="display-3 mb-10">
+          Site shell
+        </h2>
         <div className="grid gap-12 md:grid-cols-2">
           <Cell id="persona-chips" title="PersonaChips (re-themes the page)">
             <PersonaChips />
@@ -168,14 +220,19 @@ export function LabClient() {
               eyebrow={<Overline accent>Chapter</Overline>}
               title={<h3 className="display-3">Stage on one side, copy on the other.</h3>}
             >
-              <p className="body-lg">Below 1024px the stage stacks above the copy. At lg and up it stays pinned while the copy scrolls.</p>
+              <p className="body-lg">
+                Below 1024px the stage stacks above the copy. At lg and up it stays pinned while the
+                copy scrolls.
+              </p>
             </Chapter>
           </Cell>
         </div>
       </Section>
 
       <Section id="signature" labelledBy="sig-h" tight>
-        <h2 id="sig-h" className="display-3 mb-10">Signature components</h2>
+        <h2 id="sig-h" className="display-3 mb-10">
+          Signature components
+        </h2>
         <div key={run} className="grid gap-16 md:grid-cols-2">
           <Cell id="mstroke-paint" title="MStroke · paint on load">
             <div className="w-48">
@@ -187,7 +244,11 @@ export function LabClient() {
               <div className="w-32">
                 <MStroke mode="loop" paused={loopPaused} />
               </div>
-              <Button variant="secondary" aria-pressed={loopPaused} onClick={() => setLoopPaused((p) => !p)}>
+              <Button
+                variant="secondary"
+                aria-pressed={loopPaused}
+                onClick={() => setLoopPaused((p) => !p)}
+              >
                 {loopPaused ? 'Resume loop' : 'Pause loop'}
               </Button>
             </div>

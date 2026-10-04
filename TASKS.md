@@ -44,17 +44,17 @@ Format: `- [ ] ID title (owner: agent|user) (deps) (est)`. Estimates are agent w
 
 ## S2 Design system + motion foundation (brief: S2-design-system.md)
 
-- [ ] S2-01 Tokens finalised, lint rule for hex, contrast table measured (agent) (S1) (1h)
-- [ ] S2-02 Self-hosted fonts via next/font/local with licence file (agent) (S1) (1h)
-- [ ] S2-03 ui primitives: Button, TextLink, Overline, Badge, Card, Field, Checkbox, Notice (agent) (S2-01) (2h)
-- [ ] S2-04 site shell: SkipLink, Nav, Footer, AmbientRings, PersonaProvider, ThemeToggle, Section, Chapter (agent) (S2-03) (3h)
-- [ ] S2-05 Motion foundation: gsap registration, reduced-motion hook, Lenis gating, matchMedia helper, idle loader (agent) (S2-04) (2h)
-- [ ] S2-06 Signature components: MStroke, BailsLoader, PitchHeatGrid, KineticTranscript, SeriesChart, HeroRings, EntryDots, QuickLogStrip, VoiceNoteTyper, SquadGrid (agent) (S2-05) (8h)
-- [ ] S2-07 `/lab` demo route with controls (agent) (S2-06) (1.5h)
-- [ ] S2-08 visual/motion/a11y Playwright specs + snapshots (agent) (S2-07) (2h)
-- [ ] S2-09 Lenis sanity: anchors, find-in-page, keyboard, touch (agent) (S2-05) (0.5h)
-- [ ] S2-10 Bundle check: async chunks, first-load JS recorded (agent) (S2-07) (0.5h)
-- [ ] S2-11 Clean, STATUS/TASKS, commit, push (agent) (0.25h)
+- [x] S2-01 Tokens finalised, lint rule for hex, contrast table measured (agent) (S1) (1h)
+- [x] S2-02 Self-hosted fonts via next/font/local with licence file (agent) (S1) (1h)
+- [x] S2-03 ui primitives: Button, TextLink, Overline, Badge, Card, Field, Checkbox, Notice (agent) (S2-01) (2h)
+- [x] S2-04 site shell: SkipLink, Nav, Footer, AmbientRings, PersonaProvider, ThemeToggle, Section, Chapter (agent) (S2-03) (3h)
+- [x] S2-05 Motion foundation: gsap registration, reduced-motion hook, Lenis gating, matchMedia helper, idle loader (agent) (S2-04) (2h)
+- [x] S2-06 Signature components: MStroke, BailsLoader, PitchHeatGrid, KineticTranscript, SeriesChart, HeroRings, EntryDots, QuickLogStrip, VoiceNoteTyper, SquadGrid (agent) (S2-05) (8h)
+- [x] S2-07 `/lab` demo route with controls (agent) (S2-06) (1.5h)
+- [x] S2-08 visual/motion/a11y Playwright specs + snapshots (agent) (S2-07) (2h)
+- [x] S2-09 Lenis sanity: anchors, find-in-page, keyboard, touch (agent) (S2-05) (0.5h)
+- [x] S2-10 Bundle check: async chunks, first-load JS recorded (agent) (S2-07) (0.5h)
+- [x] S2-11 Clean, STATUS/TASKS, commit, push (agent) (0.25h)
 
 ## S3 Home page (brief: S3-home.md)
 

@@ -15,7 +15,10 @@ export function MotionToggle({ className }: { className?: string }) {
         'inline-flex min-h-11 items-center gap-2 rounded-full border border-[var(--hairline-3)] px-4 text-[14px] font-semibold text-text hover:bg-[var(--hairline-1)]'
       }
     >
-      <span aria-hidden className={`h-2 w-2 rounded-full ${reduced ? 'bg-tertiary' : 'bg-accent'}`} />
+      <span
+        aria-hidden
+        className={`h-2 w-2 rounded-full ${reduced ? 'bg-tertiary' : 'bg-accent'}`}
+      />
       Motion: {reduced ? 'off' : 'on'}
     </button>
   )

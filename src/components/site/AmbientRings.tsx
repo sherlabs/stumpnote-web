@@ -14,12 +14,22 @@ export function AmbientRings() {
       >
         <g className="ambient-rings">
           <circle r="110" stroke="var(--hairline-2)" />
-          <circle r="190" stroke="var(--hairline-1)" strokeDasharray="2 14" className="ambient-spin-a" />
+          <circle
+            r="190"
+            stroke="var(--hairline-1)"
+            strokeDasharray="2 14"
+            className="ambient-spin-a"
+          />
           <g className="ambient-spin-b">
             <circle r="290" stroke="var(--hairline-2)" strokeDasharray="620 1200" />
             <circle cx="290" cy="0" r="4.5" fill="var(--accent)" stroke="none" opacity="0.9" />
           </g>
-          <circle r="400" stroke="var(--hairline-1)" strokeDasharray="1 9" className="ambient-spin-c" />
+          <circle
+            r="400"
+            stroke="var(--hairline-1)"
+            strokeDasharray="1 9"
+            className="ambient-spin-c"
+          />
           <circle r="520" stroke="var(--hairline-1)" />
         </g>
       </svg>

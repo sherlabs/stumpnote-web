@@ -4,21 +4,13 @@ import { useMemo } from 'react'
 import { Badge } from '@/components/ui/Badge'
 import { useReveal } from '@/lib/motion/useReveal'
 import { cn } from '@/lib/cn'
-import { rng, staticAttr } from './types'
+import { pitchData } from './data'
+import { staticAttr } from './types'
 import type { SignatureProps } from './types'
 
 const LENGTHS = ['Full', 'Good', 'Short'] as const
 const LINES = ['Off', 'Stumps', 'Leg'] as const
 const LINE_WORDS = { Off: 'outside off', Stumps: 'on the stumps', Leg: 'on the leg side' } as const
-
-/** Synthetic share of dismissals per cell. The default seed lands the peak on good length, outside off. */
-export function pitchData(seed: number): number[] {
-  const r = rng(seed)
-  const raw = Array.from({ length: 9 }, () => 0.35 + r() * 0.65)
-  raw[3] = 1.9 // Good length (row 1), Off (col 0)
-  const sum = raw.reduce((a, b) => a + b, 0)
-  return raw.map((v) => v / sum)
-}
 
 /**
  * 3x3 pitch map: lengths (Full, Good, Short) by lines (Off, Stumps, Leg). Every cell carries its percentage as real
@@ -53,7 +45,9 @@ export function PitchHeatGrid({ seed = 7, reducedMotion, persona, className }: S
         </div>
         {LENGTHS.map((len, row) => (
           <div key={len} className="contents">
-            <span className="eyebrow flex items-center [writing-mode:horizontal-tb] pr-1">{len}</span>
+            <span className="eyebrow flex items-center [writing-mode:horizontal-tb] pr-1">
+              {len}
+            </span>
             <div className="grid grid-cols-3 gap-2">
               {LINES.map((line, col) => {
                 const i = row * 3 + col
@@ -85,7 +79,11 @@ export function PitchHeatGrid({ seed = 7, reducedMotion, persona, className }: S
         ))}
       </div>
       <p className="body-sm text-body">
-        Most dismissals: <strong className="font-semibold text-text">{peakLen.toLowerCase()} length, {LINE_WORDS[peakLine]}</strong>.
+        Most dismissals:{' '}
+        <strong className="font-semibold text-text">
+          {peakLen.toLowerCase()} length, {LINE_WORDS[peakLine]}
+        </strong>
+        .
       </p>
       <div className="flex items-center justify-between">
         <p className="eyebrow">Sample data</p>

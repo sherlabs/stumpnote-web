@@ -94,3 +94,27 @@ Project `stumpnote-site` was created in the existing Pro team (D-01 default; the
 
 ## D-23 First-user flow verified (accepted, S1)
 Against a fresh local DB: `POST /api/users/first-register` creates the user with `roles=['admin']` even though `Users.access.create = isAdmin`; a second `first-register` and an anonymous `POST /api/users` both return 403. Hook covered by `tests/unit/first-user-roles.test.ts`.
+
+## D-24 Light theme: tokens and toggle exist, not shipped in the site chrome (accepted, S2)
+02-design section 12 cuts the light theme first, and the brief says the spec wins. `[data-theme='light']` tokens and `ThemeToggle` exist and are exercised on `/lab` only (optional snapshots); the footer carries the Motion toggle only. Accent as small text fails AA on light, so shipping light needs the re-derived palette (see 02-design section 2). axe runs on the dark theme only.
+
+## D-25 Display-1 steps down earlier than the spec minimum (accepted, S2)
+The spec floor of 56px made "remembered." overflow at 320 to 390px. `.display-1` is `clamp(40px, 13vw, 83px)` below 640px and `83px + (100vw - 640px) * 0.054` (max 160px) above, which gives about 127px at 1440. Display lines stay at 2 lines on desktop and mobile. `word-spacing: 0.06em` keeps -0.05em tracking readable.
+
+## D-26 `.overline` renamed `.eyebrow` (accepted, S2)
+Tailwind owns a utility called `overline` (`text-decoration: overline`), which drew a line over every label. The spec's "overline" style is the `.eyebrow` class and the `Overline` component. `Chapter` takes an `eyebrow` prop.
+
+## D-27 Motion architecture: CSS-first, `data-motion` gate, GSAP only for scrub (accepted, S2)
+An inline head script sets `html[data-motion='on'|'off']` before first paint (OS setting or footer toggle, `localStorage` key `sn-motion`). SSR always renders the final state; hidden/initial states exist only under `html[data-motion='on']` (`[data-reveal]`, MStroke paint, bails, heat cells, transcript). Without JS the attribute is absent so everything is visible. A 5 s failsafe animation reveals content if hydration never flips `idle` to `in`. MStroke paint, shine, loop, heat fill, chart draw-on and bails are pure CSS (no GSAP, nothing waits for hydration). GSAP + ScrollTrigger (`src/lib/motion`) are registered lazily and used only for scrubbed chapters (`useChapterProgress`); Lenis rides GSAP's ticker, mounts after idle on `(pointer: fine)` with motion allowed, and anchors work through `anchors: true`.
+
+## D-28 Pinned chapters use CSS sticky, not ScrollTrigger pin (accepted, S2)
+`Chapter pinned` keeps the stage column `position: sticky` at lg+. Layout is reserved by CSS (no CLS), reduced-motion and no-JS users get the same page, and there is no pin-spacer. ScrollTrigger is used only to read progress. If S3 needs a true scrubbed pin it can wrap the same markup.
+
+## D-29 SplitText not used for the transcript (accepted, S2)
+`KineticTranscript` splits words in React so the words exist in the server HTML (real DOM text, no layout jump, no GSAP on the critical path). Reading pace 2.8 words/s via a timer; beats scale 1 to 1.06 while current. `SplitText` stays registered for S3 headline reveals.
+
+## D-30 Global 404 via `global-not-found` (accepted, S2)
+The app has several root layouts, so unmatched URLs had no `<html lang>` (axe `html-has-lang`). `experimental.globalNotFound` plus `src/app/global-not-found.tsx` renders the same shell (`SiteShell`) with the "Bowled." page.
+
+## D-31 Static nav/footer link filter (accepted, S2)
+`src/lib/site-config.ts` lists every planned route with `ready: boolean`; Nav and Footer render only ready routes, so the deployed site never links to a 404. The Nav CTA is "Join the beta" once `/join` is ready; until then it is "Web app" (app.stumpnote.com). Flip flags per stage; S4 replaces this with the CMS `navigation` global.

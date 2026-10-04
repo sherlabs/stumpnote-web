@@ -8,7 +8,13 @@ import { rng, staticAttr } from './types'
 import type { SignatureProps } from './types'
 
 /** Journal entries landing around the M, one dot per entry, on two loose rings. Deterministic by seed. */
-export function EntryDots({ seed = 3, count = 28, reducedMotion, persona, className }: SignatureProps & { count?: number }) {
+export function EntryDots({
+  seed = 3,
+  count = 28,
+  reducedMotion,
+  persona,
+  className,
+}: SignatureProps & { count?: number }) {
   const { ref } = useReveal<HTMLDivElement>(0.3)
   const dots = useMemo(() => {
     const r = rng(seed)
@@ -16,7 +22,12 @@ export function EntryDots({ seed = 3, count = 28, reducedMotion, persona, classN
       const ring = i % 2 === 0 ? 118 : 158
       const a = (i / count) * Math.PI * 2 + r() * 0.35
       const jitter = (r() - 0.5) * 22
-      return { x: 200 + Math.cos(a) * (ring + jitter), y: 200 + Math.sin(a) * (ring + jitter), r: 2.5 + r() * 3.2, o: 0.4 + r() * 0.6 }
+      return {
+        x: 200 + Math.cos(a) * (ring + jitter),
+        y: 200 + Math.sin(a) * (ring + jitter),
+        r: 2.5 + r() * 3.2,
+        o: 0.4 + r() * 0.6,
+      }
     })
   }, [seed, count])
   return (
@@ -41,7 +52,14 @@ export function EntryDots({ seed = 3, count = 28, reducedMotion, persona, classN
             opacity={d.o}
             data-reveal="idle"
             data-reveal-style="scale"
-            style={{ '--i': i, '--stagger': '45ms', transformBox: 'fill-box', transformOrigin: 'center' } as React.CSSProperties}
+            style={
+              {
+                '--i': i,
+                '--stagger': '45ms',
+                transformBox: 'fill-box',
+                transformOrigin: 'center',
+              } as React.CSSProperties
+            }
           />
         ))}
       </svg>

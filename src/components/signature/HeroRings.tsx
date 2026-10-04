@@ -10,9 +10,19 @@ import type { SignatureProps } from './types'
 function StaticRings() {
   const radii = Array.from({ length: 11 }, (_, i) => 18 + Math.pow(i, 1.55) * 13)
   return (
-    <svg viewBox="-200 -200 400 400" className="absolute inset-0 h-full w-full" aria-hidden fill="none">
+    <svg
+      viewBox="-200 -200 400 400"
+      className="absolute inset-0 h-full w-full"
+      aria-hidden
+      fill="none"
+    >
       {radii.map((r, i) => (
-        <circle key={i} r={r} stroke={i === 4 ? 'var(--accent)' : 'var(--hairline-3)'} strokeOpacity={i === 4 ? 0.7 : 1} />
+        <circle
+          key={i}
+          r={r}
+          stroke={i === 4 ? 'var(--accent)' : 'var(--hairline-3)'}
+          strokeOpacity={i === 4 ? 0.7 : 1}
+        />
       ))}
       <circle cx="0" cy={-radii[4]} r="4" fill="var(--accent)" />
     </svg>
@@ -86,11 +96,18 @@ export function HeroRings({ reducedMotion, persona, className }: SignatureProps)
       try {
         const { Renderer, Program, Mesh, Triangle } = await import('ogl')
         if (disposed) return
-        const renderer = new Renderer({ alpha: true, premultipliedAlpha: true, antialias: false, dpr: Math.min(window.devicePixelRatio || 1, 1.75), webgl: 2 })
+        const renderer = new Renderer({
+          alpha: true,
+          premultipliedAlpha: true,
+          antialias: false,
+          dpr: Math.min(window.devicePixelRatio || 1, 1.75),
+          webgl: 2,
+        })
         const gl = renderer.gl
         if (!(gl instanceof WebGL2RenderingContext)) return
         const canvas = gl.canvas as HTMLCanvasElement
-        canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .8s ease'
+        canvas.style.cssText =
+          'position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .8s ease'
         canvas.setAttribute('aria-hidden', 'true')
         el.appendChild(canvas)
 
@@ -125,8 +142,13 @@ export function HeroRings({ reducedMotion, persona, className }: SignatureProps)
         const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting))
         io.observe(el)
 
-        const colorWatch = new MutationObserver(() => (program.uniforms.uColor.value = accentRgb(el)))
-        colorWatch.observe(document.documentElement, { attributes: true, attributeFilter: ['data-persona'] })
+        const colorWatch = new MutationObserver(
+          () => (program.uniforms.uColor.value = accentRgb(el)),
+        )
+        colorWatch.observe(document.documentElement, {
+          attributes: true,
+          attributeFilter: ['data-persona'],
+        })
 
         let frames = 0
         let last = performance.now()

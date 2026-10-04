@@ -25,7 +25,8 @@ type CommonProps = {
 }
 
 type ButtonProps = CommonProps & ButtonHTMLAttributes<HTMLButtonElement> & { href?: undefined }
-type LinkProps = CommonProps & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> & { href: string }
+type LinkProps = CommonProps &
+  Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> & { href: string }
 
 function isExternal(href: string) {
   return /^https?:\/\//.test(href)
@@ -49,7 +50,14 @@ export function Button(props: ButtonProps | LinkProps) {
     </>
   )
   if (typeof props.href === 'string') {
-    const { href, variant: _v, arrow: _a, children: _c, className: _cn, ...rest } = props as LinkProps
+    const {
+      href,
+      variant: _v,
+      arrow: _a,
+      children: _c,
+      className: _cn,
+      ...rest
+    } = props as LinkProps
     return isExternal(href) ? (
       <a href={href} className={classes} {...rest}>
         {inner}

@@ -16,14 +16,16 @@ export default function HomePage() {
           <Overline accent>Voice-first cricket journal</Overline>
           <h1 className="display-1 lg:max-w-[11ch]">Your cricket, remembered.</h1>
           <p className="body-lg measure max-w-[48ch]">
-            Talk for a minute after a session. StumpNote turns it into a journal entry, then uses everything you have
-            logged so every brief, drill, plan and answer is about your game.
+            Talk for a minute after a session. StumpNote turns it into a journal entry, then uses
+            everything you have logged so every brief, drill, plan and answer is about your game.
           </p>
           <div className="flex flex-wrap items-center gap-3">
             <Button href={WEB_APP_URL} arrow>
               Open the web app
             </Button>
-            <p className="body-sm text-muted">iPhone apps are in TestFlight beta, coming to the App Store.</p>
+            <p className="body-sm text-muted">
+              iPhone apps are in TestFlight beta, coming to the App Store.
+            </p>
           </div>
           <PersonaChips className="pt-2" />
         </div>

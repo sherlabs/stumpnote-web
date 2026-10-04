@@ -16,7 +16,9 @@ export function useReveal<T extends HTMLElement>(threshold = 0.25) {
     const io = new IntersectionObserver(
       (entries) => {
         if (entries.some((e) => e.isIntersecting)) {
-          el.querySelectorAll<HTMLElement>('[data-reveal]').forEach((n) => (n.dataset.reveal = 'in'))
+          el.querySelectorAll<HTMLElement>('[data-reveal]').forEach(
+            (n) => (n.dataset.reveal = 'in'),
+          )
           io.disconnect()
         }
       },
@@ -26,7 +28,9 @@ export function useReveal<T extends HTMLElement>(threshold = 0.25) {
     return () => io.disconnect()
   }, [threshold, run])
   const replay = useCallback(() => {
-    ref.current?.querySelectorAll<HTMLElement>('[data-reveal]').forEach((n) => (n.dataset.reveal = 'idle'))
+    ref.current
+      ?.querySelectorAll<HTMLElement>('[data-reveal]')
+      .forEach((n) => (n.dataset.reveal = 'idle'))
     // next frame so the idle state paints before the observer flips it back
     requestAnimationFrame(() => requestAnimationFrame(() => setRun((n) => n + 1)))
   }, [])

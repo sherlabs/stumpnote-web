@@ -20,7 +20,12 @@ export function useChapterProgress(
     return motionMatchMedia(({ reduce }) => {
       if (reduce) return
       const { ScrollTrigger } = registerGsap()
-      const st = ScrollTrigger.create({ trigger: el, start, end, onUpdate: (self) => onProgress(self.progress) })
+      const st = ScrollTrigger.create({
+        trigger: el,
+        start,
+        end,
+        onUpdate: (self) => onProgress(self.progress),
+      })
       return () => st.kill()
     })
     // onProgress is intentionally excluded: callers pass a stable ref-writing function

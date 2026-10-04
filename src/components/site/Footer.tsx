@@ -49,7 +49,9 @@ export function Footer({ year = 2026 }: { year?: number }) {
       <div className="border-t border-[var(--hairline-1)]">
         <div className="container-x flex flex-col gap-2 py-6 text-[13px] text-muted md:flex-row md:items-center md:justify-between">
           <p>&copy; {year} StumpNote.</p>
-          <p>AI-generated insights are guidance for reflection and training. They can make mistakes.</p>
+          <p>
+            AI-generated insights are guidance for reflection and training. They can make mistakes.
+          </p>
         </div>
       </div>
     </footer>

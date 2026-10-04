@@ -15,7 +15,7 @@ export function BailsLoader({
   return (
     <svg
       key={replayKey}
-      viewBox="0 0 120 96"
+      viewBox="-12 0 144 96"
       role="img"
       aria-label="Three stumps with both bails knocked off"
       data-bails
@@ -23,7 +23,15 @@ export function BailsLoader({
       {...staticAttr(reducedMotion)}
       className={cn('bails block h-auto w-full overflow-visible', className)}
     >
-      <line x1="2" y1="88" x2="118" y2="88" stroke="var(--hairline-3)" strokeWidth="1.5" strokeLinecap="round" />
+      <line
+        x1="2"
+        y1="88"
+        x2="118"
+        y2="88"
+        stroke="var(--hairline-3)"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
       {[24, 55, 86].map((x) => (
         <rect key={x} x={x - 5} y="22" width="10" height="66" rx="3" fill="var(--text)" />
       ))}

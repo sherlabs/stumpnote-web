@@ -3,12 +3,7 @@ import type { ReactNode } from 'react'
 import { serverURL } from '@/lib/env'
 import { archivo, hanken } from '@/lib/fonts'
 import { motionInitScript } from '@/lib/motion/init-script'
-import { AmbientRings } from '@/components/site/AmbientRings'
-import { Footer } from '@/components/site/Footer'
-import { MotionRoot } from '@/components/site/MotionRoot'
-import { Nav } from '@/components/site/Nav'
-import { PersonaProvider } from '@/components/site/PersonaProvider'
-import { SkipLink } from '@/components/site/SkipLink'
+import { SiteShell } from '@/components/site/SiteShell'
 import '@/styles/globals.css'
 
 export const metadata: Metadata = {
@@ -27,21 +22,18 @@ export const viewport: Viewport = {
 export default function SiteLayout({ children }: { children: ReactNode }) {
   return (
     // suppressHydrationWarning: the inline script sets data-motion (and an optional theme) before first paint.
-    <html lang="en" data-theme="dark" data-persona="player" className={`${archivo.variable} ${hanken.variable}`} suppressHydrationWarning>
+    <html
+      lang="en"
+      data-theme="dark"
+      data-persona="player"
+      className={`${archivo.variable} ${hanken.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: motionInitScript }} />
       </head>
       <body>
-        <PersonaProvider>
-          <SkipLink />
-          <AmbientRings />
-          <Nav />
-          <main id="main" className="relative z-10">
-            {children}
-          </main>
-          <Footer />
-          <MotionRoot />
-        </PersonaProvider>
+        <SiteShell>{children}</SiteShell>
       </body>
     </html>
   )

@@ -15,7 +15,11 @@ const CHIPS: Array<{ id: Persona; label: string; dot: string }> = [
 export function PersonaChips({ className }: { className?: string }) {
   const { persona, setPersona } = usePersona()
   return (
-    <div role="group" aria-label="See StumpNote as" className={cn('flex flex-wrap gap-2', className)}>
+    <div
+      role="group"
+      aria-label="See StumpNote as"
+      className={cn('flex flex-wrap gap-2', className)}
+    >
       {CHIPS.map((c) => {
         const on = persona === c.id
         return (

@@ -89,7 +89,14 @@ export const MStroke = forwardRef<SVGSVGElement, Props>(function MStroke(
         ))}
         {(mode === 'paint' || mode === 'loop') && (
           <g clipPath={`url(#${clip})`}>
-            <rect x="-40" y="60" width="34" height="130" fill={`url(#${shine})`} className="mstroke-shine" />
+            <rect
+              x="-40"
+              y="60"
+              width="34"
+              height="130"
+              fill={`url(#${shine})`}
+              className="mstroke-shine"
+            />
           </g>
         )}
       </g>

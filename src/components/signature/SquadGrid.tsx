@@ -35,7 +35,10 @@ export function SquadGrid({ reducedMotion, persona = 'team', className }: Signat
         <p className="eyebrow">Squad</p>
         <Badge status="In the beta" />
       </div>
-      <ul className="grid grid-cols-3 gap-2.5 sm:grid-cols-4" aria-label="Squad of twelve, sample roles">
+      <ul
+        className="grid grid-cols-3 gap-2.5 sm:grid-cols-4"
+        aria-label="Squad of twelve, sample roles"
+      >
         {SLOTS.map((s, i) => (
           <li
             key={s.n}
@@ -45,9 +48,13 @@ export function SquadGrid({ reducedMotion, persona = 'team', className }: Signat
             className="relative flex aspect-[4/3] flex-col justify-between rounded-2 border border-[var(--hairline-2)] bg-surface p-3"
           >
             <span className="flex items-start justify-between">
-              <span className="font-display text-[22px] font-black leading-none tracking-[-0.04em] text-text mono-num">{s.n}</span>
+              <span className="font-display text-[22px] font-black leading-none tracking-[-0.04em] text-text mono-num">
+                {s.n}
+              </span>
               {s.tag && (
-                <span className="rounded-full bg-accent px-1.5 py-0.5 text-[10px] font-bold leading-none text-canvas">{s.tag}</span>
+                <span className="rounded-full bg-accent px-1.5 py-0.5 text-[10px] font-bold leading-none text-canvas">
+                  {s.tag}
+                </span>
               )}
             </span>
             <span className="text-[12px] font-semibold leading-tight text-muted">{s.role}</span>

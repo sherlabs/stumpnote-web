@@ -11,7 +11,13 @@ const PersonaContext = createContext<Ctx>({ persona: 'player', setPersona: () =>
  * Persona re-theming: one attribute on <html> swaps --accent for the whole page (tokens.css).
  * SSR default is "player" (set in the root layout), so the provider never changes server output.
  */
-export function PersonaProvider({ children, initial = 'player' }: { children: ReactNode; initial?: Persona }) {
+export function PersonaProvider({
+  children,
+  initial = 'player',
+}: {
+  children: ReactNode
+  initial?: Persona
+}) {
   const [persona, setPersonaState] = useState<Persona>(initial)
   const setPersona = useCallback((p: Persona) => {
     document.documentElement.setAttribute('data-persona', p)

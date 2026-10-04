@@ -6,7 +6,10 @@ import { useState } from 'react'
 /** Dark is the default and the shipped theme (decision D-24). Used on /lab to review the optional light tokens. */
 export function ThemeToggle() {
   const [theme, setTheme] = useState<'dark' | 'light'>(() =>
-    typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark',
+    typeof document !== 'undefined' &&
+    document.documentElement.getAttribute('data-theme') === 'light'
+      ? 'light'
+      : 'dark',
   )
   const flip = () => {
     const next = theme === 'dark' ? 'light' : 'dark'

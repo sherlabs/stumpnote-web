@@ -19,7 +19,11 @@ export function Section({
     <section
       id={id}
       aria-labelledby={labelledBy}
-      className={cn('relative z-10', tight ? 'py-[var(--s-8)]' : 'py-[var(--s-8)] lg:py-[var(--s-10)]', className)}
+      className={cn(
+        'relative z-10',
+        tight ? 'py-[var(--s-8)]' : 'py-[var(--s-8)] lg:py-[var(--s-10)]',
+        className,
+      )}
     >
       <div className="container-x">{children}</div>
     </section>

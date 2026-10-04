@@ -1,7 +1,12 @@
 import { cn } from '@/lib/cn'
 
 /** The only four status labels allowed on the site (docs/spec/05-content-brief.md claims policy). */
-export const BADGE_LABELS = ['Available now (web)', 'In the beta', 'Preview', 'Coming soon'] as const
+export const BADGE_LABELS = [
+  'Available now (web)',
+  'In the beta',
+  'Preview',
+  'Coming soon',
+] as const
 export type BadgeLabel = (typeof BADGE_LABELS)[number]
 
 // Status is neutral plus words and a glyph shape, never colour alone.

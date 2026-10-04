@@ -26,7 +26,9 @@ export function Field({ label, hint, error, className, id, ...rest }: Props) {
         aria-describedby={[hintId, errId].filter(Boolean).join(' ') || undefined}
         className={cn(
           'min-h-12 w-full rounded-2 border bg-[var(--hairline-1)] px-4 text-[17px] text-text placeholder:text-tertiary transition-colors duration-[var(--dur-1)] focus-visible:border-accent',
-          error ? 'border-error' : 'border-[var(--hairline-3)] hover:border-[color-mix(in_oklab,var(--text)_30%,transparent)]',
+          error
+            ? 'border-error'
+            : 'border-[var(--hairline-3)] hover:border-[color-mix(in_oklab,var(--text)_30%,transparent)]',
         )}
         {...rest}
       />

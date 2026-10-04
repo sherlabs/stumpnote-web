@@ -53,6 +53,8 @@ const noIndex = { key: 'X-Robots-Tag', value: 'noindex, nofollow' }
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // Unmatched URLs render src/app/global-not-found.tsx (the app has several root layouts, so no single one applies).
+  experimental: { globalNotFound: true },
   // Next 16.3 appends an agent-rules block to CLAUDE.md on `next dev`; this repo owns its CLAUDE.md.
   agentRules: false,
   poweredByHeader: false,
