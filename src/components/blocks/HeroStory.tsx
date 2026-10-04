@@ -46,6 +46,7 @@ export function HeroStory({ block, ctx }: { block: BlockOf<'hero-story'>; ctx: B
           )}
           <div
             className="hero-rise flex flex-wrap items-center gap-x-5 gap-y-4"
+            data-track-view="cta_view_hero"
             style={{ '--i': 4 } as React.CSSProperties}
           >
             <Button

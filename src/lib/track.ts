@@ -1,9 +1,17 @@
 /**
- * Thin product-analytics seam. Events fire through here so call sites never import a provider. It is a no-op until a
- * provider registers itself on `window.__snTrack` (PostHog, S6, only after the owner picks one and consent rules allow).
+ * Product-analytics seam. Events fire through here so call sites never import a provider. Without a provider this is a
+ * no-op. When one is configured, `AnalyticsLoader` installs a queue on `window.__snTrack` immediately and swaps in the
+ * real sender once the provider has loaded after idle, so early events are not lost. Props never carry personal data.
  */
 export type TrackEvent =
-  'motion_toggle' | 'persona_switch' | 'cta_click_beta' | 'beta_form_submit' | 'outbound_app_link'
+  | 'cta_view_hero'
+  | 'cta_click_beta'
+  | 'beta_form_submit'
+  | 'outbound_app_link'
+  | 'persona_switch'
+  | 'motion_toggle'
+  | 'pricing_view'
+  | 'legal_view'
 
 type Props = Record<string, string | number | boolean>
 

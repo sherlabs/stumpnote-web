@@ -2,17 +2,20 @@ import { withPayload } from '@payloadcms/next/withPayload'
 import type { NextConfig } from 'next'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import { analyticsCsp } from './src/lib/analytics-config'
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const isDev = process.env.NODE_ENV === 'development'
 
-// Web-analytics ingest host is appended once a provider is chosen (D-06).
-const analyticsConnect = [process.env.NEXT_PUBLIC_POSTHOG_HOST].filter(Boolean).join(' ')
+// Web-analytics hosts are appended only once a provider is chosen AND configured (D-06, src/lib/analytics-config.ts).
+const analyticsOrigins = analyticsCsp()
+const analyticsConnect = analyticsOrigins.connect.join(' ')
+const analyticsScript = analyticsOrigins.script.length ? ` ${analyticsOrigins.script.join(' ')}` : ''
 
 const sitePolicy = [
   `default-src 'self'`,
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`,
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}${analyticsScript}`,
   `style-src 'self' 'unsafe-inline'`,
   `img-src 'self' data: blob: https://*.public.blob.vercel-storage.com`,
   `font-src 'self'`,

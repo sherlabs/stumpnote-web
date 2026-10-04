@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react'
+import { clientAnalytics } from '@/lib/analytics-config'
 import { getChrome } from '@/lib/cms/content'
+import { AnalyticsLoader } from './AnalyticsLoader'
 import { AmbientRings } from './AmbientRings'
 import { Footer } from './Footer'
 import { MotionRoot } from './MotionRoot'
@@ -11,6 +13,7 @@ import { TrackClicks } from './TrackClicks'
 /** Everything inside <body>: shared by the site layout and the global 404 so both look identical. */
 export async function SiteShell({ children }: { children: ReactNode }) {
   const chrome = await getChrome()
+  const analytics = clientAnalytics()
   return (
     <PersonaProvider>
       <SkipLink />
@@ -26,6 +29,7 @@ export async function SiteShell({ children }: { children: ReactNode }) {
       />
       <MotionRoot />
       <TrackClicks />
+      {analytics && <AnalyticsLoader {...analytics} />}
     </PersonaProvider>
   )
 }

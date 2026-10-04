@@ -1,8 +1,10 @@
 import type { ReactNode } from 'react'
 import { PageHero } from '@/components/pages/PageHero'
 import { Section } from '@/components/site/Section'
+import { TrackView } from '@/components/site/TrackView'
 import { Notice } from '@/components/ui/Notice'
 import { TextLink } from '@/components/ui/TextLink'
+import { slugify } from '@/lib/slugify'
 import { htmlHeadings, type LegalRender, type LegalValueMap } from '@/lib/legal/render'
 
 /** The notice shown instead of any draft that still has placeholders. Never shows placeholder text. */
@@ -51,6 +53,7 @@ export function LegalDocument({
   const toc = htmlHeadings(render.html)
   return (
     <>
+      <TrackView event="legal_view" slug={slugify(title)} />
       <PageHero overline="Legal" headline={title} size="lg" headingId="legal-h">
         {meta && <p className="legal-meta">{meta}</p>}
       </PageHero>
