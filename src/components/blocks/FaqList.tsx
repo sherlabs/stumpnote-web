@@ -24,17 +24,19 @@ export function FaqAccordion({ faqs, idPrefix = 'faq' }: { faqs: FaqVM[]; idPref
   )
 }
 
-export function FaqList({ block, ctx }: { block: BlockOf<'faq-list'>; ctx: BlockContext }) {
+/** The FAQs a faq-list block shows. Shared with the FAQPage structured data so the markup always matches the visible list. */
+export function selectFaqs(block: BlockOf<'faq-list'>, all: FaqVM[]): FaqVM[] {
   const picked = (block.faqs ?? []).filter((f): f is Faq => typeof f === 'object' && f !== null)
-  const all = ctx.faqs ?? []
-  let faqs: FaqVM[] = []
   if (picked.length) {
-    faqs = picked
+    return picked
       .map((f) => all.find((a) => a.slug === f.slug))
       .filter((f): f is FaqVM => Boolean(f))
-  } else {
-    faqs = block.category ? all.filter((f) => f.category === block.category) : all
   }
+  return block.category ? all.filter((f) => f.category === block.category) : all
+}
+
+export function FaqList({ block, ctx }: { block: BlockOf<'faq-list'>; ctx: BlockContext }) {
+  const faqs = selectFaqs(block, ctx.faqs ?? [])
   if (!faqs.length) return null
   const id = `faq-h-${block.category ?? 'all'}`
   return (

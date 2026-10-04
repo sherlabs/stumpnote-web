@@ -455,7 +455,7 @@ export async function getChrome(): Promise<Chrome> {
 
 /** One value from the Legal values global (empty string when unset or no database). Never invented. */
 export async function getLegalValue(
-  key: 'SUPPORT_EMAIL' | 'PRIVACY_CONTACT_EMAIL',
+  key: 'SUPPORT_EMAIL' | 'PRIVACY_CONTACT_EMAIL' | 'COMPANY_LEGAL_NAME',
 ): Promise<string> {
   const payload = await getPayloadOrNull()
   if (!payload) return ''

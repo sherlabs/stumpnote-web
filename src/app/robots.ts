@@ -5,7 +5,7 @@ import { serverURL } from '@/lib/env'
 // did not emit /robots.txt from `(site)/robots.ts` (404) while the root-level file works.
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [{ userAgent: '*', allow: '/', disallow: ['/admin', '/api', '/lab'] }],
+    rules: [{ userAgent: '*', allow: '/', disallow: ['/admin', '/api', '/lab', '/next/'] }],
     sitemap: `${serverURL()}/sitemap.xml`,
   }
 }

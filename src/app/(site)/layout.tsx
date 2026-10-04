@@ -11,7 +11,17 @@ export const metadata: Metadata = {
   title: { default: 'StumpNote', template: '%s | StumpNote' },
   description:
     'StumpNote is a voice-first cricket journal. Talk after a session, get a personal brief, drills and game plans built from your own history.',
-  icons: { icon: '/favicon.svg' },
+  applicationName: 'StumpNote',
+  openGraph: { siteName: 'StumpNote', type: 'website', locale: 'en_AU' },
+  twitter: { card: 'summary_large_image' },
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicons/favicon-32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: { url: '/favicons/apple-touch-icon.png', sizes: '180x180' },
+  },
+  manifest: '/manifest.webmanifest',
 }
 
 export const viewport: Viewport = {

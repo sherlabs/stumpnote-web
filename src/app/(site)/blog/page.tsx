@@ -11,7 +11,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const posts = await getPosts()
   return {
     title: { absolute: 'Blog | StumpNote' },
-    description: 'Notes from the StumpNote team.',
+    description: 'Notes from the StumpNote team on cricket journaling, training and building an AI that remembers your game.',
     alternates: { canonical: '/blog', types: { 'application/rss+xml': '/blog/rss.xml' } },
     // An empty blog is not worth indexing; it starts counting once the first post is published.
     robots: posts.length ? undefined : { index: false },

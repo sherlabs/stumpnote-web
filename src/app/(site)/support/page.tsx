@@ -4,6 +4,10 @@ import { PageView } from '@/components/pages/PageView'
 import { Section } from '@/components/site/Section'
 import { Notice } from '@/components/ui/Notice'
 import { TextLink } from '@/components/ui/TextLink'
+import { selectFaqs } from '@/components/blocks/FaqList'
+import type { Block } from '@/components/blocks/types'
+import { JsonLd } from '@/components/site/JsonLd'
+import { faqPageLd, graph } from '@/lib/seo/jsonld'
 import { LegalProse } from '@/components/legal/LegalDocument'
 import { getContentPage, getLegalValue } from '@/lib/cms/content'
 import { getLegalView } from '@/lib/cms/legal'
@@ -30,8 +34,15 @@ export default async function SupportPage() {
     getLegalView('support'),
   ])
   if (!page) notFound()
+  // FAQPage structured data only here, built from exactly the FAQs the page shows.
+  const shown = ((page.layout ?? []) as Block[])
+    .filter((b) => b.blockType === 'faq-list')
+    .flatMap((b) => selectFaqs(b as never, ctx.faqs ?? []))
+  const faqLd = faqPageLd(shown)
   return (
-    <PageView
+    <>
+      {faqLd && <JsonLd data={graph(faqLd)} />}
+      <PageView
       page={page}
       ctx={ctx}
       // The legal-pages support body appears only when it is complete (no placeholders); otherwise the page above is the whole page.
@@ -76,5 +87,6 @@ export default async function SupportPage() {
         </Section>
       }
     />
+    </>
   )
 }
