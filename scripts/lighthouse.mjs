@@ -2,6 +2,7 @@
 //   pnpm build && pnpm test:lh                          local production build on :3101
 //   pnpm test:lh --url=https://stumpnote-site.vercel.app/   a deployed URL (no local server)
 //   pnpm test:lh --base=https://stumpnote-site.vercel.app   every route of the rc file against a deployed origin
+//   pnpm test:lh --base=<origin> --only=/privacy,/terms   only those routes (with --base)
 //   pnpm test:lh --simulate                             Lighthouse's lantern *estimate* instead of applied throttling
 // Default = applied throttling (Chrome DevTools: 4x CPU, 150 ms RTT, 1.6 Mbps), i.e. what a real mid-range phone sees.
 // The lantern estimate counts every script requested before first paint as a render dependency, so with a ~140 KB
@@ -22,6 +23,11 @@ let config = 'tests/lighthouse/lighthouserc.json'
 if (base) {
   // Same routes and assertions, pointed at a deployed origin (no local server).
   const rc = JSON.parse(readFileSync(config, 'utf8').replaceAll('http://localhost:3101', base))
+  const only = process.argv
+    .find((a) => a.startsWith('--only='))
+    ?.slice(7)
+    ?.split(',')
+  if (only) rc.ci.collect.url = rc.ci.collect.url.filter((u) => only.includes(new URL(u).pathname))
   rc.ci.collect.startServerCommand = ''
   delete rc.ci.collect.startServerReadyPattern
   delete rc.ci.collect.startServerReadyTimeout
