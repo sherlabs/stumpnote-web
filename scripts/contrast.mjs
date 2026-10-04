@@ -25,8 +25,25 @@ const T = {
 }
 const rows = []
 for (const bg of ['canvas', 'surface']) {
-  for (const fg of ['text', 'body', 'muted', 'tertiary', 'error', 'player', 'coach', 'parent', 'parentText', 'team'])
+  for (const fg of [
+    'text',
+    'body',
+    'muted',
+    'tertiary',
+    'error',
+    'player',
+    'coach',
+    'parent',
+    'parentText',
+    'team',
+  ])
     rows.push([`${fg} on ${bg}`, ratio(T[fg], T[bg])])
 }
-for (const a of ['player', 'coach', 'parent', 'parentText', 'team']) rows.push([`canvas label on ${a} fill`, ratio(T.canvas, T[a])])
-for (const [k, v] of rows) console.log(k.padEnd(34), v.toFixed(2) + ':1', v >= 7 ? 'AAA' : v >= 4.5 ? 'AA' : v >= 3 ? 'AA large/UI only' : 'FAIL')
+for (const a of ['player', 'coach', 'parent', 'parentText', 'team'])
+  rows.push([`canvas label on ${a} fill`, ratio(T.canvas, T[a])])
+for (const [k, v] of rows)
+  console.log(
+    k.padEnd(34),
+    v.toFixed(2) + ':1',
+    v >= 7 ? 'AAA' : v >= 4.5 ? 'AA' : v >= 3 ? 'AA large/UI only' : 'FAIL',
+  )
