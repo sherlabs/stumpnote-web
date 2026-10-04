@@ -8,10 +8,19 @@ const dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const isDev = process.env.NODE_ENV === 'development'
 
+// Enforcing since S7 (zero violations on every route and in the admin, scripts/csp-probe.mjs). Dev stays report-only so HMR
+// is never blocked. Rollback without a code change: set CSP_REPORT_ONLY=1 in Vercel and redeploy (decisions D-61).
+const cspHeader =
+  isDev || process.env.CSP_REPORT_ONLY === '1'
+    ? 'Content-Security-Policy-Report-Only'
+    : 'Content-Security-Policy'
+
 // Web-analytics hosts are appended only once a provider is chosen AND configured (D-06, src/lib/analytics-config.ts).
 const analyticsOrigins = analyticsCsp()
 const analyticsConnect = analyticsOrigins.connect.join(' ')
-const analyticsScript = analyticsOrigins.script.length ? ` ${analyticsOrigins.script.join(' ')}` : ''
+const analyticsScript = analyticsOrigins.script.length
+  ? ` ${analyticsOrigins.script.join(' ')}`
+  : ''
 
 const sitePolicy = [
   `default-src 'self'`,
@@ -71,17 +80,13 @@ const nextConfig: NextConfig = {
       {
         // Site: everything except admin, api and preview.
         source: '/((?!admin|api|next).*)',
-        headers: [
-          ...baseSecurityHeaders,
-          // Report-Only until S7 flips it to enforcing once clean.
-          { key: 'Content-Security-Policy-Report-Only', value: sitePolicy },
-        ],
+        headers: [...baseSecurityHeaders, { key: cspHeader, value: sitePolicy }],
       },
       {
         source: '/:section(admin|api|next)/:path*',
         headers: [
           ...baseSecurityHeaders,
-          { key: 'Content-Security-Policy-Report-Only', value: adminPolicy },
+          { key: cspHeader, value: adminPolicy },
           { key: 'Cache-Control', value: 'no-store' },
           noIndex,
         ],

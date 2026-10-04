@@ -78,7 +78,7 @@ export function HeroStory({ block, ctx }: { block: BlockOf<'hero-story'>; ctx: B
           )}
         </div>
         {block.showMStroke !== false && (
-          <div className="relative order-first mx-auto aspect-square w-full max-w-[220px] sm:max-w-[380px] lg:pointer-events-none lg:absolute lg:right-[-3vw] lg:top-1/2 lg:order-none lg:mx-0 lg:w-[min(46vw,660px)] lg:max-w-none lg:-translate-y-1/2">
+          <div className="relative order-first mx-auto aspect-square w-full max-w-[220px] sm:max-w-[380px] lg:pointer-events-none lg:absolute lg:right-[-3vw] min-[1600px]:right-[3vw] lg:top-1/2 lg:order-none lg:mx-0 lg:w-[min(46vw,660px)] lg:max-w-none lg:-translate-y-1/2">
             <HeroRings className="absolute inset-0" />
             <div className="absolute left-1/2 top-1/2 w-[46%] -translate-x-1/2 -translate-y-[52%]">
               <MStroke mode="paint" delay={0.15} />

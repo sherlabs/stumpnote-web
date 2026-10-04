@@ -43,6 +43,8 @@ const emailEnabled = Boolean(process.env.RESEND_API_KEY && process.env.EMAIL_FRO
 export default buildConfig({
   admin: {
     user: Users.slug,
+    // No Gravatar: it would send a hash of each staff email to a third party and needs an extra CSP img-src host (D-61).
+    avatar: 'default',
     importMap: { baseDir: path.resolve(dirname) },
     meta: { titleSuffix: ' | StumpNote admin' },
     components: {

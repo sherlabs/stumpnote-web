@@ -18,7 +18,7 @@ export function Footer({
     .map((c) => ({ ...c, items: c.items.filter((i) => i.ready) }))
     .filter((c) => c.items.length > 0)
   return (
-    <footer className="relative z-10 mt-[var(--s-8)] border-t border-[var(--hairline-2)]">
+    <footer className="relative z-10 mt-[var(--s-8)] border-t border-[var(--hairline-2)] bg-[color-mix(in_oklab,var(--canvas)_90%,transparent)]">
       <div className="container-x grid gap-12 py-14 md:grid-cols-[1.2fr_2fr]">
         <div className="flex flex-col items-start gap-5">
           <Logo />

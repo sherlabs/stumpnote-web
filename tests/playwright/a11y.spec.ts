@@ -15,8 +15,8 @@ for (const path of [...htmlRoutes, '/this-page-does-not-exist']) {
       }
       window.scrollTo(0, 0)
     })
-    // Feature pages open with a live demo (typing, chips fading in): let it settle so axe sees the final colours.
-    await page.waitForTimeout(path.startsWith('/features/') ? 4500 : 1800)
+    // Feature pages and /lab open with live demos (typing, chips fading in): let it settle so axe sees the final colours.
+    await page.waitForTimeout(path.startsWith('/features/') || path === '/lab' ? 4500 : 1800)
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
       .analyze()

@@ -2,7 +2,7 @@
  * Idempotent content seed. Run through Payload's script runner so the config and path aliases load:
  *   pnpm seed:dry                       print what would change, write nothing
  *   pnpm seed                           create everything that is missing (existing documents are left alone)
- *   SEED_ONLY=features,faqs pnpm seed   narrow the targets (pages,features,faqs,personas,legal,globals)
+ *   SEED_ONLY=features,faqs pnpm seed   narrow the targets (pages,features,faqs,personas,legal,changelog,globals)
  *   SEED_FORCE=1 pnpm seed              also overwrite existing documents with the seed copy
  *   SEED_DELETE=1 pnpm seed             delete the seeded documents (by slug); globals are never deleted
  * Re-running changes nothing: a document that exists is skipped (so editors' changes in the admin survive), and
@@ -20,10 +20,13 @@ import { betaAccessSeed, navigationSeed, siteSettingsSeed } from '../src/seed/gl
 import { homeSeed } from '../src/seed/pages/home'
 import { contentPageSeeds } from '../src/seed/pages/content-pages'
 import { LEGAL_SLUG_LIST, legalSeed } from '../src/seed/legal'
+import { changelogSeeds } from '../src/seed/data/changelog'
 
 // `payload run` strips CLI flags from process.argv, so options come from environment variables.
 const truthy = (v?: string) => v === '1' || v === 'true'
-const only = (process.env.SEED_ONLY ?? 'pages,features,faqs,personas,legal,globals').split(',')
+const only = (
+  process.env.SEED_ONLY ?? 'pages,features,faqs,personas,legal,changelog,globals'
+).split(',')
 const dryRun = truthy(process.env.SEED_DRY_RUN)
 const force = truthy(process.env.SEED_FORCE)
 const del = truthy(process.env.SEED_DELETE)
@@ -259,7 +262,42 @@ async function main() {
     }
   }
 
-  // 6. Globals (fill blanks only)
+  // 6. Changelog entries (no slug on this collection: matched by title, created when missing, never overwritten)
+  if (only.includes('changelog')) {
+    for (const c of changelogSeeds) {
+      const hit = await payload.find({
+        collection: 'changelog-entries',
+        where: { title: { equals: c.title } },
+        limit: 1,
+        depth: 0,
+        draft: true,
+        pagination: false,
+      })
+      const existing = hit.docs[0]
+      const label = `changelog-entries/${c.title}`
+      if (del) {
+        if (existing) {
+          console.log(`${label}: delete id=${existing.id}`)
+          counts.deleted++
+          if (!dryRun) await payload.delete({ collection: 'changelog-entries', id: existing.id })
+        }
+        continue
+      }
+      if (existing) {
+        counts.skipped++
+        continue
+      }
+      console.log(`${label}: create`)
+      counts.created++
+      if (!dryRun)
+        await payload.create({
+          collection: 'changelog-entries',
+          data: { ...c, date: new Date().toISOString(), _status: 'published' } as never,
+        })
+    }
+  }
+
+  // 7. Globals (fill blanks only)
   if (only.includes('globals')) {
     await seedGlobal(payload, 'site-settings', siteSettingsSeed)
     await seedGlobal(payload, 'navigation', navigationSeed)

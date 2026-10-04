@@ -49,7 +49,10 @@ test('security headers on the site, noindex on /lab', async ({ request }) => {
   const h = home.headers()
   expect(h['x-content-type-options']).toBe('nosniff')
   expect(h['referrer-policy']).toBe('strict-origin-when-cross-origin')
-  expect(h['content-security-policy-report-only']).toContain("frame-ancestors 'none'")
+  // Enforcing since S7 (CSP_REPORT_ONLY=1 in the environment is the documented rollback to report-only).
+  const csp = h['content-security-policy'] ?? h['content-security-policy-report-only']
+  expect(csp).toContain("frame-ancestors 'none'")
+  if (!process.env.CSP_REPORT_ONLY) expect(h['content-security-policy']).toBeTruthy()
   const lab = await request.get('/lab')
   expect(lab.headers()['x-robots-tag']).toContain('noindex')
 })

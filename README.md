@@ -2,15 +2,12 @@
 
 Marketing website for **StumpNote** (the cricket performance journal for players, coaches and parents), plus a **Payload CMS** admin panel that carries website analytics and StumpNote AI-spend / product analytics views.
 
-> Status: planned (S0 done). Full spec in [docs/spec/](./docs/spec/README.md); live stage table in [STATUS.md](./STATUS.md).
+> Status: site built (S0 to S6 done, S7 launch hardening in progress). Full spec in [docs/spec/](./docs/spec/README.md); live stage table in [STATUS.md](./STATUS.md); run-it-yourself guide in [docs/ops/HANDOFF.md](./docs/ops/HANDOFF.md).
 
-|        |                                                                              |
-| ------ | ---------------------------------------------------------------------------- |
-| Build  | ![build](https://img.shields.io/badge/build-pending-lightgrey)               |
-| Deploy | ![deploy](https://img.shields.io/badge/vercel-not%20deployed-lightgrey)      |
-| Stage  | ![stage](https://img.shields.io/badge/stage-S0%20done%20%E2%86%92%20S1-blue) |
-
-(Badges are placeholders; replace with real workflow/Vercel badges once those exist.)
+|        |                                                                                                                                                                       |
+| ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| CI     | [![ci](https://github.com/sherlabs/stumpnote-web/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/sherlabs/stumpnote-web/actions/workflows/ci.yml) |
+| Deploy | [![vercel](https://img.shields.io/badge/vercel-stumpnote--site.vercel.app-black?logo=vercel)](https://stumpnote-site.vercel.app)                                      |
 
 ## What this repo is
 
